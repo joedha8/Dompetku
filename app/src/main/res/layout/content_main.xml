@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linear1"
+        android:padding="16dp"
         android:background="@color/colorHead">
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,6 +64,7 @@
             android:textColor="@color/textPrimary"
             android:textSize="24dp"
             android:id="@+id/indikator"
+            android:layout_marginTop="10dp"
             android:textAlignment="center"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView

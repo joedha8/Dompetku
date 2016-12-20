@@ -16,12 +16,12 @@ import java.util.List;
  * Created by WIN 10 on 19/12/2016.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
     private Context context;
     private List<AmbilData> ambilDatas;
 
-    public RecyclerAdapter(Context context, List<AmbilData> ambilDatas) {
+    public RecyclerViewAdapter(Context context, List<AmbilData> ambilDatas) {
         this.context = context;
         this.ambilDatas = ambilDatas;
     }

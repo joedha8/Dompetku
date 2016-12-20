@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rackspira.dompetku.model.AmbilData;
-import com.rackspira.dompetku.recyclerview.RecyclerAdapter;
+import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         rview = (RecyclerView)findViewById(R.id.recyclerview);
-        RecyclerAdapter adapter = new RecyclerAdapter(this,ambilDatas);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,ambilDatas);
         rview.setAdapter(adapter);
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(this));
