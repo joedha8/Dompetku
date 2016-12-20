@@ -7,6 +7,6 @@ import java.io.Serializable;
  */
 
 public class DataMasuk implements Serializable {
-    protected static String ket_masuk;
-    protected static String biaya_masuk;
+    protected static String ket;
+    protected static String biaya;
 }
