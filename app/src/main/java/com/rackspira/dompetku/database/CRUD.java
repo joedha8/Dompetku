@@ -19,16 +19,16 @@ public class CRUD extends DbHelper {
         super(context, name, factory, version);
     }
 
-    public void insertDataMasuk(DataMasuk dataMasuk){
+    public void insertData(DataMasuk dataMasuk){
         SQLiteDatabase db=getWritableDatabase();
         db.beginTransaction();
 
         try {
             ContentValues values=new ContentValues();
-            values.put(KET_MASUK, DataMasuk.ket_masuk);
-            values.put(BIAYA_MASUK, DataMasuk.biaya_masuk);
+            values.put(KET, DataMasuk.ket);
+            values.put(BIAYA, DataMasuk.biaya);
 
-            db.insertOrThrow(TABLE_PEMASUKKAN, null, values);
+            db.insertOrThrow(TABLE_INPUT, null, values);
             db.setTransactionSuccessful();
         }
         catch (SQLException e){
@@ -40,30 +40,9 @@ public class CRUD extends DbHelper {
         }
     }
 
-    public void insertDataKeluar(DataKeluar dataKeluar){
-        SQLiteDatabase db=getWritableDatabase();
-        db.beginTransaction();
-
-        try{
-            ContentValues values=new ContentValues();
-            values.put(KET_KELUAR, DataKeluar.ket_keluar);
-            values.put(BIAYA_KELUAR, DataKeluar.biaya_keluar);
-
-            db.insertOrThrow(TABLE_PENGELUARAN, null, values);
-            db.setTransactionSuccessful();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-            Log.d(TAG, "Gagal untuk menambah");
-        }
-        finally {
-            db.endTransaction();
-        }
-    }
-
     public List<DataMasuk> getMasuk(){
         List<DataMasuk> dataMasukList=new ArrayList<>();
-        String DATA_MASUK_SELECT_QUERY="SELECT * FROM "+TABLE_PEMASUKKAN;
+        String DATA_MASUK_SELECT_QUERY="SELECT * FROM "+TABLE_INPUT;
 
         SQLiteDatabase db=getReadableDatabase();
         Cursor cursor=db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
@@ -73,8 +52,8 @@ public class CRUD extends DbHelper {
                 do{
                     DataMasuk dataMasuk=new DataMasuk();
 
-                    dataMasuk.ket_masuk=cursor.getString(cursor.getColumnIndex(KET_MASUK));
-                    dataMasuk.biaya_masuk=cursor.getString(cursor.getColumnIndex(BIAYA_MASUK));
+                    dataMasuk.ket=cursor.getString(cursor.getColumnIndex(KET));
+                    dataMasuk.biaya=cursor.getString(cursor.getColumnIndex(BIAYA));
 
                     dataMasukList.add(dataMasuk);
 
@@ -93,39 +72,12 @@ public class CRUD extends DbHelper {
         return dataMasukList;
     }
 
-    public List<DataKeluar> getKeluar(){
-        List<DataKeluar> dataKeluarList=new ArrayList<>();
-        String DATA_KELUAR_SELECT_QUERY="SELECT * FROM "+TABLE_PENGELUARAN;
-
-        SQLiteDatabase db=getReadableDatabase();
-        Cursor cursor=db.rawQuery(DATA_KELUAR_SELECT_QUERY, null);
-
-        try{
-            DataKeluar dataKeluar=new DataKeluar();
-
-            dataKeluar.ket_keluar=cursor.getString(cursor.getColumnIndex(KET_KELUAR));
-            dataKeluar.biaya_keluar=cursor.getString(cursor.getColumnIndex(BIAYA_KELUAR));
-
-            dataKeluarList.add(dataKeluar);
-        }
-        catch (SQLException e){
-            Log.d(TAG, "Gagal untuk menambah");
-        }
-        finally {
-            if (cursor!=null && !cursor.isClosed()){
-                cursor.close();
-            }
-        }
-        return dataKeluarList;
-    }
-
     void deleteRow(String ket){
         SQLiteDatabase db=getWritableDatabase();
 
         try{
             db.beginTransaction();
-            db.execSQL("DELETE FROM "+TABLE_PEMASUKKAN+" WHERE "+KET_MASUK+" = '"+ket+"'");
-            db.execSQL("DELETE FROM "+TABLE_PENGELUARAN+" WHERE "+KET_KELUAR+" = "+ket+"'");
+            db.execSQL("DELETE FROM "+TABLE_INPUT+" WHERE "+KET+" = '"+ket+"'");
             db.setTransactionSuccessful();
         }
         catch (SQLException e){
