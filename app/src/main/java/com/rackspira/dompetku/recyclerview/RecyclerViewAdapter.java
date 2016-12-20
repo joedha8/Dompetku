@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
-import com.rackspira.dompetku.model.AmbilData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,28 +20,31 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
     private Context context;
-    private List<DataMasuk> ambilDatas = new ArrayList<>();
+    private List<DataMasuk> dataMasuks = new ArrayList<>();
+    LayoutInflater inflater;
 
-    public RecyclerViewAdapter(Context context, List<DataMasuk> ambilDatas) {
+    public RecyclerViewAdapter(Context context, List<DataMasuk> dataMasuks1) {
         this.context = context;
-        this.ambilDatas = ambilDatas;
+        this.dataMasuks = dataMasuks1;
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view,parent,false);
-        RecyclerViewHolder viewHolder = new RecyclerViewHolder(view);
+        View convertView = inflater.inflate(R.layout.list_view, parent, false);
+        RecyclerViewHolder viewHolder = new RecyclerViewHolder(convertView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-            holder.keterangan.setText(ambilDatas.get(position).ket);
-            holder.nominal.setText(ambilDatas.get(position).biaya);
+        DataMasuk dataMasuk = dataMasuks.get(position);
+        holder.keterangan.setText(dataMasuk.getKet());
+        holder.nominal.setText(dataMasuk.getBiaya());
     }
 
     @Override
     public int getItemCount() {
-        return ambilDatas.size();
+        return dataMasuks.size();
     }
 }

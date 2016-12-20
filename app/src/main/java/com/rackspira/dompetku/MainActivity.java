@@ -1,8 +1,6 @@
 package com.rackspira.dompetku;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,21 +12,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-import com.rackspira.dompetku.database.CRUD;
 import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView rview;
-
-   CRUD dbmasuk;
-    DbHelper help;
-
+    DbHelper dbHelper;
+    RecyclerViewAdapter adapter;
+    TextView pemasukkan, pengeluaran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +32,13 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        help = DbHelper.getInstance(getApplicationContext());
+        pemasukkan=(TextView)findViewById(R.id.pemasukkan_tampil);
+        pengeluaran=(TextView)findViewById(R.id.pengeluaran_tampil);
+        dbHelper = DbHelper.getInstance(getApplicationContext());
 
         rview = (RecyclerView)findViewById(R.id.recyclerview);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,dbmasuk.getMasuk());
+        adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk());
         rview.setAdapter(adapter);
-        rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(this));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -63,6 +58,9 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            Intent intent=new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -101,7 +99,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent(MainActivity.this, MasukActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pengeluaran) {
-
+            Intent intent=new Intent(MainActivity.this, MasukActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
