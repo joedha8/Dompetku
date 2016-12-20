@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rackspira.dompetku.R;
+import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.model.AmbilData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +21,9 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
     private Context context;
-    private List<AmbilData> ambilDatas;
+    private List<DataMasuk> ambilDatas = new ArrayList<>();
 
-    public RecyclerViewAdapter(Context context, List<AmbilData> ambilDatas) {
+    public RecyclerViewAdapter(Context context, List<DataMasuk> ambilDatas) {
         this.context = context;
         this.ambilDatas = ambilDatas;
     }
@@ -35,7 +37,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-
+            holder.keterangan.setText(ambilDatas.get(position).ket);
+            holder.nominal.setText(ambilDatas.get(position).biaya);
     }
 
     @Override

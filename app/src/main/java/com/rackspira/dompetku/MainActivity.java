@@ -1,6 +1,8 @@
 package com.rackspira.dompetku;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,7 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.rackspira.dompetku.model.AmbilData;
+import com.rackspira.dompetku.database.CRUD;
+import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
 
 import java.util.List;
@@ -22,7 +25,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView rview;
-    List<AmbilData> ambilDatas;
+
+   CRUD dbmasuk;
+    DbHelper help;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +37,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        help = DbHelper.getInstance(getApplicationContext());
+
         rview = (RecyclerView)findViewById(R.id.recyclerview);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,ambilDatas);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,dbmasuk.getMasuk());
         rview.setAdapter(adapter);
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(this));
