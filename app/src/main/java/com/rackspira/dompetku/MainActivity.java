@@ -2,9 +2,13 @@ package com.rackspira.dompetku;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.rackspira.dompetku.database.DbHelper;
@@ -23,7 +28,9 @@ public class MainActivity extends AppCompatActivity
     RecyclerView rview;
     DbHelper dbHelper;
     RecyclerViewAdapter adapter;
-    TextView pemasukkan, pengeluaran;
+    TextView pemasukkan, pengeluaran, indikator;
+    NestedScrollView Nview;
+    BottomSheetBehavior behavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +39,37 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        pemasukkan=(TextView)findViewById(R.id.pemasukkan_tampil);
-        pengeluaran=(TextView)findViewById(R.id.pengeluaran_tampil);
+//        pemasukkan=(TextView)findViewById(R.id.pemasukkan_tampil);
+//        pengeluaran=(TextView)findViewById(R.id.pengeluaran_tampil);
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
         rview = (RecyclerView)findViewById(R.id.recyclerview);
         adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk());
         rview.setAdapter(adapter);
         rview.setLayoutManager(new LinearLayoutManager(this));
+
+        indikator = (TextView)findViewById(R.id.indikator);
+        Nview = (NestedScrollView)findViewById(R.id.Nview);
+        behavior = BottomSheetBehavior.from(Nview);
+
+        indikator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+        });
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

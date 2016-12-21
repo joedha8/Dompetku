@@ -5,23 +5,24 @@
     android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
+    android:layout_marginBottom="6dp"
     android:foreground="?attr/selectableItemBackground">
     <RelativeLayout
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
-        android:padding="16dp"
         android:id="@+id/list_view">
         <ImageView
             android:layout_width="40dp"
+            android:layout_marginTop="5dp"
             android:layout_height="40dp"
-            android:padding="5dp"
+            android:padding="1dp"
             android:layout_marginRight="16dp"
             android:id="@+id/gambar"
             android:src="@drawable/ic_circle_plus_green"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/gambar"
             android:textSize="18dp"
             android:text="Pengeluaran"
@@ -30,12 +31,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/nominal"
-            android:text="angka"
-            android:textSize="18dp"
+            android:text="Total biaya"
+            android:textSize="12dp"
             android:layout_toRightOf="@+id/gambar"
             android:layout_toEndOf="@+id/gambar"
             android:layout_below="@id/keterangan"
-            android:layout_marginTop="10dp" />
+           />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nominal"
+            android:text="Rp.2000.000"
+            android:textColor="@color/textWhite"
+            android:background="@drawable/shape2"
+            android:layout_below="@+id/keterangan"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>
