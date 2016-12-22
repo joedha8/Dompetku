@@ -40,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         DataMasuk dataMasuk = dataMasuks.get(position);
         holder.keterangan.setText(dataMasuk.getKet());
-        holder.nominal.setText(dataMasuk.getBiaya());
+        holder.nominal.setText("Rp. " +dataMasuk.getBiaya()+",00");
     }
 
     @Override
