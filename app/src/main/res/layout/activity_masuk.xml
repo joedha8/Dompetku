@@ -40,16 +40,18 @@
         android:text="Status" />
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/stat">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pemasukkan"
-            android:id="@+id/radioMasuk"/>
+            android:text="@string/pemasukan_string"
+            android:id="@+id/radioMasuk"
+            android:checked="true"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pengeluaran"
+            android:text="@string/pengeluaran_string"
             android:id="@+id/radiokeluar"/>
     </RadioGroup>
     <Button
@@ -57,5 +59,10 @@
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/save"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tes"
+        android:id="@+id/tes"/>
 
 </LinearLayout>

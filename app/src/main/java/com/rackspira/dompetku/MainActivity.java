@@ -1,15 +1,10 @@
 package com.rackspira.dompetku;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.rackspira.dompetku.database.DbHelper;
@@ -29,7 +23,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerView rview;
     DbHelper dbHelper;
     RecyclerViewAdapter adapter;
-    TextView pemasukkan, pengeluaran, indikator;
+    TextView pemasukkan, pengeluaran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +32,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        pemasukkan=(TextView)findViewById(R.id.pemasukkan_tampil);
-//        pengeluaran=(TextView)findViewById(R.id.pengeluaran_tampil);
+        pemasukkan=(TextView)findViewById(R.id.pemasukkan);
+        pengeluaran=(TextView)findViewById(R.id.pengeluaran);
         dbHelper = DbHelper.getInstance(getApplicationContext());
+
+        dbHelper.jumMasuk();
+        dbHelper.jumKeluar();
+        pemasukkan.setText("Rp. "+dbHelper.jumMasuk+",00");
+        pengeluaran.setText("Rp. "+dbHelper.jumKeluar+",00");
 
         rview = (RecyclerView)findViewById(R.id.recyclerview);
         adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk());
         rview.setAdapter(adapter);
         rview.setLayoutManager(new LinearLayoutManager(this));
 
-        indikator = (TextView)findViewById(R.id.indikator);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

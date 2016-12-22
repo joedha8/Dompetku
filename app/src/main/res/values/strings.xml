@@ -6,4 +6,7 @@
     <string name="appbar_scrolling_view_behavio">Dompetku</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="pemasukan_string">Pemasukkan</string>
+    <string name="pengeluaran_string">Pengeluaran</string>
 </resources>

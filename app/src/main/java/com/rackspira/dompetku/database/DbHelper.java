@@ -30,9 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static DbHelper dbHelper;
 
-    public DbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-    }
+    public int jumMasuk, jumKeluar;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -105,6 +103,40 @@ public class DbHelper extends SQLiteOpenHelper {
             }
         }
         return dataMasukList;
+    }
+
+    public int jumMasuk(){
+        DataMasuk datamasuk=new DataMasuk();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursorMasuk=db.rawQuery("select sum("+BIAYA+") from "+TABLE_INPUT+" where "+STATUS+" = 'Pemasukkan';",null);
+        if(cursorMasuk.moveToFirst()) {
+            jumMasuk = cursorMasuk.getInt(0);
+            System.out.println(jumMasuk);
+        }
+        else{
+            jumMasuk=-1;
+            System.out.println(jumMasuk);
+        }
+        cursorMasuk.close();
+
+        return jumMasuk;
+    }
+
+    public int jumKeluar(){
+        DataMasuk datamasuk=new DataMasuk();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursorKeluar=db.rawQuery("select sum("+BIAYA+") from "+TABLE_INPUT+" where "+STATUS+" = 'Pengeluaran';",null);
+        if(cursorKeluar.moveToFirst()) {
+            jumKeluar = cursorKeluar.getInt(0);
+            System.out.println(jumKeluar);
+        }
+        else{
+            jumKeluar=-1;
+            System.out.println(jumKeluar);
+        }
+        cursorKeluar.close();
+
+        return jumKeluar;
     }
 
     public void deleteRow(String ket) {
