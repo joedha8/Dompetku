@@ -1,6 +1,7 @@
 package com.rackspira.dompetku;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -29,8 +30,6 @@ public class MainActivity extends AppCompatActivity
     DbHelper dbHelper;
     RecyclerViewAdapter adapter;
     TextView pemasukkan, pengeluaran, indikator;
-    NestedScrollView Nview;
-    BottomSheetBehavior behavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,28 +48,6 @@ public class MainActivity extends AppCompatActivity
         rview.setLayoutManager(new LinearLayoutManager(this));
 
         indikator = (TextView)findViewById(R.id.indikator);
-        Nview = (NestedScrollView)findViewById(R.id.Nview);
-        behavior = BottomSheetBehavior.from(Nview);
-
-        indikator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }
-        });
-        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
