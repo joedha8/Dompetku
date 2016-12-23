@@ -31,6 +31,8 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masuk);
 
+        getSupportActionBar().setTitle("TAMBAH DATA");
+
         edtKet=(EditText)findViewById(R.id.ket);
         edtNom=(EditText)findViewById(R.id.nom);
         btnSave=(Button)findViewById(R.id.save);
