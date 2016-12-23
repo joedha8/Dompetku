@@ -43,6 +43,7 @@
                android:layout_height="0.5dp"
                android:background="@color/colorPrimaryDark"
                android:layout_marginBottom="10dp"
+               android:layout_marginTop="10dp"
                ></View>
         </LinearLayout>
         <RelativeLayout
