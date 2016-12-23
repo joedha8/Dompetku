@@ -42,6 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         holder.keterangan.setText(dataMasuk.getKet());
         holder.pemasukkan_head.setText(dataMasuk.getStatus());
         holder.nominal.setText("Rp. " +dataMasuk.getBiaya()+",00");
+        holder.tglMasuk.setText(dataMasuk.getTanggal());
         
         if( dataMasuk.getStatus().equals("Pemasukkan")){
             holder.gambar.setImageResource(R.drawable.ic_circle_plus_green);

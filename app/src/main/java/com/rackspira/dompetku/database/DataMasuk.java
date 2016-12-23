@@ -10,11 +10,13 @@ public class DataMasuk implements Serializable {
     private String ket;
     private String biaya;
     private String status;
+    private String tanggal;
 
-    public DataMasuk(String ket, String biaya, String status) {
+    public DataMasuk(String ket, String biaya, String status, String tanggal) {
         this.ket = ket;
         this.biaya = biaya;
         this.status = status;
+        this.tanggal = tanggal;
     }
 
     public DataMasuk() {
@@ -42,5 +44,13 @@ public class DataMasuk implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
     }
 }

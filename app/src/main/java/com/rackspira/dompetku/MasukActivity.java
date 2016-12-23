@@ -9,18 +9,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.database.DbHelper;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-public class MasukActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class MasukActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     SQLiteDatabase db;
     DbHelper dbHelper;
     private EditText edtKet, edtNom;
-    private Button btnSave, tes;
+    private Button btnSave;
     private RadioGroup radioStatus;
     private RadioButton radioStatusButton;
+    private EditText tanggal;
+    private String tglnya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +34,23 @@ public class MasukActivity extends AppCompatActivity {
         edtKet=(EditText)findViewById(R.id.ket);
         edtNom=(EditText)findViewById(R.id.nom);
         btnSave=(Button)findViewById(R.id.save);
+        tanggal=(EditText)findViewById(R.id.tgl);
         radioStatus=(RadioGroup)findViewById(R.id.stat);
-        tes=(Button)findViewById(R.id.tes);
         dbHelper=DbHelper.getInstance(getApplicationContext());
+
+        tanggal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar=Calendar.getInstance();
+                DatePickerDialog datePickerDialog= DatePickerDialog.newInstance(
+                        MasukActivity.this,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)
+                );
+                datePickerDialog.show(getFragmentManager(), "DatePicker Dialog");
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,39 +74,21 @@ public class MasukActivity extends AppCompatActivity {
                 radioStatusButton=(RadioButton)findViewById(select_id);
                 dataMasuk.setStatus(radioStatusButton.getText().toString());
 
+                dataMasuk.setTanggal(tglnya);
+
                 dbHelper.insertData(dataMasuk);
 
                 Intent intent=new Intent(MasukActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-
-        tes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int select_id=radioStatus.getCheckedRadioButtonId();
-                radioStatusButton=(RadioButton)findViewById(select_id);
-                Toast.makeText(MasukActivity.this, radioStatusButton.getText(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
-    /*public void click(View view){
-        final DataMasuk dataMasuk=new DataMasuk();
-        RadioGroup stat=(RadioGroup)findViewById(R.id.stat);
-        stat.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId) {
-                    case(R.id.radioMasuk):
-                        dataMasuk.setStatus("Pemasukkan");
-                        break;
-                    case(R.id.radiokeluar):
-                        dataMasuk.setStatus("Pengeluaran");
-                        break;
-                }
-            }
-        });
-    }*/
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        dbHelper=DbHelper.getInstance(getApplicationContext());
+        DataMasuk dataMasuk=new DataMasuk();
+        String tanggal1 = dayOfMonth+"-"+monthOfYear+"-"+year;
+        tglnya=tanggal1;
+    }
 }

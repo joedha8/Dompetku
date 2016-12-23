@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity
 
         dbHelper.jumMasuk();
         dbHelper.jumKeluar();
-        pemasukkan.setText("Rp. "+dbHelper.jumMasuk+",00");
-        pengeluaran.setText("Rp. "+dbHelper.jumKeluar+",00");
+        pemasukkan.setText("Rp. "+dbHelper.jumMasuk);
+        pengeluaran.setText("Rp. "+dbHelper.jumKeluar);
 
         rview = (RecyclerView)findViewById(R.id.recyclerview);
         adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk());
