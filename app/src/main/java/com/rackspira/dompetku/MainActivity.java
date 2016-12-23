@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     DbHelper dbHelper;
     RecyclerViewAdapter adapter;
     TextView pemasukkan, pengeluaran;
+    CardView cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 
         pemasukkan=(TextView)findViewById(R.id.pemasukkan);
         pengeluaran=(TextView)findViewById(R.id.pengeluaran);
+        cardView=(CardView)findViewById(R.id.card_view);
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
         dbHelper.jumMasuk();

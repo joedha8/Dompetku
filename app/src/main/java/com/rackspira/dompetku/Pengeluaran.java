@@ -20,6 +20,8 @@ public class Pengeluaran extends AppCompatActivity {
         setContentView(R.layout.activity_pengeluaran);
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         rview = (RecyclerView)findViewById(R.id.recyclerKeluar);
         adapter = new RecyclerViewAdapter(this, dbHelper.getPengeluaran());

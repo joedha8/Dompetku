@@ -2,6 +2,8 @@ package com.rackspira.dompetku.recyclerview;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +50,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
             holder.gambar.setImageResource(R.drawable.ic_circle_plus_green);
         }else
             holder.gambar.setImageResource(R.drawable.ic_circle_minus_red);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CharSequence[] charSequence={"Lihat", "Update", "Hapus"};
+                AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                builder.setTitle("Pilihan");
+                builder.setItems(charSequence, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i){
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override

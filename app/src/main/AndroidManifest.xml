@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".MasukActivity" />
         <activity android:name=".Pemasukkan" />
-        <activity android:name=".Pengeluaran"></activity>
+        <activity android:name=".Pengeluaran" />
+        <activity android:name=".MenuPilihan.LihatActivity"></activity>
     </application>
 
 </manifest>

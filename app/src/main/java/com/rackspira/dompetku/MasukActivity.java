@@ -89,6 +89,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         dbHelper=DbHelper.getInstance(getApplicationContext());
         DataMasuk dataMasuk=new DataMasuk();
         String tanggal1 = dayOfMonth+"-"+monthOfYear+"-"+year;
+        tanggal.setText(tanggal1);
         tglnya=tanggal1;
     }
 }
