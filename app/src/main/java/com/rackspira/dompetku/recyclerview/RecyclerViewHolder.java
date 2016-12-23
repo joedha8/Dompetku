@@ -14,7 +14,7 @@ import com.rackspira.dompetku.R;
 
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
-    TextView keterangan,nominal;
+    TextView keterangan,nominal,pemasukkan_head;
     ImageView gambar;
 
     public RecyclerViewHolder(View itemView){
@@ -22,5 +22,6 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         keterangan = (TextView)itemView.findViewById(R.id.keterangan);
         nominal = (TextView)itemView.findViewById(R.id.nominal);
         gambar = (ImageView)itemView.findViewById(R.id.gambar);
+        pemasukkan_head = (TextView)itemView.findViewById(R.id.pemasukkan_head);
     }
 }

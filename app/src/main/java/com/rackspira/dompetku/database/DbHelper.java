@@ -105,6 +105,56 @@ public class DbHelper extends SQLiteOpenHelper {
         return dataMasukList;
     }
 
+    public List<DataMasuk> getPemasukkan() {
+        List<DataMasuk> dataMasukList = new ArrayList<>();
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " + STATUS + " ='Pemasukkan'";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)), cursor.getString(cursor.getColumnIndex(BIAYA)), cursor.getString(cursor.getColumnIndex(STATUS)));
+                    dataMasukList.add(dataMasuk);
+                }
+                while (cursor.moveToNext());
+            }
+        } catch (SQLException e) {
+            Log.d(TAG, "Gagal untuk menambah");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return dataMasukList;
+    }
+
+    public List<DataMasuk> getPengeluaran() {
+        List<DataMasuk> dataMasukList = new ArrayList<>();
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " + STATUS + " ='Pengeluaran'";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)), cursor.getString(cursor.getColumnIndex(BIAYA)), cursor.getString(cursor.getColumnIndex(STATUS)));
+                    dataMasukList.add(dataMasuk);
+                }
+                while (cursor.moveToNext());
+            }
+        } catch (SQLException e) {
+            Log.d(TAG, "Gagal untuk menambah");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return dataMasukList;
+    }
+
     public int jumMasuk(){
         DataMasuk datamasuk=new DataMasuk();
         SQLiteDatabase db = getReadableDatabase();

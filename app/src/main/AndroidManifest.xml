@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MasukActivity" />
+        <activity android:name=".Pemasukkan" />
+        <activity android:name=".Pengeluaran"></activity>
     </application>
 
 </manifest>

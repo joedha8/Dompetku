@@ -14,15 +14,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:id="@+id/linear1"
         android:background="@color/colorHead"
         android:padding="16dp">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,60 +31,49 @@
                 android:textColor="@color/textWhite"
                 />
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pengeluaran"
+                android:textSize="15dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textWhite"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="100dp"
                 android:text="Rp.2000.000"
                 android:textSize="15dp"
                 android:textColor="@color/textPrimary"
                 android:id="@+id/pemasukkan"
                 android:layout_gravity="end"
                 android:textAlignment="center"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pengeluaran"
-                android:textSize="15dp"
-                android:textColor="@color/textWhite"
-                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="20dp"
                 android:text="Rp.2000.000"
                 android:textSize="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="100dp"
                 android:textColor="@color/textPrimary"
                 android:id="@+id/pengeluaran"
                 android:layout_gravity="end"
                 android:textAlignment="center"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="INDIKATOR"
-            android:clickable="true"
-            android:onClick="onClick"
-            android:textColor="@color/textWhite"
-            android:textSize="18dp"
-            android:id="@+id/indikator"
-            android:layout_marginTop="10dp"
-            android:textAlignment="center"/>
-
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/linear1"
         android:id="@+id/recyclerview">
 

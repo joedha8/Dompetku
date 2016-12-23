@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-            Intent intent=new Intent(this, MainActivity.class);
-            startActivity(intent);
             finish();
         }
     }
@@ -113,10 +111,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent(MainActivity.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pemasukkan) {
-            Intent intent=new Intent(MainActivity.this, MasukActivity.class);
+            Intent intent=new Intent(MainActivity.this, Pemasukkan.class);
             startActivity(intent);
         } else if (id == R.id.nav_pengeluaran) {
-            Intent intent=new Intent(MainActivity.this, MasukActivity.class);
+            Intent intent=new Intent(MainActivity.this, Pengeluaran.class);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
 

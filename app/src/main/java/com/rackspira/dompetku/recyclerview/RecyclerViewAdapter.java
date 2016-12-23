@@ -40,7 +40,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         DataMasuk dataMasuk = dataMasuks.get(position);
         holder.keterangan.setText(dataMasuk.getKet());
+        holder.pemasukkan_head.setText(dataMasuk.getStatus());
         holder.nominal.setText("Rp. " +dataMasuk.getBiaya()+",00");
+        
+        if( dataMasuk.getStatus().equals("Pemasukkan")){
+            holder.gambar.setImageResource(R.drawable.ic_circle_plus_green);
+        }else
+            holder.gambar.setImageResource(R.drawable.ic_circle_minus_red);
     }
 
     @Override
