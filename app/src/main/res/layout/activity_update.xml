@@ -87,7 +87,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:hint="Keterangan"
             android:id="@+id/ket_edit"/>
     </android.support.design.widget.TextInputLayout>
@@ -97,7 +97,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:inputType="number"
             android:hint="Nominal"
             android:id="@+id/nom_edit"/>
@@ -108,7 +108,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:hint="Tanggal"
             android:id="@+id/tgl_edit"
             android:focusable="false"/>
@@ -122,11 +122,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Simpan"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/btn_simpan"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/btn_cancel" />
     </LinearLayout>
    <ImageView
