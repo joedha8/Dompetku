@@ -9,6 +9,7 @@
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:foreground="?attr/selectableItemBackground">
+
     <RelativeLayout
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
                 android:id="@+id/keterangan"
                 android:layout_weight="1" />
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total biaya"
                 android:textSize="12dp"
@@ -83,23 +84,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/keterangan">
+                android:layout_below="@+id/keterangan"
+                android:gravity="right">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/nominal"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:text="Rp.2000.000"
                     android:textSize="15dp"
-                    android:layout_gravity="end"
-                    android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="@color/textWhite"
                     android:background="@drawable/shape2"
                     android:layout_below="@+id/keterangan"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginLeft="200dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="15dp"/>
             </LinearLayout>
         </RelativeLayout>

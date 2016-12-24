@@ -7,4 +7,6 @@
     <color name="textWhite">#ffffff</color>
     <color name="colorHead">#7CB342</color>
     <color name="colorBG">#EEEEEE</color>
+    <color name="bgMerah">#F44336</color>
+    <color name="bgButton">#388E3C</color>
 </resources>
