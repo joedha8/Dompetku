@@ -29,13 +29,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Tanggal Awal"
-                android:id="@+id/tgl_awal_keluar"/>
+                android:id="@+id/tgl_awal_akhir"
+                android:focusable="false"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tanggal akhir"
-                android:id="@+id/tgl_akhir_keluar"
-                android:gravity="right"/>
+                android:id="@+id/tgl_akhir_akhir"
+                android:gravity="right"
+                android:focusable="false"/>
 
     </LinearLayout>
     <Button

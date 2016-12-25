@@ -1,7 +1,10 @@
 package com.rackspira.dompetku;
 
 import android.content.Intent;
+import android.icu.text.NumberFormat;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,8 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
-import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity
     TextView pemasukkan, pengeluaran;
     CardView cardView;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +56,12 @@ public class MainActivity extends AppCompatActivity
 
         dbHelper.jumMasuk();
         dbHelper.jumKeluar();
-        pemasukkan.setText("Rp. "+dbHelper.jumMasuk);
-        pengeluaran.setText("Rp. "+dbHelper.jumKeluar);
+        String masuk=NumberFormat.getIntegerInstance().format(dbHelper.jumMasuk);
+        String keluar=NumberFormat.getInstance().format(dbHelper.jumKeluar);
+        pemasukkan.setText("Rp. "+masuk+",00");
+        pengeluaran.setText("Rp. "+keluar+",00");
 
-        rview = (RecyclerView)findViewById(R.id.recyclerview);
-        adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk());
-        rview.setAdapter(adapter);
-        rview.setLayoutManager(new LinearLayoutManager(this));
+        refreshList();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,6 +71,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void refreshList(){
+        rview = (RecyclerView)findViewById(R.id.recyclerview);
+        adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk());
+        rview.setAdapter(adapter);
+        rview.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

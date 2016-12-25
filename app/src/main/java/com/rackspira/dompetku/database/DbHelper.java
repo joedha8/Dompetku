@@ -111,9 +111,12 @@ public class DbHelper extends SQLiteOpenHelper {
         return dataMasukList;
     }
 
-    public List<DataMasuk> getPemasukkan() {
+    public List<DataMasuk> getPemasukkan(String dateAwal, String dateAkhir) {
         List<DataMasuk> dataMasukList = new ArrayList<>();
-        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " + STATUS + " ='Pemasukkan'";
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " +
+                STATUS + " ='Pemasukkan' AND " +
+                TANGGAL + " >= '" + dateAwal + "' AND " +
+                TANGGAL +" <= '" + dateAkhir + "'";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
@@ -139,9 +142,11 @@ public class DbHelper extends SQLiteOpenHelper {
         return dataMasukList;
     }
 
-    public List<DataMasuk> getPengeluaran() {
+    public List<DataMasuk> getPengeluaran(String dataAwal, String dataAkhir) {
         List<DataMasuk> dataMasukList = new ArrayList<>();
-        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " + STATUS + " ='Pengeluaran'";
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " + STATUS + " ='Pengeluaran' AND " +
+                TANGGAL + " >= '" + dataAwal + "' AND " +
+                TANGGAL +" <= '" + dataAkhir + "'";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
@@ -210,6 +215,26 @@ public class DbHelper extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
         } catch (SQLException e) {
             Log.d(TAG, "Gagal menghapus");
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void updateData(DataMasuk dataMasuk){
+        SQLiteDatabase db=getWritableDatabase();
+        db.beginTransaction();
+
+        try{
+            ContentValues values=new ContentValues();
+            values.put(KET, dataMasuk.getKet());
+            values.put(BIAYA, dataMasuk.getBiaya());
+            values.put(TANGGAL, dataMasuk.getTanggal());
+
+            db.update(TABLE_INPUT, values, null, null);
+            db.setTransactionSuccessful();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Gagal untuk Menambah");
         } finally {
             db.endTransaction();
         }

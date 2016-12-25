@@ -53,7 +53,7 @@
                 android:text="Seba"
                 android:textSize="20dp"
                 android:textColor="@color/textWhite"
-                android:id="@+id/ket_edit_tampil"
+                android:id="@+id/ket_edit_view"
                 android:layout_gravity="end"
                 android:textAlignment="center"/>
             <TextView

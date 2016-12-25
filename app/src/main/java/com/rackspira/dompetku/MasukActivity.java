@@ -85,8 +85,6 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        dbHelper=DbHelper.getInstance(getApplicationContext());
-        DataMasuk dataMasuk=new DataMasuk();
         String tanggal1 = dayOfMonth+"-"+monthOfYear+"-"+year;
         tanggal.setText(tanggal1);
         tglnya=tanggal1;
