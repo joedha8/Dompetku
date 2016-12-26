@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rackspira.dompetku.MainActivity;
-import com.rackspira.dompetku.MenuPilihan.LihatActivity;
 import com.rackspira.dompetku.MenuPilihan.UpdateActivity;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
@@ -74,14 +73,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i){
                             case 0 :
-                                Intent intent=new Intent(context, LihatActivity.class);
+                                Intent intent = new Intent(context, UpdateActivity.class);
                                 context.startActivity(intent);
                                 break;
                             case 1 :
-                                intent = new Intent(context, UpdateActivity.class);
-                                context.startActivity(intent);
-                                break;
-                            case 2 :
                                 dbhelper.deleteRow(dataMasuk.getKet());
                                 intent = new Intent(context, MainActivity.class);
                                 context.startActivity(intent);

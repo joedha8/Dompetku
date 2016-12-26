@@ -31,7 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Tanggal Awal"
-            android:id="@+id/tgl_awal_masuk"/>
+            android:id="@+id/tgl_awal_masuk"
+            android:focusable="false"/>
 
         <EditText
             android:layout_width="wrap_content"
@@ -40,7 +41,8 @@
             android:layout_marginLeft="100dp"
             android:layout_marginRight="10dp"
             android:id="@+id/tgl_akhir_masuk"
-            android:gravity="right"/>
+            android:gravity="right"
+            android:focusable="false"/>
 
     </LinearLayout>
     <Button
