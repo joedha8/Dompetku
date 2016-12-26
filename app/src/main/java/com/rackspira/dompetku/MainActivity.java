@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
 
@@ -26,12 +27,12 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RefreshHandler {
 
     RecyclerView rview;
     DbHelper dbHelper;
     RecyclerViewAdapter adapter;
-    TextView pemasukkan, pengeluaran;
+    TextView pemasukkanText, pengeluaranText;
     CardView cardView;
     String masuk, keluar;
 
@@ -47,23 +48,16 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, MasukActivity.class);
+                Intent intent = new Intent(MainActivity.this, MasukActivity.class);
                 startActivity(intent);
             }
         });
 
-        pemasukkan=(TextView)findViewById(R.id.pemasukkan);
-        pengeluaran=(TextView)findViewById(R.id.pengeluaran);
-        cardView=(CardView)findViewById(R.id.card_view);
+        pemasukkanText = (TextView) findViewById(R.id.pemasukkan);
+        pengeluaranText = (TextView) findViewById(R.id.pengeluaran);
+        cardView = (CardView) findViewById(R.id.card_view);
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
-        dbHelper.jumMasuk();
-        dbHelper.jumKeluar();
-        //uangFormat();
-
-
-
-        refreshList();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -73,39 +67,44 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        uangFormat();
+        refreshList();
     }
 
-    public void uangFormat(){
-        String stringMasuk=""+dbHelper.jumMasuk;
-        String stringKeluar=""+dbHelper.jumKeluar;
-        double pemasukkan=Double.parseDouble(stringMasuk);
-        double pengeluaran=Double.parseDouble(stringKeluar);
-        DecimalFormat decimalFormat=(DecimalFormat)DecimalFormat.getCurrencyInstance();
-        DecimalFormatSymbols decimalFormatSymbols=new DecimalFormatSymbols();
+    public void uangFormat() {
+        dbHelper.jumMasuk();
+        dbHelper.jumKeluar();
+        String stringMasuk = "" + dbHelper.jumMasuk;
+        String stringKeluar = "" + dbHelper.jumKeluar;
+        double pemasukkan = Double.parseDouble(stringMasuk);
+        double pengeluaran = Double.parseDouble(stringKeluar);
+        DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
         decimalFormatSymbols.setCurrencySymbol("");
         decimalFormatSymbols.setMonetaryDecimalSeparator(',');
         decimalFormatSymbols.setGroupingSeparator('.');
         decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
-        String hasilMasuk="Rp. "+decimalFormat.format(pemasukkan);
-        String hasolKeluar="Rp. "+decimalFormat.format(pengeluaran);
-        masuk=hasilMasuk;
-        keluar=hasolKeluar;
+        String hasilMasuk = "Rp. " + decimalFormat.format(pemasukkan);
+        String hasolKeluar = "Rp. " + decimalFormat.format(pengeluaran);
+        masuk = hasilMasuk;
+        keluar = hasolKeluar;
+        pemasukkanText.setText(masuk);
+        pengeluaranText.setText(keluar);
     }
 
-    public void refreshList(){
-        rview = (RecyclerView)findViewById(R.id.recyclerview);
-        adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk());
+    public void refreshList() {
+        rview = (RecyclerView) findViewById(R.id.recyclerview);
+        adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk(), this);
         rview.setAdapter(adapter);
         rview.setLayoutManager(new LinearLayoutManager(this));
         adapter.notifyDataSetChanged();
 
     }
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        uangFormat();
-        pemasukkan.setText(masuk);
-        pengeluaran.setText(keluar);
+
     }
 
     @Override
@@ -148,13 +147,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent intent=new Intent(MainActivity.this, MainActivity.class);
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pemasukkan) {
-            Intent intent=new Intent(MainActivity.this, Pemasukkan.class);
+            Intent intent = new Intent(MainActivity.this, Pemasukkan.class);
             startActivity(intent);
         } else if (id == R.id.nav_pengeluaran) {
-            Intent intent=new Intent(MainActivity.this, Pengeluaran.class);
+            Intent intent = new Intent(MainActivity.this, Pengeluaran.class);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
@@ -167,5 +166,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onRefresh() {
+        uangFormat();
+        adapter.notifyDataSetChanged();
     }
 }

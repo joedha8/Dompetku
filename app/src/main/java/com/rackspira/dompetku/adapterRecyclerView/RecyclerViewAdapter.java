@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.MenuPilihan.UpdateActivity;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
@@ -33,10 +34,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     private List<DataMasuk> dataMasuks = new ArrayList<>();
     LayoutInflater inflater;
     DbHelper dbhelper;
+    RefreshHandler refreshHandler;
 
-    public RecyclerViewAdapter(Context context, List<DataMasuk> dataMasuks1) {
+    public RecyclerViewAdapter(Context context, List<DataMasuk> dataMasuks1, RefreshHandler refreshHandler) {
         this.context = context;
         this.dataMasuks = dataMasuks1;
+        this.refreshHandler = refreshHandler;
         inflater = LayoutInflater.from(context);
         dbhelper=DbHelper.getInstance(context);
     }
@@ -93,8 +96,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                                 dbhelper.deleteRow(dataMasuk.getKet());
                                 /*intent = new Intent(context, MainActivity.class);
                                 context.startActivity(intent);*/
-                                notifyDataSetChanged();
+//                                notifyDataSetChanged();
                                 dataMasuks.remove(dataMasuks.get(position));
+                                refreshHandler.onRefresh();
                                 break;
                         }
                     }
