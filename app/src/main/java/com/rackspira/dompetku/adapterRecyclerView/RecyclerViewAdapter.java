@@ -4,7 +4,6 @@ package com.rackspira.dompetku.adapterRecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
@@ -13,13 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rackspira.dompetku.MainActivity;
 import com.rackspira.dompetku.MenuPilihan.UpdateActivity;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.model.GlobalDataMasuk;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,12 +53,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
         final DataMasuk dataMasuk = dataMasuks.get(position);
 
-        int i=Integer.parseInt(dataMasuk.getBiaya());
-        String biaya= NumberFormat.getInstance().format(i);
+        double biaya=Double.parseDouble(dataMasuk.getBiaya());
+        DecimalFormat decimalFormat=(DecimalFormat)DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols=new DecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        decimalFormatSymbols.setMonetaryDecimalSeparator(',');
+        decimalFormatSymbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+        String hasilBiaya="Rp. "+decimalFormat.format(biaya);
 
         holder.keterangan.setText(dataMasuk.getKet());
         holder.pemasukkan_head.setText(dataMasuk.getStatus());
-        holder.nominal.setText("Rp. " +biaya+",00");
+        holder.nominal.setText(hasilBiaya);
         holder.tglMasuk.setText(dataMasuk.getTanggal());
         
         if( dataMasuk.getStatus().equals("Pemasukkan")){
@@ -85,10 +91,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                                 break;
                             case 1 :
                                 dbhelper.deleteRow(dataMasuk.getKet());
-                                /*RefreshMain refreshMain=new RefreshMain();
-                                refreshMain.refreshList();*/
-                                intent = new Intent(context, MainActivity.class);
-                                context.startActivity(intent);
+                                /*intent = new Intent(context, MainActivity.class);
+                                context.startActivity(intent);*/
+                                notifyDataSetChanged();
+                                dataMasuks.remove(dataMasuks.get(position));
                                 break;
                         }
                     }

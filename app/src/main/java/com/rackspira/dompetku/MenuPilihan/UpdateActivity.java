@@ -2,7 +2,6 @@ package com.rackspira.dompetku.MenuPilihan;
 
 
 import android.content.Intent;
-import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -19,6 +18,8 @@ import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.model.GlobalDataMasuk;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
     String iniTanggal;
     DbHelper dbHelper;
     DataMasuk dataMasuk;
+    String nominalAkhir;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -48,13 +50,13 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         dbHelper = DbHelper.getInstance(getApplicationContext());
         dataMasuk = new DataMasuk();
 
-        String biaya= NumberFormat.getInstance().format(Integer.parseInt(GlobalDataMasuk.getDataMasuk().getBiaya()));
-
         SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
         tanggal.setText( sdf.format( new Date() ));
 
+        uangFormat();
+
         ket.setText("" + GlobalDataMasuk.getDataMasuk().getKet());
-        nom.setText("Rp. " + biaya + ",00");
+        nom.setText(nominalAkhir);
         tgl.setText("" + GlobalDataMasuk.getDataMasuk().getTanggal());
 
         tanggal.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +105,19 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
                 startActivity(intent);
             }
         });
+    }
+
+    public void uangFormat(){
+        String stringNominal=""+GlobalDataMasuk.getDataMasuk().getBiaya();
+        double nominal=Double.parseDouble(stringNominal);
+        DecimalFormat decimalFormat=(DecimalFormat)DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols=new DecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        decimalFormatSymbols.setMonetaryDecimalSeparator(',');
+        decimalFormatSymbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+        String hasilNominal="Rp. "+decimalFormat.format(nominal);
+        nominalAkhir=hasilNominal;
     }
 
     @Override

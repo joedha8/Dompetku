@@ -1,7 +1,6 @@
 package com.rackspira.dompetku;
 
 import android.content.Intent;
-import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -23,6 +22,9 @@ import android.widget.TextView;
 import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerViewAdapter adapter;
     TextView pemasukkan, pengeluaran;
     CardView cardView;
+    String masuk, keluar;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -56,10 +59,9 @@ public class MainActivity extends AppCompatActivity
 
         dbHelper.jumMasuk();
         dbHelper.jumKeluar();
-        String masuk=NumberFormat.getIntegerInstance().format(dbHelper.jumMasuk);
-        String keluar=NumberFormat.getInstance().format(dbHelper.jumKeluar);
-        pemasukkan.setText("Rp. "+masuk+",00");
-        pengeluaran.setText("Rp. "+keluar+",00");
+        uangFormat();
+
+
 
         refreshList();
 
@@ -73,11 +75,31 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public void uangFormat(){
+        String stringMasuk=""+dbHelper.jumMasuk;
+        String stringKeluar=""+dbHelper.jumKeluar;
+        double pemasukkan=Double.parseDouble(stringMasuk);
+        double pengeluaran=Double.parseDouble(stringKeluar);
+        DecimalFormat decimalFormat=(DecimalFormat)DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols=new DecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        decimalFormatSymbols.setMonetaryDecimalSeparator(',');
+        decimalFormatSymbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+        String hasilMasuk="Rp. "+decimalFormat.format(pemasukkan);
+        String hasolKeluar="Rp. "+decimalFormat.format(pengeluaran);
+        masuk=hasilMasuk;
+        keluar=hasolKeluar;
+    }
+
     public void refreshList(){
         rview = (RecyclerView)findViewById(R.id.recyclerview);
         adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk());
         rview.setAdapter(adapter);
         rview.setLayoutManager(new LinearLayoutManager(this));
+        adapter.notifyDataSetChanged();
+        pemasukkan.setText(masuk);
+        pengeluaran.setText(keluar);
     }
 
     @Override
