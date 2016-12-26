@@ -15,7 +15,9 @@ import android.widget.EditText;
 import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Pemasukkan extends AppCompatActivity {
     RecyclerView rview;
@@ -37,6 +39,12 @@ public class Pemasukkan extends AppCompatActivity {
         tglAwal=(EditText)findViewById(R.id.tgl_awal_masuk);
         tglAkhir=(EditText)findViewById(R.id.tgl_akhir_masuk);
         filter=(Button)findViewById(R.id.btn_filter_masuk);
+
+        SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
+        tglAwal.setText( sdf.format( new Date() ));
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat( "dd-MM-yyyy" );
+        tglAkhir.setText( sdf1.format( new Date() ));
 
         tglAwal.setOnClickListener(new View.OnClickListener() {
             @Override

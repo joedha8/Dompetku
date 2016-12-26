@@ -10,13 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.database.DbHelper;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MasukActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     SQLiteDatabase db;
@@ -41,6 +42,9 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         tanggal=(EditText)findViewById(R.id.tgl);
         radioStatus=(RadioGroup)findViewById(R.id.stat);
         dbHelper=DbHelper.getInstance(getApplicationContext());
+
+        SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
+        tanggal.setText( sdf.format( new Date() ));
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override

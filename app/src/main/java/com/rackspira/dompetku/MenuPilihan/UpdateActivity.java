@@ -2,6 +2,7 @@ package com.rackspira.dompetku.MenuPilihan;
 
 
 import android.content.Intent;
+import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -18,7 +19,9 @@ import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.model.GlobalDataMasuk;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class UpdateActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private TextView ket, nom, tgl;
@@ -44,10 +47,14 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         cancel = (Button) findViewById(R.id.btn_cancel);
         dbHelper = DbHelper.getInstance(getApplicationContext());
         dataMasuk = new DataMasuk();
-        //String biaya= NumberFormat.getInstance().format(Integer.parseInt(dataMasuk.getBiaya()));
+
+        String biaya= NumberFormat.getInstance().format(Integer.parseInt(GlobalDataMasuk.getDataMasuk().getBiaya()));
+
+        SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
+        tanggal.setText( sdf.format( new Date() ));
 
         ket.setText("" + GlobalDataMasuk.getDataMasuk().getKet());
-        nom.setText("" + GlobalDataMasuk.getDataMasuk().getBiaya());
+        nom.setText("Rp. " + biaya + ",00");
         tgl.setText("" + GlobalDataMasuk.getDataMasuk().getTanggal());
 
         tanggal.setOnClickListener(new View.OnClickListener() {
