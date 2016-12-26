@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         dbHelper.jumMasuk();
         dbHelper.jumKeluar();
-        uangFormat();
+        //uangFormat();
 
 
 
@@ -98,6 +98,12 @@ public class MainActivity extends AppCompatActivity
         rview.setAdapter(adapter);
         rview.setLayoutManager(new LinearLayoutManager(this));
         adapter.notifyDataSetChanged();
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        uangFormat();
         pemasukkan.setText(masuk);
         pengeluaran.setText(keluar);
     }
