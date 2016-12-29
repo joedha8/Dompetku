@@ -44,7 +44,9 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         dbHelper=DbHelper.getInstance(getApplicationContext());
 
         SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
-        tanggal.setText( sdf.format( new Date() ));
+        String tgl=sdf.format( new Date() );
+        tanggal.setText(tgl);
+        tglnya=tgl;
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +74,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
                 dataMasuk.setStatus(radioStatusButton.getText().toString());
 
                 dataMasuk.setTanggal(tglnya);
-                if(!edtKet.getText().toString().isEmpty() && !edtNom.getText().toString().isEmpty() ){
+                if(!edtKet.getText().toString().isEmpty() && !edtNom.getText().toString().isEmpty() && !tanggal.getText().toString().isEmpty() ){
                     dbHelper.insertData(dataMasuk);
                     Intent intent=new Intent(MasukActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -81,6 +83,9 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
                     snackbar.show();
                 }else if(edtNom.getText().toString().isEmpty()){
                     Snackbar snackbar = Snackbar.make(view,"Nominal tidak boleh kosong",Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }else if(tanggal.getText().toString().isEmpty()){
+                    Snackbar snackbar = Snackbar.make(view,"tanggal tidak boleh kosong",Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
             }

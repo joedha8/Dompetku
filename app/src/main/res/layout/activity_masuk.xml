@@ -20,7 +20,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24dp"
+                android:textSize="@dimen/ket_masuk"
                 android:hint="Keterangan"
                 android:id="@+id/ket"/>
         </android.support.design.widget.TextInputLayout>
@@ -30,7 +30,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24dp"
+                android:textSize="@dimen/nom_masuk"
                 android:inputType="number"
                 android:hint="Nominal"
                 android:id="@+id/nom"/>
@@ -41,7 +41,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24dp"
+                android:textSize="@dimen/tgl_masuk"
                 android:hint="Tanggal"
                 android:id="@+id/tgl"
                 android:focusable="false"/>
@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="@dimen/status_teks"
             android:text="Status" />
         <RadioGroup
             android:layout_width="match_parent"
@@ -59,12 +59,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pemasukan_string"
+                android:textSize="@dimen/status_pemasukkan"
                 android:id="@+id/radioMasuk"
                 android:checked="true"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pengeluaran_string"
+                android:textSize="@dimen/status_pengeluaran"
                 android:id="@+id/radiokeluar"/>
         </RadioGroup>
         <Button

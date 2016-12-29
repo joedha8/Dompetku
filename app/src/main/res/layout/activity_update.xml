@@ -22,14 +22,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Keterangan"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_keterangan_update"
                 android:textColor="@color/textWhite"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nominal"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_nominal_update"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/textWhite"
                 />
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tangal"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_tanggal_update"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/textWhite"
                 />
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
                 android:text="Seba"
-                android:textSize="20dp"
+                android:textSize="@dimen/keterangan_update"
                 android:textColor="@color/textWhite"
                 android:id="@+id/ket_edit_view"
                 android:layout_gravity="end"
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Rp.2000"
-                android:textSize="20dp"
+                android:textSize="@dimen/nominal_update"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="100dp"
                 android:textColor="@color/textWhite"
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="12-12-2016"
-                android:textSize="20dp"
+                android:textSize="@dimen/tanggal_update"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="100dp"
                 android:textColor="@color/textWhite"
@@ -87,7 +87,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="@dimen/editText_keterangan"
             android:hint="Keterangan"
             android:id="@+id/ket_edit"/>
     </android.support.design.widget.TextInputLayout>
@@ -97,7 +97,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="@dimen/editText_nominal"
             android:inputType="number"
             android:hint="Nominal"
             android:id="@+id/nom_edit"/>
@@ -108,7 +108,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="@dimen/editText_tanggal"
             android:hint="Tanggal"
             android:id="@+id/tgl_edit"
             android:focusable="false"/>

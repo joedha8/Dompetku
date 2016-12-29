@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,9 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ket = (TextView) findViewById(R.id.ket_edit_view);
         nom = (TextView) findViewById(R.id.nom_edit_view);
         tgl = (TextView) findViewById(R.id.tgl_edit_view);
@@ -51,7 +55,9 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         dataMasuk = new DataMasuk();
 
         SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
-        tanggal.setText( sdf.format( new Date() ));
+        String tgl1=sdf.format( new Date() );
+        tanggal.setText(tgl1);
+        iniTanggal=tgl1;
 
         uangFormat();
 
@@ -105,6 +111,14 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
                 startActivity(intent);
             }
         });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(UpdateActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void uangFormat(){
@@ -125,5 +139,21 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         String tgl = dayOfMonth + "-" + monthOfYear + "-" + year;
         tanggal.setText(tgl);
         iniTanggal = tgl;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == android.R.id.home){
+            //finish();
+            Intent intent=new Intent(UpdateActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

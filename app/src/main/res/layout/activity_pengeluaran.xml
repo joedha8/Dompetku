@@ -4,15 +4,12 @@
     android:id="@+id/activity_pemasukkan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.rackspira.dompetku.Pemasukkan">
-
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Filter :"
-        android:textSize="18dp"
+        android:textSize="@dimen/teks_filter_pengeluaran"
         android:layout_below="@+id/linear1"
         android:padding="10dp"
         />
@@ -29,16 +26,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Tanggal Awal"
+                android:textSize="@dimen/tgl_awal_pengeluaran"
                 android:id="@+id/tgl_awal_akhir"
                 android:focusable="false"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tanggal akhir"
+                android:textSize="@dimen/tgl_akhir_pengeluaran"
                 android:id="@+id/tgl_akhir_akhir"
                 android:gravity="right"
                 android:focusable="false"/>
-
     </LinearLayout>
     <Button
         android:layout_width="88dp"

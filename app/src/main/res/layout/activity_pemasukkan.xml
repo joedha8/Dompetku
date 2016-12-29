@@ -4,16 +4,12 @@
     android:id="@+id/activity_pemasukkan"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.rackspira.dompetku.Pemasukkan">
-
-
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Filter :"
-        android:textSize="18dp"
+        android:textSize="@dimen/teks_filter_pemasukkan"
         android:layout_below="@+id/linear1"
         android:padding="10dp"
         />
@@ -26,35 +22,32 @@
         android:paddingRight="10dp"
         android:id="@+id/hor_pemasukkan"
         android:layout_below="@+id/linear1">
-
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Tanggal Awal"
+            android:textSize="@dimen/tgl_awal_pemasukkan"
             android:id="@+id/tgl_awal_masuk"
             android:focusable="false"/>
-
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Tanggal akhir"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="10dp"
+            android:textSize="@dimen/tgl_akhir_pemasukkan"
             android:id="@+id/tgl_akhir_masuk"
             android:gravity="right"
             android:focusable="false"/>
-
     </LinearLayout>
     <Button
         android:layout_width="88dp"
         android:layout_height="36dp"
-        android:layout_below="@+id/hor_pemasukkan"
-        android:layout_marginRight="40dp"
         android:text="Lihat"
         android:textSize="14dp"
-        android:layout_alignParentRight="true"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:id="@+id/btn_filter_masuk"/>
+        android:id="@+id/btn_filter_masuk"
+        android:layout_below="@+id/hor_pemasukkan"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

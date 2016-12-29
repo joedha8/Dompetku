@@ -34,16 +34,21 @@ public class Pengeluaran extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         dbHelper = DbHelper.getInstance(getApplicationContext());
         tglAwal=(EditText)findViewById(R.id.tgl_awal_akhir);
         tglAkhir=(EditText)findViewById(R.id.tgl_akhir_akhir);
         filter=(Button)findViewById(R.id.btn_filter_keluar);
 
         SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
-        tglAwal.setText( sdf.format( new Date() ));
+        String tanggalAwal=sdf.format( new Date() );
+        tglAwal.setText(tanggalAwal);
+        dateAwal=tanggalAwal;
 
         SimpleDateFormat sdf1 = new SimpleDateFormat( "dd-MM-yyyy" );
-        tglAkhir.setText( sdf1.format( new Date() ));
+        String tanggalAkhir=sdf1.format( new Date() );
+        tglAkhir.setText(tanggalAkhir);
+        dateAkhir=tanggalAkhir;
 
         tglAwal.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rackspira.dompetku.MainActivity;
 import com.rackspira.dompetku.MenuPilihan.UpdateActivity;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
@@ -64,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 final CharSequence[] charSequence={"Lihat", "Update", "Hapus"};
                 AlertDialog.Builder builder=new AlertDialog.Builder(context);
                 builder.setTitle("Pilihan");
@@ -78,8 +77,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                                 break;
                             case 1 :
                                 dbhelper.deleteRow(dataMasuk.getKet());
-                                intent = new Intent(context, MainActivity.class);
-                                context.startActivity(intent);
                                 break;
                         }
                     }

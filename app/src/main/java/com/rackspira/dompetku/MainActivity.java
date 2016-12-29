@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity
         rview.setAdapter(adapter);
         rview.setLayoutManager(new LinearLayoutManager(this));
         adapter.notifyDataSetChanged();
-
     }
 
     @Override
