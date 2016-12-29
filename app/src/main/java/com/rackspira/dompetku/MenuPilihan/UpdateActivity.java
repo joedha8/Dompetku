@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -83,40 +85,28 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View view) {
                 final DataMasuk dataMasuk=new DataMasuk();
-
-                if (!keterangan.getText().toString().isEmpty()){
-                    dataMasuk.setKet(keterangan.getText().toString());
-                }
-                else {
-                    dataMasuk.setKet("");
-                }
-                if (!nominal.getText().toString().isEmpty()){
-                    dataMasuk.setBiaya(nominal.getText().toString());
-                }
-                else {
-                    dataMasuk.setBiaya("");
-                }
-                if (!tanggal.getText().toString().isEmpty()){
-                    dataMasuk.setTanggal(tanggal.getText().toString());
-                }
-                else {
-                    dataMasuk.setTanggal("");
-                }
-
+                dataMasuk.setKet(keterangan.getText().toString());
+                dataMasuk.setBiaya(nominal.getText().toString());
+                dataMasuk.setTanggal(tanggal.getText().toString());
                 dataMasuk.setTanggal(iniTanggal);
 
-                dbHelper.updateData(dataMasuk);
 
-                Intent intent=new Intent(UpdateActivity.this, MainActivity.class);
-                startActivity(intent);
+
+                if (!TextUtils.isEmpty(nominal.getText()) && !TextUtils.isEmpty(keterangan.getText()) && !TextUtils.isEmpty(tanggal.getText())){
+                    dbHelper.updateData(dataMasuk);
+                    finish();
+                } else {
+                    Snackbar snackbar = Snackbar.make(view,"Data tidak boleh kosong",Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(UpdateActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
