@@ -61,7 +61,7 @@ public class Pemasukkan extends AppCompatActivity {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(Pemasukkan.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String date=day+"-"+month+"-"+year;
+                        String date=day+"-"+(month+1)+"-"+year;
                         tglAwal.setText(date);
                         dateAwal=date;
                     }
@@ -81,7 +81,7 @@ public class Pemasukkan extends AppCompatActivity {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(Pemasukkan.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String date=day+"-"+month+"-"+year;
+                        String date=day+"-"+(month+1)+"-"+year;
                         tglAkhir.setText(date);
                         dateAkhir=date;
                     }

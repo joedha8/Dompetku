@@ -56,7 +56,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
         final DataMasuk dataMasuk = dataMasuks.get(position);
 
+        System.out.println(dataMasuk.getBiaya());
         double biaya=Double.parseDouble(dataMasuk.getBiaya());
+
         DecimalFormat decimalFormat=(DecimalFormat)DecimalFormat.getCurrencyInstance();
         DecimalFormatSymbols decimalFormatSymbols=new DecimalFormatSymbols();
         decimalFormatSymbols.setCurrencySymbol("");
@@ -93,10 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                                 context.startActivity(intent);
                                 break;
                             case 1 :
-                                dbhelper.deleteRow(dataMasuk.getKet());
-                                /*intent = new Intent(context, MainActivity.class);
-                                context.startActivity(intent);*/
-//                                notifyDataSetChanged();
+                                dbhelper.deleteRow(dataMasuk.getKet(), dataMasuk.getBiaya(), dataMasuk.getTanggal());
                                 dataMasuks.remove(dataMasuks.get(position));
                                 refreshHandler.onRefresh();
                                 break;

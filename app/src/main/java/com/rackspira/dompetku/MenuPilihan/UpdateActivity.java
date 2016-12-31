@@ -44,6 +44,7 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Update Data");
 
         ket = (TextView) findViewById(R.id.ket_edit_view);
         nom = (TextView) findViewById(R.id.nom_edit_view);
@@ -66,6 +67,23 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         ket.setText("" + GlobalDataMasuk.getDataMasuk().getKet());
         nom.setText(nominalAkhir);
         tgl.setText("" + GlobalDataMasuk.getDataMasuk().getTanggal());
+        keterangan.setText("" + GlobalDataMasuk.getDataMasuk().getKet());
+        nominal.setText("" + GlobalDataMasuk.getDataMasuk().getBiaya());
+        tanggal.setText("" + GlobalDataMasuk.getDataMasuk().getTanggal());
+
+        keterangan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                keterangan.setText("");
+            }
+        });
+
+        nominal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nominal.setText("");
+            }
+        });
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,11 +108,12 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
                 dataMasuk.setTanggal(tanggal.getText().toString());
                 dataMasuk.setTanggal(iniTanggal);
 
-
-
-                if (!TextUtils.isEmpty(nominal.getText()) && !TextUtils.isEmpty(keterangan.getText()) && !TextUtils.isEmpty(tanggal.getText())){
+                if (!TextUtils.isEmpty(nominal.getText().toString()) &&
+                        !TextUtils.isEmpty(keterangan.getText().toString()) &&
+                        !TextUtils.isEmpty(tanggal.getText().toString())){
                     dbHelper.updateData(dataMasuk);
-                    finish();
+                    Intent intent=new Intent(UpdateActivity.this, MainActivity.class);
+                    startActivity(intent);
                 } else {
                     Snackbar snackbar = Snackbar.make(view,"Data tidak boleh kosong",Snackbar.LENGTH_SHORT);
                     snackbar.show();
@@ -126,7 +145,7 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String tgl = dayOfMonth + "-" + monthOfYear + "-" + year;
+        String tgl = dayOfMonth + "-" + (monthOfYear+1) + "-" + year;
         tanggal.setText(tgl);
         iniTanggal = tgl;
     }

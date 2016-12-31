@@ -11,8 +11,7 @@ public class DataMasuk implements Serializable {
     private String biaya;
     private String status;
     private String tanggal;
-    private String tanggalAwal;
-    private String tanggalAkhir;
+    private int id;
 
     public DataMasuk(String ket, String biaya, String status, String tanggal) {
         this.ket = ket;
@@ -54,21 +53,5 @@ public class DataMasuk implements Serializable {
 
     public void setTanggal(String tanggal) {
         this.tanggal = tanggal;
-    }
-
-    public String getTanggalAwal() {
-        return tanggalAwal;
-    }
-
-    public void setTanggalAwal(String tanggalAwal) {
-        this.tanggalAwal = tanggalAwal;
-    }
-
-    public String getTanggalAkhir() {
-        return tanggalAkhir;
-    }
-
-    public void setTanggalAkhir(String tanggalAkhir) {
-        this.tanggalAkhir = tanggalAkhir;
     }
 }

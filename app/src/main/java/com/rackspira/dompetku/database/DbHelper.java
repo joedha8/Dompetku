@@ -115,8 +115,7 @@ public class DbHelper extends SQLiteOpenHelper {
         List<DataMasuk> dataMasukList = new ArrayList<>();
         String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " +
                 STATUS + " ='Pemasukkan' AND " +
-                TANGGAL + " >= '" + dateAwal + "' AND " +
-                TANGGAL +" <= '" + dateAkhir + "'";
+                TANGGAL + " between '" + dateAwal + "' AND '" + dateAkhir + "'";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
@@ -144,9 +143,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public List<DataMasuk> getPengeluaran(String dataAwal, String dataAkhir) {
         List<DataMasuk> dataMasukList = new ArrayList<>();
-        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " + STATUS + " ='Pengeluaran' AND " +
-                TANGGAL + " >= '" + dataAwal + "' AND " +
-                TANGGAL +" <= '" + dataAkhir + "'";
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " +
+                STATUS + " ='Pengeluaran' AND " +
+                TANGGAL + " between '" + dataAwal + "' AND '" + dataAkhir + "'";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
@@ -206,12 +205,15 @@ public class DbHelper extends SQLiteOpenHelper {
         return jumKeluar;
     }
 
-    public void deleteRow(String ket) {
+    public void deleteRow(String ket, String nom, String tgl) {
         SQLiteDatabase db = getWritableDatabase();
 
         try {
             db.beginTransaction();
-            db.execSQL("DELETE FROM " + TABLE_INPUT + " WHERE " + KET + " = '" + ket + "'");
+            db.execSQL("DELETE FROM " + TABLE_INPUT + " WHERE " +
+                    KET + " = '" + ket + "' AND " +
+                    BIAYA + " = '" + nom + "' AND " +
+                    TANGGAL + " = '" + tgl + "'");
             db.setTransactionSuccessful();
         } catch (SQLException e) {
             Log.d(TAG, "Gagal menghapus");

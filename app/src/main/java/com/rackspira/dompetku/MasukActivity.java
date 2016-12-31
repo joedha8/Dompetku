@@ -5,23 +5,27 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.database.DbHelper;
+import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MasukActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class MasukActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, RefreshHandler {
     SQLiteDatabase db;
     DbHelper dbHelper;
+    RecyclerViewAdapter adapter;
     private EditText edtKet, edtNom;
     private Button btnSave;
     private RadioGroup radioStatus;
@@ -34,6 +38,8 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masuk);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("TAMBAH DATA");
 
         edtKet=(EditText)findViewById(R.id.ket);
@@ -69,6 +75,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
 
                 dataMasuk.setKet(edtKet.getText().toString());
                 dataMasuk.setBiaya(edtNom.getText().toString());
+
                 int select_id=radioStatus.getCheckedRadioButtonId();
                 radioStatusButton=(RadioButton)findViewById(select_id);
                 dataMasuk.setStatus(radioStatusButton.getText().toString());
@@ -94,8 +101,29 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String tanggal1 = dayOfMonth+"-"+monthOfYear+"-"+year;
+        String tanggal1 = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
         tanggal.setText(tanggal1);
         tglnya=tanggal1;
+    }
+
+    @Override
+    public void onRefresh() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == android.R.id.home){
+            //finish();
+            Intent intent=new Intent(MasukActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

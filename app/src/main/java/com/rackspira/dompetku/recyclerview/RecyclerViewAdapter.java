@@ -76,7 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                                 context.startActivity(intent);
                                 break;
                             case 1 :
-                                dbhelper.deleteRow(dataMasuk.getKet());
+                                dbhelper.deleteRow(dataMasuk.getKet(), dataMasuk.getBiaya(), dataMasuk.getTanggal());
                                 break;
                         }
                     }

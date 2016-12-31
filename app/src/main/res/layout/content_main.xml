@@ -23,28 +23,28 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:orientation="vertical">
-            <TextView
+            <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pemasukkan"
                 android:textSize="@dimen/size_teks_pemasukkan"
                 android:textColor="@color/textWhite"
-                />
-            <TextView
+                app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
+            <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pengeluaran"
                 android:textSize="@dimen/size_teks_pengeluaran"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/textWhite"
-                />
+                app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
+            <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
@@ -55,8 +55,9 @@
                 android:textColor="@color/textPrimary"
                 android:id="@+id/pemasukkan"
                 android:layout_gravity="end"
-                android:textAlignment="center"/>
-            <TextView
+                android:textAlignment="center"
+                app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
+            <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
@@ -68,7 +69,8 @@
                 android:textColor="@color/textPrimary"
                 android:id="@+id/pengeluaran"
                 android:layout_gravity="end"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
         </LinearLayout>
 
     </LinearLayout>

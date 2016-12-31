@@ -13,11 +13,11 @@
     <dimen name="size_teks_pengeluaran">20sp</dimen>
     <dimen name="size_jum_keluar">20sp</dimen>
     <dimen name="size_jum_masuk">20sp</dimen>
-    <dimen name="cardview_text_status">20sp</dimen>
+    <dimen name="cardview_text_status">22sp</dimen>
     <dimen name="cardview_text_tanggal">20sp</dimen>
-    <dimen name="cardview_text_status2">20sp</dimen>
-    <dimen name="cardview_totalbayar">14sp</dimen>
-    <dimen name="cardview_jum_bayar">16sp</dimen>
+    <dimen name="cardview_text_status2">22sp</dimen>
+    <dimen name="cardview_totalbayar">16sp</dimen>
+    <dimen name="cardview_jum_bayar">20sp</dimen>
     <dimen name="text_keterangan_update">20sp</dimen>
     <dimen name="text_nominal_update">20sp</dimen>
     <dimen name="text_tanggal_update">20sp</dimen>
@@ -39,4 +39,7 @@
     <dimen name="status_pemasukkan">20sp</dimen>
     <dimen name="status_pengeluaran">20sp</dimen>
     <dimen name="status_teks">24sp</dimen>
+    <dimen name="header_teks">50sp</dimen>
+    <dimen name="margin_top_gbr">15dp</dimen>
+    <dimen name="padding_header">50dp</dimen>
 </resources>

@@ -38,4 +38,5 @@
     <dimen name="status_pemasukkan">20sp</dimen>
     <dimen name="status_pengeluaran">20sp</dimen>
     <dimen name="status_teks">24sp</dimen>
+    <dimen name="padding_header">50dp</dimen>
 </resources>
