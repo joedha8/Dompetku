@@ -36,8 +36,8 @@
                 <com.rackspira.kal.lib.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
                     android:textAlignment="textEnd"
+                    android:layout_gravity="end"
                     android:text="10-10-10"
                     android:textSize="@dimen/cardview_text_tanggal"
                     android:id="@+id/tglMasuk"

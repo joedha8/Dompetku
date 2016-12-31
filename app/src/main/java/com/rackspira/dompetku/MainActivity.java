@@ -25,6 +25,7 @@ import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
@@ -138,7 +139,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_share) {
-
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = "Dompetku Rack Edan Rack Spira";
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
         } else if (id == R.id.nav_tentang) {
             Intent intent = new Intent(MainActivity.this, Tentang.class);
             startActivity(intent);
