@@ -9,4 +9,5 @@
 
     <string name="pemasukan_string">Pemasukkan</string>
     <string name="pengeluaran_string">Pengeluaran</string>
+    <string name="tentang">Aplikasi ini bertujuan untuk membantu memanajemen siklus keuangan harian Anda</string>
 </resources>

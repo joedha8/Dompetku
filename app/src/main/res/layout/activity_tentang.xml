@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:textAlignment="center"
-        android:text="Aplikasi ini dapat membantu kalian memanage keuangan pribadi harian kalian"/>
+        android:text="@string/tentang"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

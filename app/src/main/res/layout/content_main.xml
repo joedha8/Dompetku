@@ -26,7 +26,7 @@
             <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pemasukkan"
+                android:text="Pemasukan"
                 android:textSize="@dimen/size_teks_pemasukkan"
                 android:textColor="@color/textWhite"
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>

@@ -115,8 +115,21 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
-            finish();
+            new AlertDialog.Builder(this)
+                    .setMessage("Ingin keluar dari Dompetku??")
+                    .setCancelable(false)
+                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Tidak",null).show();
+
         }
     }
 
@@ -161,30 +174,30 @@ public class MainActivity extends AppCompatActivity
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            AlertDialog.Builder alertDialogBuilder = null;
-            if (alertDialogBuilder == null) {
-                alertDialogBuilder = new AlertDialog.Builder(this);
-            }
-            alertDialogBuilder.setTitle("Keluar Dari Aplikasi Dompetku?");
-            alertDialogBuilder
-                    .setMessage("")
-                    .setCancelable(false)
-                    .setPositiveButton("YA",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    finish();
-                                }
-                            })
-
-                    .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            }).create().show();
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            AlertDialog.Builder alertDialogBuilder = null;
+//            if (alertDialogBuilder == null) {
+//                alertDialogBuilder = new AlertDialog.Builder(this);
+//            }
+//            alertDialogBuilder.setTitle("Keluar Dari Aplikasi Dompetku?");
+//            alertDialogBuilder
+//                    .setMessage("")
+//                    .setCancelable(false)
+//                    .setPositiveButton("YA",
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    finish();
+//                                }
+//                            })
+//
+//                    .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    dialog.cancel();
+//                                }
+//                            }).create().show();
+//        }
+//        return false;
+//    }
 }
