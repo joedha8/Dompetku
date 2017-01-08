@@ -14,6 +14,11 @@
             android:id="@+id/nav_pengeluaran"
             android:icon="@drawable/pengeluaran"
             android:title="Pengeluaran" />
+        <item
+            android:id="@+id/chart"
+            android:icon="@drawable/pie_c"
+            android:title="Diagram Keuangan"
+            />
 
     </group>
 

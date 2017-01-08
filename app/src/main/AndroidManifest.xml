@@ -13,16 +13,19 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
-        <activity android:name=".MasukActivity"
-            android:noHistory="true"/>
-        <activity android:name=".Pemasukkan"
-            android:noHistory="true"/>
-        <activity android:name=".Pengeluaran"
-            android:noHistory="true"/>
-        <activity android:name=".MenuPilihan.UpdateActivity"
-            android:noHistory="true"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MasukActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".Pemasukkan"
+            android:noHistory="true" />
+        <activity
+            android:name=".Pengeluaran"
+            android:noHistory="true" />
+        <activity
+            android:name=".MenuPilihan.UpdateActivity"
+            android:noHistory="true" />
         <activity
             android:name=".SplashScreen"
             android:noHistory="true"
@@ -33,8 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Tentang"
-            android:noHistory="true"></activity>
+        <activity
+            android:name=".Tentang"
+            android:noHistory="true" />
+        <activity android:name=".Diagram_keungan"></activity>
     </application>
 
 </manifest>
