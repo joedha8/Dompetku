@@ -11,14 +11,16 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.rackspira.dompetku.database.DbHelper;
 
 import java.util.ArrayList;
 
 public class Diagram_keungan extends AppCompatActivity {
 
     PieChart pie ;
-    private String[] xData = {"data1,data2,data3"};
-    private float[] yData = {50.5f,40.3f,60.3f};
+    DbHelper dbHelper;
+    private String[] xData;
+    private int[] yData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,13 @@ public class Diagram_keungan extends AppCompatActivity {
     }
 
     private void addData(PieChart pieMasuk) {
+        dbHelper=DbHelper.getInstance(getApplicationContext());
+        dbHelper.jumMasuk();
+        dbHelper.jumKeluar();
+        String masukString = ""+dbHelper.jumMasuk;
+        String keluarString = ""+dbHelper.jumKeluar;
+        xData=new String[]{"Pemasukkan", "Pengeluaran"};
+        yData=new int[]{Integer.parseInt(masukString), Integer.parseInt(keluarString)};
 
         ArrayList<PieEntry> yEntri = new ArrayList<>();
         ArrayList<String> xEntri = new ArrayList<>();
@@ -63,9 +72,8 @@ public class Diagram_keungan extends AppCompatActivity {
 
         ArrayList<Integer> warna = new ArrayList<>();
 
-        warna.add(Color.RED);
         warna.add(Color.GREEN);
-        warna.add(Color.BLUE);
+        warna.add(Color.RED);
 
         pieDataSet.setColors(warna);
 
