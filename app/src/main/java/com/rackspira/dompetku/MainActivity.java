@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
                             finish();
                         }
                     })
-                    .setNegativeButton("Tidak",null).show();
+                    .setNegativeButton("Tidak", null).show();
 
         }
     }
@@ -148,9 +148,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_pengeluaran) {
             Intent intent = new Intent(MainActivity.this, Pengeluaran.class);
             startActivity(intent);
-        }
-
-        else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             String shareBody = "Download and use this application https://play.google.com/store/apps/details?id=com.rackspira.dompetku";
@@ -160,9 +158,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_tentang) {
             Intent intent = new Intent(MainActivity.this, Tentang.class);
             startActivity(intent);
-        }
-        else if(id == R.id.chart){
-            Intent intent = new Intent(MainActivity.this,Diagram_keungan.class);
+        } else if (id == R.id.chart) {
+            Intent intent = new Intent(MainActivity.this, Diagram_keungan.class);
+            startActivity(intent);
+        } else if (id == R.id.export) {
+            Intent intent = new Intent(MainActivity.this, ExportActivity.class);
             startActivity(intent);
         }
 

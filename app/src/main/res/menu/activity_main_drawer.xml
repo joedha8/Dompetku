@@ -20,6 +20,12 @@
             android:title="Diagram Keuangan"
             />
 
+        <item
+            android:id="@+id/export"
+            android:icon="@drawable/pie_c"
+            android:title="Export"
+            />
+
     </group>
 
     <item android:title="Communicate">

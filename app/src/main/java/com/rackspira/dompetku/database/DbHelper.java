@@ -111,6 +111,66 @@ public class DbHelper extends SQLiteOpenHelper {
         return dataMasukList;
     }
 
+    public List<DataMasuk> getPemasukkan() {
+        List<DataMasuk> dataMasukList = new ArrayList<>();
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " +
+                TABLE_INPUT +
+                " where " + STATUS + " ='Pemasukkan'";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)),
+                            cursor.getString(cursor.getColumnIndex(BIAYA)),
+                            cursor.getString(cursor.getColumnIndex(STATUS)),
+                            cursor.getString(cursor.getColumnIndex(TANGGAL)));
+                    dataMasukList.add(dataMasuk);
+                }
+                while (cursor.moveToNext());
+            }
+        } catch (SQLException e) {
+            Log.d(TAG, "Gagal untuk menambah");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return dataMasukList;
+    }
+
+    public List<DataMasuk> getPengeluaran() {
+        List<DataMasuk> dataMasukList = new ArrayList<>();
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " +
+                TABLE_INPUT +
+                " where " + STATUS + " ='Pengeluaran'";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)),
+                            cursor.getString(cursor.getColumnIndex(BIAYA)),
+                            cursor.getString(cursor.getColumnIndex(STATUS)),
+                            cursor.getString(cursor.getColumnIndex(TANGGAL)));
+                    dataMasukList.add(dataMasuk);
+                }
+                while (cursor.moveToNext());
+            }
+        } catch (SQLException e) {
+            Log.d(TAG, "Gagal untuk menambah");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return dataMasukList;
+    }
+
     public List<DataMasuk> getPemasukkan(String dateAwal, String dateAkhir) {
         List<DataMasuk> dataMasukList = new ArrayList<>();
         String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT + " where " +
@@ -171,16 +231,15 @@ public class DbHelper extends SQLiteOpenHelper {
         return dataMasukList;
     }
 
-    public int jumMasuk(){
-        DataMasuk datamasuk=new DataMasuk();
+    public int jumMasuk() {
+        DataMasuk datamasuk = new DataMasuk();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursorMasuk=db.rawQuery("select sum("+BIAYA+") from "+TABLE_INPUT+" where "+STATUS+" = 'Pemasukkan';",null);
-        if(cursorMasuk.moveToFirst()) {
+        Cursor cursorMasuk = db.rawQuery("select sum(" + BIAYA + ") from " + TABLE_INPUT + " where " + STATUS + " = 'Pemasukkan';", null);
+        if (cursorMasuk.moveToFirst()) {
             jumMasuk = cursorMasuk.getInt(0);
             System.out.println(jumMasuk);
-        }
-        else{
-            jumMasuk=-1;
+        } else {
+            jumMasuk = -1;
             System.out.println(jumMasuk);
         }
         cursorMasuk.close();
@@ -188,16 +247,15 @@ public class DbHelper extends SQLiteOpenHelper {
         return jumMasuk;
     }
 
-    public int jumKeluar(){
-        DataMasuk datamasuk=new DataMasuk();
+    public int jumKeluar() {
+        DataMasuk datamasuk = new DataMasuk();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursorKeluar=db.rawQuery("select sum("+BIAYA+") from "+TABLE_INPUT+" where "+STATUS+" = 'Pengeluaran';",null);
-        if(cursorKeluar.moveToFirst()) {
+        Cursor cursorKeluar = db.rawQuery("select sum(" + BIAYA + ") from " + TABLE_INPUT + " where " + STATUS + " = 'Pengeluaran';", null);
+        if (cursorKeluar.moveToFirst()) {
             jumKeluar = cursorKeluar.getInt(0);
             System.out.println(jumKeluar);
-        }
-        else{
-            jumKeluar=-1;
+        } else {
+            jumKeluar = -1;
             System.out.println(jumKeluar);
         }
         cursorKeluar.close();
@@ -222,12 +280,12 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void updateData(DataMasuk dataMasuk){
-        SQLiteDatabase db=getWritableDatabase();
+    public void updateData(DataMasuk dataMasuk) {
+        SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
 
-        try{
-            ContentValues values=new ContentValues();
+        try {
+            ContentValues values = new ContentValues();
             values.put(KET, dataMasuk.getKet());
             values.put(BIAYA, dataMasuk.getBiaya());
             values.put(TANGGAL, dataMasuk.getTanggal());

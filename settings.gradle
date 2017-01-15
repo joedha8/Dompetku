@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':aa-poi-3.10-min-0.1.5', ':aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5'
