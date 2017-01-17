@@ -37,7 +37,8 @@ public class Diagram_keungan extends AppCompatActivity {
         pie.setDrawEntryLabels(true);
         pie.setCenterText("Diagram Keuangan");
         pie.setCenterTextSize(12);
-        pie.setTransparentCircleAlpha(0);
+        pie.setTransparentCircleAlpha(40);
+        pie.animateXY(3000 ,3000);
         
         addData(pie);
     }
@@ -56,7 +57,7 @@ public class Diagram_keungan extends AppCompatActivity {
 
         //penambahan data
         for (int i =0; i<yData.length;i++){
-            yEntri.add(new PieEntry(yData[i],i));
+            yEntri.add(new PieEntry(yData[i],xData[i]));
         }
 
         for (int i =0;i<xData.length;i++){
