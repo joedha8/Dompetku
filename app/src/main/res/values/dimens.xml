@@ -6,12 +6,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="margin_left_pemasukkan">100dp</dimen>
+    <dimen name="margin_left_pemasukkan">50dp</dimen>
     <dimen name="margin_left_pengeluaran">100dp</dimen>
-    <dimen name="size_teks_pemasukkan">20sp</dimen>
-    <dimen name="size_teks_pengeluaran">20sp</dimen>
-    <dimen name="size_jum_keluar">20sp</dimen>
-    <dimen name="size_jum_masuk">20sp</dimen>
+    <dimen name="size_teks_pemasukkan">12sp</dimen>
+    <dimen name="size_teks_pengeluaran">12sp</dimen>
+    <dimen name="size_jum_keluar">12sp</dimen>
+    <dimen name="size_jum_masuk">12sp</dimen>
     <dimen name="cardview_text_status">20sp</dimen>
     <dimen name="cardview_text_tanggal">18sp</dimen>
     <dimen name="cardview_text_status2">18sp</dimen>

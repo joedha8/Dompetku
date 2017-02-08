@@ -10,14 +10,13 @@
     tools:context="com.rackspira.dompetku.MainActivity"
     tools:showIn="@layout/app_bar_main"
     android:background="@color/colorBG">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/linear1"
         android:background="@color/colorHead"
-        android:padding="16dp">
+        android:id="@+id/linear1"
+        android:padding="5dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,6 +25,7 @@
             <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Pemasukan"
                 android:textSize="@dimen/size_teks_pemasukkan"
                 android:textColor="@color/textWhite"
@@ -34,6 +34,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pengeluaran"
+                android:textSize="@dimen/size_teks_pengeluaran"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textWhite"
+                app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
+            <com.rackspira.kal.lib.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SIsa Saldo"
                 android:textSize="@dimen/size_teks_pengeluaran"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/textWhite"
@@ -48,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/shape"
                 android:layout_marginLeft="@dimen/margin_left_pemasukkan"
                 android:text="Rp.2000.000"
@@ -71,10 +80,22 @@
                 android:layout_gravity="end"
                 android:textAlignment="center"
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
+            <com.rackspira.kal.lib.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:background="@drawable/shape"
+                android:text="Rp.2000.000"
+                android:textSize="@dimen/size_jum_keluar"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="@dimen/margin_left_pengeluaran"
+                android:textColor="@color/textPrimary"
+                android:id="@+id/saldo"
+                android:layout_gravity="end"
+                android:textAlignment="center"
+                app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
         </LinearLayout>
-
     </LinearLayout>
-
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

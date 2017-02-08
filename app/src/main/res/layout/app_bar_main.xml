@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
+            android:elevation="0dp"
             app:popupTheme="@style/Theme.AppCompat.Light">
             <com.rackspira.kal.lib.CustomTextView
                 android:layout_height="wrap_content"
@@ -28,7 +29,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
