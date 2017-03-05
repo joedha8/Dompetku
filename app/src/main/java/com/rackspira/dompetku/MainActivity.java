@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity
     RecyclerView rview;
     DbHelper dbHelper;
     RecyclerViewAdapter adapter;
-    TextView pemasukkanText, pengeluaranText;
+    TextView pemasukkanText, pengeluaranText, saldoText;
     CardView cardView;
-    String masuk, keluar;
+    String masuk, keluar, saldo;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity
 
         pemasukkanText = (TextView) findViewById(R.id.pemasukkan);
         pengeluaranText = (TextView) findViewById(R.id.pengeluaran);
+        saldoText = (TextView) findViewById(R.id.saldo);
         cardView = (CardView) findViewById(R.id.card_view);
         dbHelper = DbHelper.getInstance(getApplicationContext());
 
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity
         String stringKeluar = "" + dbHelper.jumKeluar;
         double pemasukkan = Double.parseDouble(stringMasuk);
         double pengeluaran = Double.parseDouble(stringKeluar);
+        double saldonya=pemasukkan-pengeluaran;
         DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
         DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
         decimalFormatSymbols.setCurrencySymbol("");
@@ -89,10 +91,13 @@ public class MainActivity extends AppCompatActivity
         decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
         String hasilMasuk = "Rp. " + decimalFormat.format(pemasukkan);
         String hasolKeluar = "Rp. " + decimalFormat.format(pengeluaran);
+        String hasilSaldo = "Rp. "+decimalFormat.format(saldonya);
         masuk = hasilMasuk;
         keluar = hasolKeluar;
+        saldo=hasilSaldo;
         pemasukkanText.setText(masuk);
         pengeluaranText.setText(keluar);
+        saldoText.setText(saldo);
     }
 
     public void refreshList() {
@@ -176,31 +181,4 @@ public class MainActivity extends AppCompatActivity
         uangFormat();
         adapter.notifyDataSetChanged();
     }
-
-//    @Override
-//    public boolean onKeyUp(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            AlertDialog.Builder alertDialogBuilder = null;
-//            if (alertDialogBuilder == null) {
-//                alertDialogBuilder = new AlertDialog.Builder(this);
-//            }
-//            alertDialogBuilder.setTitle("Keluar Dari Aplikasi Dompetku?");
-//            alertDialogBuilder
-//                    .setMessage("")
-//                    .setCancelable(false)
-//                    .setPositiveButton("YA",
-//                            new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    finish();
-//                                }
-//                            })
-//
-//                    .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.cancel();
-//                                }
-//                            }).create().show();
-//        }
-//        return false;
-//    }
 }

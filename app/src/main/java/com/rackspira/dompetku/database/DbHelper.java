@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.rackspira.dompetku.model.GlobalDataMasuk;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static DbHelper dbHelper;
 
-    public int jumMasuk, jumKeluar;
+    public int jumMasuk, jumKeluar, jumKeluarBulanan, jumMasukBulannan;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -263,6 +265,38 @@ public class DbHelper extends SQLiteOpenHelper {
         return jumKeluar;
     }
 
+    public int jumKeluarBulanan(int bulan, int tahun){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursorKeluar = db.rawQuery("select sum(" + BIAYA + ") from " + TABLE_INPUT + " where " + STATUS + " = 'Pengeluaran' and " +
+                TANGGAL + " like '%"+bulan+"-"+tahun+"';", null);
+        if (cursorKeluar.moveToFirst()) {
+            jumKeluarBulanan = cursorKeluar.getInt(0);
+            System.out.println(jumKeluarBulanan);
+        } else {
+            jumKeluarBulanan = -1;
+            System.out.println(jumKeluarBulanan);
+        }
+        cursorKeluar.close();
+
+        return jumKeluarBulanan;
+    }
+
+    public int jumMasukBulanan(int bulan, int tahun){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursorMasuk = db.rawQuery("select sum(" + BIAYA + ") from " + TABLE_INPUT + " where " + STATUS + " = 'Pemasukkan' and " +
+                TANGGAL + " like '%"+bulan+"-"+tahun+"';", null);
+        if (cursorMasuk.moveToFirst()) {
+            jumMasukBulannan = cursorMasuk.getInt(0);
+            System.out.println(jumMasukBulannan);
+        } else {
+            jumMasukBulannan = -1;
+            System.out.println(jumMasukBulannan);
+        }
+        cursorMasuk.close();
+
+        return jumMasukBulannan;
+    }
+
     public void deleteRow(String ket, String nom, String tgl) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -282,15 +316,14 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void updateData(DataMasuk dataMasuk) {
         SQLiteDatabase db = getWritableDatabase();
-        db.beginTransaction();
 
         try {
-            ContentValues values = new ContentValues();
-            values.put(KET, dataMasuk.getKet());
-            values.put(BIAYA, dataMasuk.getBiaya());
-            values.put(TANGGAL, dataMasuk.getTanggal());
-
-            db.update(TABLE_INPUT, values, null, null);
+            db.beginTransaction();
+            db.execSQL("UPDATE " + TABLE_INPUT + " SET " +
+                    KET + " ='" + dataMasuk.getKet() + "', " +
+                    BIAYA + " ='" + dataMasuk.getBiaya() + "', " +
+                    TANGGAL + " ='" + dataMasuk.getTanggal() + "' WHERE " +
+                    STATUS +" ='"+ GlobalDataMasuk.getDataMasuk().getStatus() +"'");
             db.setTransactionSuccessful();
         } catch (SQLException e) {
             e.printStackTrace();

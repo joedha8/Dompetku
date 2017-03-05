@@ -23,9 +23,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class UpdateActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private TextView ket, nom, tgl;
@@ -56,11 +54,6 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         cancel = (Button) findViewById(R.id.btn_cancel);
         dbHelper = DbHelper.getInstance(getApplicationContext());
         dataMasuk = new DataMasuk();
-
-        SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
-        String tgl1=sdf.format( new Date() );
-        tanggal.setText(tgl1);
-        iniTanggal=tgl1;
 
         uangFormat();
 
@@ -106,7 +99,6 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
                 dataMasuk.setKet(keterangan.getText().toString());
                 dataMasuk.setBiaya(nominal.getText().toString());
                 dataMasuk.setTanggal(tanggal.getText().toString());
-                dataMasuk.setTanggal(iniTanggal);
 
                 if (!TextUtils.isEmpty(nominal.getText().toString()) &&
                         !TextUtils.isEmpty(keterangan.getText().toString()) &&
