@@ -99,6 +99,7 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
                 dataMasuk.setKet(keterangan.getText().toString());
                 dataMasuk.setBiaya(nominal.getText().toString());
                 dataMasuk.setTanggal(tanggal.getText().toString());
+                dataMasuk.setId(GlobalDataMasuk.getDataMasuk().getId());
 
                 if (!TextUtils.isEmpty(nominal.getText().toString()) &&
                         !TextUtils.isEmpty(keterangan.getText().toString()) &&

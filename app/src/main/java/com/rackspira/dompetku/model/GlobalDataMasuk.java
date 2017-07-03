@@ -10,10 +10,12 @@ public class GlobalDataMasuk {
     private static DataMasuk dataMasuk;
 
     public static void setDataMasuk(DataMasuk dataMasuk) {
+
         GlobalDataMasuk.dataMasuk = dataMasuk;
     }
 
     public static DataMasuk getDataMasuk() {
+
         return dataMasuk;
     }
 }

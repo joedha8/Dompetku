@@ -30,6 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
     protected static final String BIAYA = "biaya";
     protected static final String STATUS = "status";
     protected static final String TANGGAL = "tanggal";
+    protected static final String ID = "id";
 
     private static DbHelper dbHelper;
 
@@ -38,6 +39,7 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_INPUT + "(" +
+                ID  + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 KET + " TEXT," +
                 BIAYA + " INTEGER," +
                 STATUS + " TEXT," +
@@ -48,7 +50,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int lama, int baru) {
         if (lama != baru) {
             db.execSQL("DROP TABLE IF EXISTS" + TABLE_INPUT);
-
             onCreate(db);
         }
     }
@@ -95,10 +96,14 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)),
+                    DataMasuk dataMasuk = new DataMasuk(
+                            cursor.getString(cursor.getColumnIndex(KET)),
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
-                            cursor.getString(cursor.getColumnIndex(TANGGAL)));
+                            cursor.getString(cursor.getColumnIndex(TANGGAL)),
+                            cursor.getString(cursor.getColumnIndex(ID)));
+
+                    Log.d("id",cursor.getString(cursor.getColumnIndex(ID)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());
@@ -125,10 +130,12 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)),
+                    DataMasuk dataMasuk = new DataMasuk(
+                            cursor.getString(cursor.getColumnIndex(KET)),
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
-                            cursor.getString(cursor.getColumnIndex(TANGGAL)));
+                            cursor.getString(cursor.getColumnIndex(TANGGAL)),
+                            cursor.getString(cursor.getColumnIndex(ID)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());
@@ -155,10 +162,12 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)),
+                    DataMasuk dataMasuk = new DataMasuk(
+                            cursor.getString(cursor.getColumnIndex(KET)),
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
-                            cursor.getString(cursor.getColumnIndex(TANGGAL)));
+                            cursor.getString(cursor.getColumnIndex(TANGGAL)),
+                            cursor.getString(cursor.getColumnIndex(ID)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());
@@ -185,10 +194,12 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)),
+                    DataMasuk dataMasuk = new DataMasuk(
+                            cursor.getString(cursor.getColumnIndex(KET)),
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
-                            cursor.getString(cursor.getColumnIndex(TANGGAL)));
+                            cursor.getString(cursor.getColumnIndex(TANGGAL)),
+                            cursor.getString(cursor.getColumnIndex(ID)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());
@@ -215,10 +226,12 @@ public class DbHelper extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    DataMasuk dataMasuk = new DataMasuk(cursor.getString(cursor.getColumnIndex(KET)),
+                    DataMasuk dataMasuk = new DataMasuk(
+                            cursor.getString(cursor.getColumnIndex(KET)),
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
-                            cursor.getString(cursor.getColumnIndex(TANGGAL)));
+                            cursor.getString(cursor.getColumnIndex(TANGGAL)),
+                            cursor.getString(cursor.getColumnIndex(ID)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());
@@ -323,7 +336,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     KET + " ='" + dataMasuk.getKet() + "', " +
                     BIAYA + " ='" + dataMasuk.getBiaya() + "', " +
                     TANGGAL + " ='" + dataMasuk.getTanggal() + "' WHERE " +
-                    STATUS +" ='"+ GlobalDataMasuk.getDataMasuk().getStatus() +"'");
+                    ID +" ='"+ GlobalDataMasuk.getDataMasuk().getId() +"'");
             db.setTransactionSuccessful();
         } catch (SQLException e) {
             e.printStackTrace();
