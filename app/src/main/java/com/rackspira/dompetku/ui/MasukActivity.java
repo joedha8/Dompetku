@@ -1,4 +1,4 @@
-package com.rackspira.dompetku;
+package com.rackspira.dompetku.ui;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
+import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;

@@ -1,6 +1,6 @@
 package com.rackspira.dompetku.ExcelReport;
 
-import com.rackspira.dompetku.App;
+import com.rackspira.dompetku.ui.App;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;

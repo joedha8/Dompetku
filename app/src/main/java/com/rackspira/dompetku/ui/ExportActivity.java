@@ -1,4 +1,4 @@
-package com.rackspira.dompetku;
+package com.rackspira.dompetku.ui;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.rackspira.dompetku.ExcelReport.BuildReportWorksheet;
+import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.database.DbHelper;
 import com.victor.loading.rotate.RotateLoading;

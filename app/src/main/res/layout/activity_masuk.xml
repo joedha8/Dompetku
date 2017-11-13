@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rackspira.dompetku.MasukActivity">
+    tools:context="com.rackspira.dompetku.ui.MasukActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

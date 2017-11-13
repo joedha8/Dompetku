@@ -1,4 +1,4 @@
-package com.rackspira.dompetku;
+package com.rackspira.dompetku.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
+import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
 
@@ -168,6 +169,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.export) {
             Intent intent = new Intent(MainActivity.this, ExportActivity.class);
+            startActivity(intent);
+        }else if(id == R.id.setting){
+            Intent intent = new Intent(MainActivity.this,Setting.class);
             startActivity(intent);
         }
 

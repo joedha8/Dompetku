@@ -1,4 +1,4 @@
-package com.rackspira.dompetku;
+package com.rackspira.dompetku.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
 

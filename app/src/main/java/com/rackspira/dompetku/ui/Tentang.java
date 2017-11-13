@@ -1,4 +1,4 @@
-package com.rackspira.dompetku;
+package com.rackspira.dompetku.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.rackspira.dompetku.R;
 
 public class Tentang extends AppCompatActivity {
 

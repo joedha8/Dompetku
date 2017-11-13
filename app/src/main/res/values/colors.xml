@@ -10,4 +10,5 @@
     <color name="bgMerah">#F44336</color>
     <color name="bgButton">#388E3C</color>
     <color name="background">#e0e0e0</color>
+    <color name="blue">#2196f3</color>
 </resources>

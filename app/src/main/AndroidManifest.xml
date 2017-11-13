@@ -3,8 +3,8 @@
     package="com.rackspira.dompetku">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,23 +13,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MasukActivity"
+            android:name=".ui.MasukActivity"
             android:noHistory="true" />
         <activity
-            android:name=".Pemasukkan"
+            android:name=".ui.Pemasukkan"
             android:noHistory="true" />
         <activity
-            android:name=".Pengeluaran"
+            android:name=".ui.Pengeluaran"
             android:noHistory="true" />
         <activity
             android:name=".MenuPilihan.UpdateActivity"
             android:noHistory="true" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".ui.SplashScreen"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -39,10 +39,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Tentang"
+            android:name=".ui.Tentang"
             android:noHistory="true" />
-        <activity android:name=".Diagram_keungan" />
-        <activity android:name=".ExportActivity"></activity>
+        <activity android:name=".ui.Diagram_keungan" />
+        <activity android:name=".ui.ExportActivity" />
+        <activity
+            android:name=".ui.PinView"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.Setting" />
+        <activity android:name=".ui.SettingPin"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

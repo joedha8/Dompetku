@@ -25,7 +25,10 @@
             android:icon="@drawable/pie_c"
             android:title="Export"
             />
-
+        <item
+            android:id="@+id/setting"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Setting"/>
     </group>
 
     <item android:title="Communicate">
