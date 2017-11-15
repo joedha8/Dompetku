@@ -29,12 +29,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     LayoutInflater inflater;
     DbHelper dbhelper;
 
-    public RecyclerViewAdapter(Context context, List<DataMasuk> dataMasuks1) {
+    public RecyclerViewAdapter(Context context) {
+        this.context = context;
+        inflater=LayoutInflater.from(context);
+    }
+
+    /*public RecyclerViewAdapter(Context context, List<DataMasuk> dataMasuks1) {
         this.context = context;
         this.dataMasuks = dataMasuks1;
         inflater = LayoutInflater.from(context);
         dbhelper=DbHelper.getInstance(context);
-    }
+    }*/
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,7 +50,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        final DataMasuk dataMasuk = dataMasuks.get(position);
+        /*final DataMasuk dataMasuk = dataMasuks.get(position);
         holder.keterangan.setText(dataMasuk.getKet());
         holder.pemasukkan_head.setText(dataMasuk.getStatus());
         holder.nominal.setText("Rp. " +dataMasuk.getBiaya()+",00");
@@ -58,10 +63,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         }else{
             holder.gambar.setImageResource(R.drawable.ic_circle_minus_red);
             holder.nominal.setBackgroundResource(R.drawable.shape_merah);
-        }
+        }*/
+        String[] pemasukan_head={"Make Up", "Make Up", "Make Up", "Make Up"};
+        String[] keterangan={"Beli Lipstik", "Beli Foundation", "Beli Bedak Tabur", "Beli Bedak Padat"};
+        String[] nominal={"Rp. 50.000", "Rp. 100.000", "Rp. 50.000", "Rp. 50.000"};
+        String[] tanggal_masuk={"01-10-17", "01-10-17", "01-10-17", "01-10-17"};
+        int[] gambar={R.drawable.ic_circle_minus_red, R.drawable.ic_circle_minus_red, R.drawable.ic_circle_minus_red, R.drawable.ic_circle_minus_red};
 
+        holder.gambar.setImageResource(gambar[position]);
+        holder.pemasukkan_head.setText(pemasukan_head[position]);
+        holder.keterangan.setText(keterangan[position]);
+        holder.nominal.setText(nominal[position]);
+        holder.tglMasuk.setText(tanggal_masuk[position]);
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        /*holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 final CharSequence[] charSequence={"Lihat", "Update", "Hapus"};
@@ -83,12 +98,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                 });
                 builder.create().show();
             }
-        });
+        });*/
     }
 
     @Override
     public int getItemCount() {
 
-        return dataMasuks.size();
+        return 4;
     }
 }

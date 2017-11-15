@@ -9,6 +9,8 @@
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="5dp"
     android:foreground="?attr/selectableItemBackground">
 
     <RelativeLayout
@@ -25,7 +27,8 @@
             android:id="@+id/ver">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
                 <com.rackspira.kal.lib.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,8 +50,8 @@
                android:layout_width="match_parent"
                android:layout_height="0.5dp"
                android:background="@color/colorPrimaryDark"
-               android:layout_marginBottom="10dp"
-               android:layout_marginTop="10dp"
+               android:layout_marginBottom="5dp"
+               android:layout_marginTop="5dp"
                ></View>
         </LinearLayout>
         <RelativeLayout

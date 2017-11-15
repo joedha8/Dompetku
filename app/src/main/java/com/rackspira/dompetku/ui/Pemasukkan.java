@@ -100,10 +100,10 @@ public class Pemasukkan extends AppCompatActivity {
     }
 
     public void refreshRview(){
-        rview = (RecyclerView)findViewById(R.id.recyclerMasuk);
+        /*rview = (RecyclerView)findViewById(R.id.recyclerMasuk);
         adapter = new RecyclerViewAdapter(this, dbHelper.getPemasukkan(dateAwal, dateAkhir));
         rview.setAdapter(adapter);
-        rview.setLayoutManager(new LinearLayoutManager(this));
+        rview.setLayoutManager(new LinearLayoutManager(this));*/
     }
 
     @Override

@@ -100,10 +100,10 @@ public class Pengeluaran extends AppCompatActivity {
     }
 
     public void refreshRview(){
-        rview = (RecyclerView)findViewById(R.id.recyclerKeluar);
+        /*rview = (RecyclerView)findViewById(R.id.recyclerKeluar);
         adapter = new RecyclerViewAdapter(this, dbHelper.getPengeluaran(dateAwal, dateAkhir));
         rview.setAdapter(adapter);
-        rview.setLayoutManager(new LinearLayoutManager(this));
+        rview.setLayoutManager(new LinearLayoutManager(this));*/
     }
 
     @Override

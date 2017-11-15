@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dompetku</string>
+    <string name="app_name">E-Penting</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -10,4 +10,10 @@
     <string name="pemasukan_string">Pemasukkan</string>
     <string name="pengeluaran_string">Pengeluaran</string>
     <string name="tentang">Aplikasi ini bertujuan untuk membantu memanajemen siklus keuangan harian Anda</string>
+
+    <string-array name="kategori">
+        <item>Make Up</item>
+        <item>Makan</item>
+        <item>Kampus</item>
+    </string-array>
 </resources>
