@@ -7,6 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rackspira.dompetku.R;
+import com.rackspira.dompetku.database.DbKategori;
+import com.rackspira.dompetku.database.Kategori;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kikiosha on 11/14/17.
@@ -15,10 +20,14 @@ import com.rackspira.dompetku.R;
 public class RecycleViewAdapterKategori extends RecyclerView.Adapter<RecycleViewHolderKategori> {
     Context context;
     LayoutInflater inflater;
+    List<Kategori> kategoriList=new ArrayList<>();
+    DbKategori dbKategori;
 
-    public RecycleViewAdapterKategori(Context context) {
+    public RecycleViewAdapterKategori(Context context, List<Kategori> kategoriList) {
         this.context = context;
+        this.kategoriList=kategoriList;
         inflater=LayoutInflater.from(context);
+        dbKategori=DbKategori.getInstance(context);
     }
 
     @Override
@@ -33,11 +42,13 @@ public class RecycleViewAdapterKategori extends RecyclerView.Adapter<RecycleView
     public void onBindViewHolder(RecycleViewHolderKategori holder, int position) {
         String[] kategoriArray={"Make Up", "Makan", "Kampus"};
 
-        holder.textViewKategori.setText(kategoriArray[position]);
+        Kategori kategori=kategoriList.get(position);
+
+        holder.textViewKategori.setText(kategori.getKategori());
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return kategoriList.size();
     }
 }
