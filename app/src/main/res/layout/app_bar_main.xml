@@ -29,12 +29,28 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <com.github.clans.fab.FloatingActionMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/plus2" />
+        app:menu_colorNormal="@color/colorPrimary"
+        app:menu_colorPressed="@color/colorPrimaryDark"
+        app:menu_animationDelayPerItem="50">
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menuTambahData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mode_edit_black_24dp"
+            app:fab_size="mini"
+            app:fab_label="Tambah Data" />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menuTambahKategori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mode_edit_black_24dp"
+            app:fab_size="mini"
+            app:fab_label="Tambah Kategori" />
+    </com.github.clans.fab.FloatingActionMenu>
+
 </android.support.design.widget.CoordinatorLayout>

@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     TextView pemasukkanText, pengeluaranText, saldoText;
     CardView cardView;
     String masuk, keluar, saldo;
+    com.github.clans.fab.FloatingActionButton fabTambahKategori;
+    com.github.clans.fab.FloatingActionButton fabTambahData;
 
     RecycleViewAdapterHome adapterHome;
 
@@ -59,11 +61,22 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        fabTambahKategori = (com.github.clans.fab.FloatingActionButton)findViewById(R.id.menuTambahKategori);
+        fabTambahData = (com.github.clans.fab.FloatingActionButton)findViewById(R.id.menuTambahData);
+
+        fabTambahKategori.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, KategoriActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        fabTambahKategori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,MasukActivity.class);
                 startActivity(intent);
             }
         });

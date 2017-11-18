@@ -70,4 +70,5 @@ dependencies {
     implementation group: 'org.apache.poi', name: 'poi', version: '3.15'
     implementation 'com.github.lutvie72:RackMonthPicker:1.4'
     implementation 'com.andrognito.pinlockview:pinlockview:2.1.0'
+    implementation 'com.github.clans:fab:1.6.4'
 }
