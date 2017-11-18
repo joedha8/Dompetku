@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/colorPrimary"
-    tools:context="com.rackspira.dompetku.ExportActivity">
+    tools:context="com.rackspira.dompetku.ui.ExportActivity">
 
     <ImageView
         android:layout_width="wrap_content"
