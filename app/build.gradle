@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.rackspira.dompetku"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 16
         versionCode 4
         versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

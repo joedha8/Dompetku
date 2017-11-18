@@ -41,7 +41,8 @@ public class SettingPin extends AppCompatActivity {
         pinLockView.setPinLockListener(pinLockListener);
         pinLockView.setPinLength(4);
         pinLockView.clearFocus();
-        pinLockView.setTextColor(ContextCompat.getColor(this,R.color.textWhite));
+        pinLockView.setTextColor(ContextCompat.getColor(this,R.color.color_primary));
+
 
         final SharedPreferencesStorage sharedPreferencesStorage = new SharedPreferencesStorage(SettingPin.this);
         pinLama = sharedPreferencesStorage.getPin();

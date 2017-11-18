@@ -35,7 +35,7 @@ public class PinView extends Activity {
         pinLockView.attachIndicatorDots(indicatorDots);
         pinLockView.setPinLockListener(pinLockListener);
         pinLockView.setPinLength(4);
-        pinLockView.setTextColor(ContextCompat.getColor(this,R.color.textWhite));
+        pinLockView.setTextColor(ContextCompat.getColor(this,R.color.color_primary));
     }
 
     PinLockListener pinLockListener = new PinLockListener() {

@@ -96,26 +96,10 @@
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
         </LinearLayout>
     </LinearLayout>
-    <com.rackspira.kal.lib.CustomTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:text="Kategori"
-        android:background="@drawable/shape"
-        android:textSize="@dimen/size_jum_keluar"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="@dimen/margin_left_pengeluaran"
-        android:layout_marginRight="@dimen/margin_left_pengeluaran"
-        android:textColor="#000000"
-        android:id="@+id/kategori"
-        android:layout_below="@+id/linear1"
-        android:layout_gravity="end"
-        android:textAlignment="center"
-        app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/kategori"
+        android:layout_below="@+id/linear1"
         android:id="@+id/recyclerview">
 
     </android.support.v7.widget.RecyclerView>

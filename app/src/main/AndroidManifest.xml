@@ -26,9 +26,6 @@
             android:name=".ui.Pengeluaran"
             android:noHistory="true" />
         <activity
-            android:name=".ui.KategoriActivity"
-            android:noHistory="true" />
-        <activity
             android:name=".MenuPilihan.UpdateActivity"
             android:noHistory="true" />
         <activity
