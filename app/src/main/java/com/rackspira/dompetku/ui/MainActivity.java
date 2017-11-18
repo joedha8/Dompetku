@@ -20,10 +20,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rackspira.dompetku.BackupRestoreActivity;
 import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
+import com.rackspira.dompetku.ui.Diagram_keungan;
+import com.rackspira.dompetku.ui.ExportActivity;
+import com.rackspira.dompetku.ui.MasukActivity;
+import com.rackspira.dompetku.ui.Pemasukkan;
+import com.rackspira.dompetku.ui.Pengeluaran;
+import com.rackspira.dompetku.ui.Setting;
+import com.rackspira.dompetku.ui.Tentang;
 import com.rackspira.dompetku.recyclerview.RecycleViewAdapterHome;
 
 import java.io.ByteArrayOutputStream;
@@ -180,6 +188,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(id == R.id.setting){
             Intent intent = new Intent(MainActivity.this,Setting.class);
+            startActivity(intent);
+        }else if (id == R.id.backup_restore){
+            Intent intent = new Intent(MainActivity.this, BackupRestoreActivity.class);
             startActivity(intent);
         }
 

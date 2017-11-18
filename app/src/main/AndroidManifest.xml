@@ -44,6 +44,7 @@
         <activity
             android:name=".ui.Tentang"
             android:noHistory="true" />
+        <activity android:name=".BackupRestoreActivity"></activity>
         <activity android:name=".ui.Diagram_keungan" />
         <activity android:name=".ui.ExportActivity" />
         <activity

@@ -22,9 +22,16 @@
 
         <item
             android:id="@+id/export"
-            android:icon="@drawable/pie_c"
+            android:icon="@drawable/excel_icon"
             android:title="Export"
             />
+
+        <item
+            android:id="@+id/backup_restore"
+            android:icon="@drawable/icons8_data_backup_filled"
+            android:title="Backup &amp; Restore"
+            />
+
         <item
             android:id="@+id/setting"
             android:icon="@drawable/ic_settings_black_24dp"

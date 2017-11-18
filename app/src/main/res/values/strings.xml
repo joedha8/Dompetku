@@ -11,6 +11,9 @@
     <string name="pengeluaran_string">Pengeluaran</string>
     <string name="tentang">Aplikasi ini bertujuan untuk membantu memanajemen siklus keuangan harian Anda</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string-array name="kategori">
         <item>Make Up</item>
         <item>Makan</item>
