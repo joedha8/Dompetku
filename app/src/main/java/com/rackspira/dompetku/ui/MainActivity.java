@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        fabTambahKategori.setOnClickListener(new View.OnClickListener() {
+        fabTambahData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,MasukActivity.class);

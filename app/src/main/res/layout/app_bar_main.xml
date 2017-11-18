@@ -33,6 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        app:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
         android:layout_margin="@dimen/fab_margin"
         app:menu_colorNormal="@color/colorPrimary"
         app:menu_colorPressed="@color/colorPrimaryDark"
@@ -41,7 +43,7 @@
             android:id="@+id/menuTambahData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_mode_edit_black_24dp"
+           android:src="@drawable/ic_mode_edit_black_24dp"
             app:fab_size="mini"
             app:fab_label="Tambah Data" />
         <com.github.clans.fab.FloatingActionButton
