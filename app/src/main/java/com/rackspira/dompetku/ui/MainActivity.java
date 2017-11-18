@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
     public void refreshList() {
         rview = (RecyclerView) findViewById(R.id.recyclerview);
         //adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk(), this);
-        adapterHome=new RecycleViewAdapterHome(this);
+        adapterHome=new RecycleViewAdapterHome(MainActivity.this);
         rview.setAdapter(adapterHome);
         rview.setLayoutManager(new LinearLayoutManager(this));
         adapterHome.notifyDataSetChanged();

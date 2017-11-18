@@ -41,7 +41,7 @@
             <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SIsa Saldo"
+                android:text="Sisa Saldo"
                 android:textSize="@dimen/size_teks_pengeluaran"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/textWhite"

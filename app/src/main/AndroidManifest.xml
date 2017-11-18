@@ -49,6 +49,7 @@
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.Setting" />
+        <activity android:name=".DetailActivity"/>
         <activity android:name=".ui.SettingPin"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
