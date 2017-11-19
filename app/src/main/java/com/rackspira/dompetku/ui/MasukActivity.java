@@ -7,15 +7,20 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.database.DbHelper;
+import com.rackspira.dompetku.database.DbKategori;
 import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -26,13 +31,16 @@ import java.util.Date;
 public class MasukActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, RefreshHandler {
     SQLiteDatabase db;
     DbHelper dbHelper;
+    DbKategori dbKategori;
     RecyclerViewAdapter adapter;
+    String kat;
     private EditText edtKet, edtNom;
     private Button btnSave;
     private RadioGroup radioStatus;
     private RadioButton radioStatusButton;
     private EditText tanggal;
     private String tglnya;
+    private Spinner spinnerKategori;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +56,50 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         btnSave=(Button)findViewById(R.id.save);
         tanggal=(EditText)findViewById(R.id.tgl);
         radioStatus=(RadioGroup)findViewById(R.id.stat);
+        spinnerKategori=(Spinner)findViewById(R.id.spinner_kategori);
         dbHelper=DbHelper.getInstance(getApplicationContext());
+        dbKategori=DbKategori.getInstance(getApplicationContext());
 
         SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
         String tgl=sdf.format( new Date() );
         tanggal.setText(tgl);
         tglnya=tgl;
+
+        System.out.println("Data Kategori : "+dbKategori.getKategori().size());
+        final String[] kategori=new String[dbKategori.getKategori().size()];
+        for (int i=0; i<dbKategori.getKategori().size(); i++){
+            kategori[i]=dbKategori.getKategori().get(i).getKategori();
+            System.out.println("Isi Kategori "+dbKategori.getKategori().get(i).getKategori());
+        }
+        ArrayAdapter<String> spinnerArrayAdapter=new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kategori);
+        spinnerKategori.setAdapter(spinnerArrayAdapter);
+        spinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int index=spinnerKategori.getSelectedItemPosition();
+                kat=kategori[index];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        RadioButton radioButtonPemasukkan=(RadioButton)findViewById(R.id.radioMasuk);
+        radioButtonPemasukkan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerKategori.setVisibility(View.GONE);
+            }
+        });
+        RadioButton radioButtonPengeluaran=(RadioButton)findViewById(R.id.radioKeluar);
+        radioButtonPengeluaran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerKategori.setVisibility(View.VISIBLE);
+            }
+        });
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,15 +120,16 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
             public void onClick(View view) {
                 final DataMasuk dataMasuk=new DataMasuk();
 
-                dataMasuk.setKet(edtKet.getText().toString());
-                dataMasuk.setBiaya(edtNom.getText().toString());
-
                 int select_id=radioStatus.getCheckedRadioButtonId();
                 radioStatusButton=(RadioButton)findViewById(select_id);
-                dataMasuk.setStatus(radioStatusButton.getText().toString());
 
+                dataMasuk.setStatus(radioStatusButton.getText().toString());
+                dataMasuk.setKet(edtKet.getText().toString());
+                dataMasuk.setBiaya(edtNom.getText().toString());
+                dataMasuk.setKat(kat);
                 dataMasuk.setTanggal(tglnya);
-                if(!edtKet.getText().toString().isEmpty() && !edtNom.getText().toString().isEmpty() && !tanggal.getText().toString().isEmpty() ){
+
+                if(!edtKet.getText().toString().isEmpty() && !edtNom.getText().toString().isEmpty() && !tanggal.getText().toString().isEmpty()){
                     dbHelper.insertData(dataMasuk);
                     Intent intent=new Intent(MasukActivity.this, MainActivity.class);
                     startActivity(intent);

@@ -21,16 +21,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
     protected static final String TAG = "DbHelper";
 
-    private static final String DATABASE_NAME = "dompet";
+    private static final String DATABASE_NAME = "epenting";
     private static final int DATABASE_VERSION = 1;
 
-    protected static final String TABLE_INPUT = "inputan";
+    protected static final String TABLE_INPUT = "keuangan";
 
     protected static final String KET = "ket";
     protected static final String BIAYA = "biaya";
     protected static final String STATUS = "status";
     protected static final String TANGGAL = "tanggal";
     protected static final String ID = "id";
+    protected static final String KATEGORI = "kategori";
 
     private static DbHelper dbHelper;
 
@@ -43,7 +44,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 KET + " TEXT," +
                 BIAYA + " INTEGER," +
                 STATUS + " TEXT," +
-                TANGGAL + " TEXT);");
+                TANGGAL + " TEXT," +
+                KATEGORI + "TEXT);");
     }
 
     @Override
@@ -75,6 +77,7 @@ public class DbHelper extends SQLiteOpenHelper {
             values.put(BIAYA, dataMasuk.getBiaya());
             values.put(STATUS, dataMasuk.getStatus());
             values.put(TANGGAL, dataMasuk.getTanggal());
+            values.put(KATEGORI, dataMasuk.getKat());
 
             db.insertOrThrow(TABLE_INPUT, null, values);
             db.setTransactionSuccessful();
@@ -101,7 +104,8 @@ public class DbHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
                             cursor.getString(cursor.getColumnIndex(TANGGAL)),
-                            cursor.getString(cursor.getColumnIndex(ID)));
+                            cursor.getString(cursor.getColumnIndex(ID)),
+                            cursor.getString(cursor.getColumnIndex(KATEGORI)));
 
                     Log.d("id",cursor.getString(cursor.getColumnIndex(ID)));
                     dataMasukList.add(dataMasuk);
@@ -135,7 +139,8 @@ public class DbHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
                             cursor.getString(cursor.getColumnIndex(TANGGAL)),
-                            cursor.getString(cursor.getColumnIndex(ID)));
+                            cursor.getString(cursor.getColumnIndex(ID)),
+                            cursor.getString(cursor.getColumnIndex(KATEGORI)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());
@@ -167,7 +172,8 @@ public class DbHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
                             cursor.getString(cursor.getColumnIndex(TANGGAL)),
-                            cursor.getString(cursor.getColumnIndex(ID)));
+                            cursor.getString(cursor.getColumnIndex(ID)),
+                            cursor.getString(cursor.getColumnIndex(KATEGORI)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());
@@ -199,7 +205,8 @@ public class DbHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
                             cursor.getString(cursor.getColumnIndex(TANGGAL)),
-                            cursor.getString(cursor.getColumnIndex(ID)));
+                            cursor.getString(cursor.getColumnIndex(ID)),
+                            cursor.getString(cursor.getColumnIndex(KATEGORI)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());
@@ -231,7 +238,8 @@ public class DbHelper extends SQLiteOpenHelper {
                             cursor.getString(cursor.getColumnIndex(BIAYA)),
                             cursor.getString(cursor.getColumnIndex(STATUS)),
                             cursor.getString(cursor.getColumnIndex(TANGGAL)),
-                            cursor.getString(cursor.getColumnIndex(ID)));
+                            cursor.getString(cursor.getColumnIndex(ID)),
+                            cursor.getString(cursor.getColumnIndex(KATEGORI)));
                     dataMasukList.add(dataMasuk);
                 }
                 while (cursor.moveToNext());

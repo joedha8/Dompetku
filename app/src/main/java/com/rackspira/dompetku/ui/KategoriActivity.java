@@ -43,6 +43,7 @@ public class KategoriActivity extends AppCompatActivity {
                 if (!editTextInsetKategori.getText().toString().isEmpty()){
                     dbKategori.insertKategori(kategori);
                     refreshList();
+                    editTextInsetKategori.setText("");
                 }
             }
         });

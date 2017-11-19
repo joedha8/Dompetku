@@ -67,8 +67,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/pengeluaran_string"
                 android:textSize="@dimen/status_pengeluaran"
-                android:id="@+id/radiokeluar"/>
+                android:id="@+id/radioKeluar"/>
         </RadioGroup>
+        <Spinner
+            android:id="@+id/spinner_kategori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/kategori"
+            android:visibility="gone"/>
         <Button
             android:layout_width="88dp"
             android:layout_height="46dp"
