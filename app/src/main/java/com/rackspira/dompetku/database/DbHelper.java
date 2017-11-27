@@ -22,16 +22,16 @@ public class DbHelper extends SQLiteOpenHelper {
     protected static final String TAG = "DbHelper";
 
     private static final String DATABASE_NAME = "epenting";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
-    protected static final String TABLE_INPUT = "keuangan";
+    protected static final String TABLE_INPUT = "tbKeuangan";
 
     protected static final String KET = "ket";
     protected static final String BIAYA = "biaya";
     protected static final String STATUS = "status";
     protected static final String TANGGAL = "tanggal";
     protected static final String ID = "id";
-    protected static final String KATEGORI = "kategori";
+    protected static final String KATEGORI = "kat";
 
     private static DbHelper dbHelper;
 
@@ -39,19 +39,34 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_INPUT + "(" +
-                ID  + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                KET + " TEXT," +
-                BIAYA + " INTEGER," +
-                STATUS + " TEXT," +
-                TANGGAL + " TEXT," +
-                KATEGORI + "TEXT);");
+
+        String queryCreateTabel = "create table " +
+                TABLE_INPUT +
+                " (" +
+                ID + " integer primary key autoincrement not null," +
+                KET + " text," +
+                BIAYA + " integer," +
+                STATUS + " text," +
+                TANGGAL + " text," +
+                KATEGORI + " text" +
+                ");";
+
+        db.execSQL(queryCreateTabel);
+
+//        db.execSQL("CREATE TABLE " + TABLE_INPUT + "(" +
+//                ID  + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                KET + " TEXT," +
+//                BIAYA + " INTEGER," +
+//                STATUS + " TEXT," +
+//                TANGGAL + " TEXT," +
+//                KATEGORI + "TEXT" +
+//                ");");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int lama, int baru) {
         if (lama != baru) {
-            db.execSQL("DROP TABLE IF EXISTS" + TABLE_INPUT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_INPUT);
             onCreate(db);
         }
     }
@@ -73,17 +88,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
         try {
             ContentValues values = new ContentValues();
-            values.put(KET, dataMasuk.getKet());
-            values.put(BIAYA, dataMasuk.getBiaya());
+            values.put(KATEGORI, dataMasuk.getKat());
             values.put(STATUS, dataMasuk.getStatus());
             values.put(TANGGAL, dataMasuk.getTanggal());
-            values.put(KATEGORI, dataMasuk.getKat());
+            values.put(BIAYA, dataMasuk.getBiaya());
+            values.put(KET, dataMasuk.getKet());
 
             db.insertOrThrow(TABLE_INPUT, null, values);
             db.setTransactionSuccessful();
         } catch (SQLException e) {
             e.printStackTrace();
-            Log.d(TAG, "Gagal untuk Menambah");
+            Log.d(TAG, "Gagal untuk Menambah" + e);
         } finally {
             db.endTransaction();
         }
@@ -343,7 +358,9 @@ public class DbHelper extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_INPUT + " SET " +
                     KET + " ='" + dataMasuk.getKet() + "', " +
                     BIAYA + " ='" + dataMasuk.getBiaya() + "', " +
-                    TANGGAL + " ='" + dataMasuk.getTanggal() + "' WHERE " +
+                    TANGGAL + " ='" + dataMasuk.getTanggal() +
+                    KET + " ='" + dataMasuk.getKet() + "', " +
+                    "' WHERE " +
                     ID +" ='"+ GlobalDataMasuk.getDataMasuk().getId() +"'");
             db.setTransactionSuccessful();
         } catch (SQLException e) {
