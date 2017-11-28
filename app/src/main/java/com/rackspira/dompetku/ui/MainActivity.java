@@ -25,6 +25,7 @@ import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
+import com.rackspira.dompetku.database.DbKategori;
 import com.rackspira.dompetku.ui.Diagram_keungan;
 import com.rackspira.dompetku.ui.ExportActivity;
 import com.rackspira.dompetku.ui.MasukActivity;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
 
     RecyclerView rview;
     DbHelper dbHelper;
+    DbKategori dbKategori;
     RecyclerViewAdapter adapter;
     TextView pemasukkanText, pengeluaranText, saldoText;
     CardView cardView;
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity
         saldoText = (TextView) findViewById(R.id.saldo);
         cardView = (CardView) findViewById(R.id.card_view);
         dbHelper = DbHelper.getInstance(getApplicationContext());
+        dbKategori = DbKategori.getInstance(getApplicationContext());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity
     public void refreshList() {
         rview = (RecyclerView) findViewById(R.id.recyclerview);
         //adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk(), this);
-        adapterHome=new RecycleViewAdapterHome(MainActivity.this);
+        adapterHome=new RecycleViewAdapterHome(MainActivity.this, dbKategori.getKategori());
         rview.setAdapter(adapterHome);
         rview.setLayoutManager(new LinearLayoutManager(this));
         adapterHome.notifyDataSetChanged();

@@ -9,7 +9,12 @@ import android.view.ViewGroup;
 
 import com.rackspira.dompetku.DetailActivity;
 import com.rackspira.dompetku.R;
+import com.rackspira.dompetku.database.DbHelper;
+import com.rackspira.dompetku.database.DbKategori;
+import com.rackspira.dompetku.database.Kategori;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Inflater;
 
 /**
@@ -18,11 +23,17 @@ import java.util.zip.Inflater;
 
 public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHolderHome> {
     Context context;
+    List<Kategori> kategoriList = new ArrayList<>();
     LayoutInflater inflater;
+    DbKategori dbKategori;
+    DbHelper dbHelper;
 
-    public RecycleViewAdapterHome(Context context) {
+    public RecycleViewAdapterHome(Context context, List<Kategori> kategoriList) {
         this.context = context;
+        this.kategoriList=kategoriList;
         inflater=LayoutInflater.from(context);
+        dbKategori=DbKategori.getInstance(context);
+        dbHelper=DbHelper.getInstance(context);
     }
 
     @Override
@@ -35,13 +46,19 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
 
     @Override
     public void onBindViewHolder(RecycleViewHolderHome holder, int position) {
-        int[] imageArray={R.drawable.ic_circle_minus_red, R.drawable.ic_circle_plus_green, R.drawable.ic_circle_minus_red, R.drawable.ic_circle_minus_red};
-        String[] keterangan={"Make Up", "Pemasukkan", "Makan", "Kampus"};
-        String[] nominal={"Rp. 250.000", "Rp. 2.500.000", "Rp. 500.000", "Rp. 1.050.000"};
+        Kategori kategori=kategoriList.get(position);
+        int[] pengeluaran=new int[dbKategori.getKategori().size()];
 
-        //holder.imageViewHome.setImageResource(imageArray[position]);
-        holder.textViewKeteranganHome.setText(keterangan[position]);
-        holder.textViewNominalHome.setText(nominal[position]);
+        for (int i = 0; i<dbKategori.getKategori().size(); i++){
+            pengeluaran[i]=dbHelper.biayaPerKategori(kategori.getKategori());
+        }
+        //System.out.println("Kategorinya apa aja "+dbHelper.getPengeluaran().get(position).getKat());
+
+        System.out.println("kategori "+kategori.getKategori());
+        System.out.println("Biaya "+pengeluaran[position]);
+
+        holder.textViewKeteranganHome.setText(""+kategori.getKategori());
+        holder.textViewNominalHome.setText(""+pengeluaran[position]);
 
         holder.cardViewHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +71,6 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
 
     @Override
     public int getItemCount() {
-        return 4;
+        return dbKategori.getKategori().size();
     }
 }

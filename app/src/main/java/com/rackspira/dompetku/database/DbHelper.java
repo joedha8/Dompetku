@@ -35,7 +35,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static DbHelper dbHelper;
 
-    public int jumMasuk, jumKeluar, jumKeluarBulanan, jumMasukBulannan;
+    public int jumMasuk, jumKeluar, jumKeluarBulanan, jumMasukBulannan, biayaPerKategori;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -299,6 +299,21 @@ public class DbHelper extends SQLiteOpenHelper {
         cursorKeluar.close();
 
         return jumKeluar;
+    }
+
+    public int biayaPerKategori(String kat) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursorKeluar = db.rawQuery("select sum(" + BIAYA + ") from " + TABLE_INPUT + " where " + KATEGORI + " = '"+kat+"';", null);
+        if (cursorKeluar.moveToFirst()) {
+            biayaPerKategori = cursorKeluar.getInt(0);
+            System.out.println(biayaPerKategori);
+        } else {
+            biayaPerKategori = -1;
+            System.out.println(biayaPerKategori);
+        }
+        cursorKeluar.close();
+
+        return biayaPerKategori;
     }
 
     public int jumKeluarBulanan(int bulan, int tahun){

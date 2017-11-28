@@ -34,7 +34,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
     DbHelper dbHelper;
     DbKategori dbKategori;
     RecyclerViewAdapter adapter;
-    String kat;
+    String kat="pemasukkan";
     private EditText edtKet, edtNom;
     private Button btnSave;
     private RadioGroup radioStatus;

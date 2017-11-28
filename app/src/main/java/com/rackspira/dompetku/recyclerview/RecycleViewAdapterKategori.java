@@ -40,8 +40,6 @@ public class RecycleViewAdapterKategori extends RecyclerView.Adapter<RecycleView
 
     @Override
     public void onBindViewHolder(RecycleViewHolderKategori holder, int position) {
-        String[] kategoriArray={"Make Up", "Makan", "Kampus"};
-
         Kategori kategori=kategoriList.get(position);
 
         holder.textViewKategori.setText(kategori.getKategori());
