@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,19 +19,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.rackspira.dompetku.BackupRestoreActivity;
 import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
 import com.rackspira.dompetku.database.DbKategori;
-import com.rackspira.dompetku.ui.Diagram_keungan;
-import com.rackspira.dompetku.ui.ExportActivity;
-import com.rackspira.dompetku.ui.MasukActivity;
-import com.rackspira.dompetku.ui.Pemasukkan;
-import com.rackspira.dompetku.ui.Pengeluaran;
-import com.rackspira.dompetku.ui.Setting;
-import com.rackspira.dompetku.ui.Tentang;
 import com.rackspira.dompetku.recyclerview.RecycleViewAdapterHome;
 
 import java.io.ByteArrayOutputStream;

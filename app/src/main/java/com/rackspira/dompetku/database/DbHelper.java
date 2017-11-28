@@ -21,7 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     protected static final String TAG = "DbHelper";
 
-    private static final String DATABASE_NAME = "epenting";
+    public static final String DATABASE_NAME = "epenting";
     private static final int DATABASE_VERSION = 3;
 
     protected static final String TABLE_INPUT = "tbKeuangan";
