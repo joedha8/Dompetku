@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rackspira.dompetku.MenuPilihan.UpdateActivity">
+    tools:context="com.rackspira.epenting.MenuPilihan.UpdateActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

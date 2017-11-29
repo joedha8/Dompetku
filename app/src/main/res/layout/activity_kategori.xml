@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context="com.rackspira.dompetku.ui.KategoriActivity">
+    tools:context="com.rackspira.epenting.ui.KategoriActivity">
     <EditText
         android:id="@+id/edittext_insert_kategori"
         android:layout_width="match_parent"

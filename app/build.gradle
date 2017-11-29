@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        applicationId "com.rackspira.dompetku"
+        applicationId 'com.rackspira.epenting'
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 4
@@ -12,7 +12,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -25,25 +24,23 @@ android {
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
     }
-
     dexOptions {
         javaMaxHeapSize "4g"
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     lintOptions {
         abortOnError false
+    }
+    productFlavors {
     }
 }
 
@@ -51,7 +48,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:support-v4:26.1.0'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-v4'
@@ -67,10 +64,9 @@ dependencies {
     implementation 'com.wdullaer:materialdatetimepicker:2.5.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     implementation 'com.victor:lib:1.0.4'
-    implementation group: 'org.apache.poi', name: 'poi', version: '3.15'
+    implementation 'org.apache.poi:poi:3.15'
     implementation 'com.github.lutvie72:RackMonthPicker:1.4'
     implementation 'com.andrognito.pinlockview:pinlockview:2.1.0'
-
     implementation 'com.google.android.gms:play-services-auth:11.6.0'
     implementation 'com.google.android.gms:play-services-identity:11.6.0'
     implementation 'com.google.android.gms:play-services-drive:11.6.0'
