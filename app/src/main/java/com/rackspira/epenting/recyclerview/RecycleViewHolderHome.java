@@ -13,8 +13,7 @@ import com.rackspira.epenting.R;
  */
 
 public class RecycleViewHolderHome extends RecyclerView.ViewHolder {
-    TextView textViewKeteranganHome, textViewNominalHome;
-    ImageView imageViewHome;
+    TextView textViewKeteranganHome, textViewNominalHome, textViewTotalPengeluaran;
     CardView cardViewHome;
 
     public RecycleViewHolderHome(View itemView) {
@@ -22,7 +21,7 @@ public class RecycleViewHolderHome extends RecyclerView.ViewHolder {
 
         textViewKeteranganHome=(TextView)itemView.findViewById(R.id.keteranganHome);
         textViewNominalHome=(TextView)itemView.findViewById(R.id.nominalHome);
-        //imageViewHome=(ImageView)itemView.findViewById(R.id.gambarHome);
+        textViewTotalPengeluaran=(TextView)itemView.findViewById(R.id.total);
         cardViewHome=(CardView)itemView.findViewById(R.id.card_view_home);
     }
 }

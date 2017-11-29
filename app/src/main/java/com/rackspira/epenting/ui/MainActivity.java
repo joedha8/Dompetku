@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     Button btnPilihan;
 
     RecyclerViewAdapter adapter;
-    TextView pemasukkanText, pengeluaranText, saldoText,textKet;
+    TextView pemasukkanText, pengeluaranText, saldoText, textKet;
     CardView cardView;
     String masuk, keluar, saldo;
     com.github.clans.fab.FloatingActionButton fabTambahKategori;
@@ -97,6 +97,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (dbKategori.getKategori().size() == 0){
+            textKet.setVisibility(View.VISIBLE);
+        }else {
+            textKet.setVisibility(View.GONE);
+        }
+
         uangFormat();
         refreshList();
         refreshList2();
@@ -111,14 +118,28 @@ public class MainActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i){
                             case 0 :
-                                rview.setVisibility(View.GONE);
-                                rviewTerakhri.setVisibility(View.VISIBLE);
-                                btnPilihan.setText("Semua Data");
+                                if (dbHelper.getMasuk().size() == 0){
+                                    textKet.setVisibility(View.VISIBLE);
+                                    rview.setVisibility(View.GONE);
+                                    btnPilihan.setText("Semua Data");
+                                }else {
+                                    textKet.setVisibility(View.GONE);
+                                    rview.setVisibility(View.GONE);
+                                    rviewTerakhri.setVisibility(View.VISIBLE);
+                                    btnPilihan.setText("Semua Data");
+                                }
                                 break;
                             case 1 :
-                                rview.setVisibility(View.VISIBLE);
-                                rviewTerakhri.setVisibility(View.GONE);
-                                btnPilihan.setText("Kategori");
+                                if (dbKategori.getKategori().size() == 0){
+                                    textKet.setVisibility(View.VISIBLE);
+                                    rviewTerakhri.setVisibility(View.GONE);
+                                    btnPilihan.setText("Kategori");
+                                }else {
+                                    textKet.setVisibility(View.GONE);
+                                    rview.setVisibility(View.VISIBLE);
+                                    rviewTerakhri.setVisibility(View.GONE);
+                                    btnPilihan.setText("Kategori");
+                                }
                                 break;
                         }
                     }
@@ -126,11 +147,6 @@ public class MainActivity extends AppCompatActivity
                 builder.create().show();
             }
         });
-        if(dbHelper.jumMasuk == 0){
-            textKet.setVisibility(View.VISIBLE);
-        }else {
-            textKet.setVisibility(View.GONE);
-        }
     }
 
     private void refreshList2() {
@@ -163,13 +179,9 @@ public class MainActivity extends AppCompatActivity
         masuk = hasilMasuk;
         keluar = hasolKeluar;
         saldo=hasilSaldo;
-        //pemasukkanText.setText(masuk);
-        //pengeluaranText.setText(keluar);
-        //saldoText.setText(saldo);
-
-        pemasukkanText.setText("Rp 2.500.000");
-        pengeluaranText.setText("Rp. 1.800.000");
-        saldoText.setText("Rp. 700.000");
+        pemasukkanText.setText(masuk);
+        pengeluaranText.setText(keluar);
+        saldoText.setText(saldo);
     }
 
     public void refreshList() {

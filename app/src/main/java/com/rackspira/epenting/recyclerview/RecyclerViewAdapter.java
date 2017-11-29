@@ -39,6 +39,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         this.dbhelper = dbhelper;
     }
 
+    public RecyclerViewAdapter(Context context, List<DataMasuk> dataMasuks) {
+        this.context = context;
+        this.dataMasuks = dataMasuks;
+    }
+
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(context).inflate(R.layout.list_view, parent, false);
@@ -58,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         decimalFormatSymbols.setMonetaryDecimalSeparator(',');
         decimalFormatSymbols.setGroupingSeparator('.');
         decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
-        String biayaTampil= "Rp. " + decimalFormat.format(biaya)+ ",00";
+        String biayaTampil= "Rp. " + decimalFormat.format(biaya);
 
         holder.keterangan.setText(dataMasuk.getKet());
         holder.pemasukkan_head.setText(dataMasuk.getStatus());
@@ -66,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         holder.tglMasuk.setText(dataMasuk.getTanggal());
 
 
-        
+
         if( dataMasuk.getStatus().equals("Pemasukkan")){
             holder.gambar.setImageResource(R.drawable.ic_circle_plus_green);
         }else{

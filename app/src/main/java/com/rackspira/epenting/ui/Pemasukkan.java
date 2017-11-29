@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,10 +100,10 @@ public class Pemasukkan extends AppCompatActivity {
     }
 
     public void refreshRview(){
-        /*rview = (RecyclerView)findViewById(R.id.recyclerMasuk);
+        rview = (RecyclerView)findViewById(R.id.recyclerMasuk);
         adapter = new RecyclerViewAdapter(this, dbHelper.getPemasukkan(dateAwal, dateAkhir));
         rview.setAdapter(adapter);
-        rview.setLayoutManager(new LinearLayoutManager(this));*/
+        rview.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

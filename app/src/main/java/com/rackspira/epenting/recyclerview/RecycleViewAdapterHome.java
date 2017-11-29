@@ -12,7 +12,10 @@ import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.database.DbKategori;
 import com.rackspira.epenting.database.Kategori;
+import com.rackspira.epenting.recyclerview.RecycleViewHolderHome;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,28 +47,42 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
     }
 
     @Override
-    public void onBindViewHolder(RecycleViewHolderHome holder, int position) {
+    public void onBindViewHolder(final RecycleViewHolderHome holder, int position) {
         Kategori kategori=kategoriList.get(position);
         int[] pengeluaran=new int[dbKategori.getKategori().size()];
 
         for (int i = 0; i<dbKategori.getKategori().size(); i++){
             pengeluaran[i]=dbHelper.biayaPerKategori(kategori.getKategori());
         }
-        //System.out.println("Kategorinya apa aja "+dbHelper.getPengeluaran().get(position).getKat());
 
         System.out.println("kategori "+kategori.getKategori());
         System.out.println("Biaya "+pengeluaran[position]);
 
-        holder.textViewKeteranganHome.setText(""+kategori.getKategori());
-        holder.textViewNominalHome.setText(""+pengeluaran[position]);
+        if (pengeluaran[position]==0){
+            holder.textViewKeteranganHome.setText(""+kategori.getKategori());
+            holder.textViewTotalPengeluaran.setText("Belum ada data pada kategori ini");
+            holder.textViewNominalHome.setVisibility(View.GONE);
+            holder.cardViewHome.setClickable(false);
+        } else {
+            DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+            DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+            decimalFormatSymbols.setCurrencySymbol("");
+            decimalFormatSymbols.setMonetaryDecimalSeparator(',');
+            decimalFormatSymbols.setGroupingSeparator('.');
+            decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+            String biayaTampil= "Rp. " + decimalFormat.format(pengeluaran[position]);
 
-        holder.cardViewHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(context, DetailActivity.class);
-                context.startActivity(intent);
-            }
-        });
+            holder.textViewKeteranganHome.setText(""+kategori.getKategori());
+            holder.textViewNominalHome.setText(""+biayaTampil);
+            holder.cardViewHome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(context, DetailActivity.class);
+                    intent.putExtra("kategori", holder.textViewKeteranganHome.getText().toString());
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
