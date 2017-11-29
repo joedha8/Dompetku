@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
 import com.rackspira.dompetku.MenuPilihan.UpdateActivity;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DataMasuk;
 import com.rackspira.dompetku.database.DbHelper;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,19 +29,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     private Context context;
     private List<DataMasuk> dataMasuks = new ArrayList<>();
-    LayoutInflater inflater;
+    RefreshHandler refreshHandler;
     DbHelper dbhelper;
 
-    public RecyclerViewAdapter(Context context) {
+    public RecyclerViewAdapter(Context context, List<DataMasuk> dataMasuks, RefreshHandler refreshHandler, DbHelper dbhelper) {
         this.context = context;
-//        this.dataMasuks = dataMasuks1;
-//        inflater = LayoutInflater.from(context);
-//        dbhelper=DbHelper.getInstance(context);
+        this.dataMasuks = dataMasuks;
+        this.refreshHandler = refreshHandler;
+        this.dbhelper = dbhelper;
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View convertView = inflater.inflate(R.layout.list_view, parent, false);
+        View convertView = LayoutInflater.from(context).inflate(R.layout.list_view, parent, false);
         RecyclerViewHolder viewHolder = new RecyclerViewHolder(convertView);
         return viewHolder;
     }
@@ -46,9 +49,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         final DataMasuk dataMasuk = dataMasuks.get(position);
+
+        double biaya = Double.parseDouble(dataMasuk.getBiaya());
+
+        DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        decimalFormatSymbols.setMonetaryDecimalSeparator(',');
+        decimalFormatSymbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+        String biayaTampil= "Rp. " + decimalFormat.format(biaya)+ ",00";
+
         holder.keterangan.setText(dataMasuk.getKet());
         holder.pemasukkan_head.setText(dataMasuk.getStatus());
-        holder.nominal.setText("Rp. " +dataMasuk.getBiaya()+",00");
+        holder.nominal.setText(biayaTampil );
         holder.tglMasuk.setText(dataMasuk.getTanggal());
 
 
@@ -64,7 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final CharSequence[] charSequence={"Lihat", "Update", "Hapus"};
+                final CharSequence[] charSequence={"Update", "Hapus"};
                 AlertDialog.Builder builder=new AlertDialog.Builder(context);
                 builder.setTitle("Pilihan");
                 builder.setItems(charSequence, new DialogInterface.OnClickListener() {
@@ -77,6 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                                 break;
                             case 1 :
                                 dbhelper.deleteRow(dataMasuk.getKet(), dataMasuk.getBiaya(), dataMasuk.getTanggal());
+                                refreshHandler.onRefresh();
                                 break;
                         }
                     }
@@ -88,7 +103,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     @Override
     public int getItemCount() {
-
         return dataMasuks.size();
     }
 }

@@ -358,6 +358,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     BIAYA + " = '" + nom + "' AND " +
                     TANGGAL + " = '" + tgl + "'");
             db.setTransactionSuccessful();
+            Log.d("berhasi","Delet berhasil");
         } catch (SQLException e) {
             Log.d(TAG, "Gagal menghapus");
         } finally {

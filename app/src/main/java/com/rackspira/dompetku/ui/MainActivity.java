@@ -17,12 +17,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.rackspira.dompetku.MenuPilihan.RefreshHandler;
+import com.rackspira.dompetku.MenuPilihan.UpdateActivity;
 import com.rackspira.dompetku.R;
-import com.rackspira.dompetku.adapterRecyclerView.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbHelper;
+import com.rackspira.dompetku.recyclerview.RecyclerViewAdapter;
 import com.rackspira.dompetku.database.DbKategori;
 import com.rackspira.dompetku.recyclerview.RecycleViewAdapterHome;
 
@@ -34,10 +36,12 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, RefreshHandler {
 
     RecyclerView rview;
+    RecyclerView rviewTerakhri;
     DbHelper dbHelper;
     DbKategori dbKategori;
+    Button btnPilihan;
     RecyclerViewAdapter adapter;
-    TextView pemasukkanText, pengeluaranText, saldoText;
+    TextView pemasukkanText, pengeluaranText, saldoText,textKet;
     CardView cardView;
     String masuk, keluar, saldo;
     com.github.clans.fab.FloatingActionButton fabTambahKategori;
@@ -57,6 +61,9 @@ public class MainActivity extends AppCompatActivity
 
         fabTambahKategori = (com.github.clans.fab.FloatingActionButton)findViewById(R.id.menuTambahKategori);
         fabTambahData = (com.github.clans.fab.FloatingActionButton)findViewById(R.id.menuTambahData);
+        btnPilihan = (Button)findViewById(R.id.btnUrutan);
+        textKet = (TextView)findViewById(R.id.textKet);
+
 
         fabTambahKategori.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +99,48 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         uangFormat();
         refreshList();
+        refreshList2();
+        btnPilihan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CharSequence[] charSequence={"Semua Data", "Kategori"};
+                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Pilihan");
+                builder.setItems(charSequence, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i){
+                            case 0 :
+                                rview.setVisibility(View.GONE);
+                                rviewTerakhri.setVisibility(View.VISIBLE);
+                                btnPilihan.setText("Semua Data");
+                                break;
+                            case 1 :
+                                rview.setVisibility(View.VISIBLE);
+                                rviewTerakhri.setVisibility(View.GONE);
+                                btnPilihan.setText("Kategori");
+                                break;
+                        }
+                    }
+                });
+                builder.create().show();
+            }
+        });
+        if(dbHelper.jumMasuk == 0){
+            textKet.setVisibility(View.VISIBLE);
+        }else {
+            textKet.setVisibility(View.GONE);
+        }
+    }
+
+    private void refreshList2() {
+        rviewTerakhri = (RecyclerView)findViewById(R.id.recyclerviewTerakhir);
+        dbHelper = DbHelper.getInstance(getApplicationContext());
+        adapter=new RecyclerViewAdapter(this, dbHelper.getMasuk(), this,dbHelper);
+        rviewTerakhri.setHasFixedSize(true);
+        rviewTerakhri.setAdapter(adapter);
+        rviewTerakhri.setLayoutManager(new LinearLayoutManager(this));
+        adapter.notifyDataSetChanged();
     }
 
     public void uangFormat() {

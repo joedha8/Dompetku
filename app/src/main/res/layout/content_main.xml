@@ -25,25 +25,25 @@
             <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Pemasukan"
-                android:textSize="@dimen/size_teks_pemasukkan"
+                android:textSize="14sp"
                 android:textColor="@color/textWhite"
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
             <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pengeluaran"
-                android:textSize="@dimen/size_teks_pengeluaran"
-                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/textWhite"
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
             <com.rackspira.kal.lib.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sisa Saldo"
-                android:textSize="@dimen/size_teks_pengeluaran"
-                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/textWhite"
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
 
@@ -56,11 +56,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/shape"
                 android:layout_marginLeft="@dimen/margin_left_pemasukkan"
                 android:text="Rp.2000.000"
-                android:textSize="@dimen/size_jum_masuk"
+                android:textSize="14sp"
                 android:textColor="@color/textPrimary"
                 android:id="@+id/pemasukkan"
                 android:layout_gravity="end"
@@ -72,8 +72,8 @@
                 android:padding="2dp"
                 android:background="@drawable/shape"
                 android:text="Rp.2000.000"
-                android:textSize="@dimen/size_jum_keluar"
-                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="@dimen/margin_left_pengeluaran"
                 android:textColor="@color/textPrimary"
                 android:id="@+id/pengeluaran"
@@ -86,8 +86,8 @@
                 android:padding="2dp"
                 android:background="@drawable/shape"
                 android:text="Rp.2000.000"
-                android:textSize="@dimen/size_jum_keluar"
-                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="@dimen/margin_left_pengeluaran"
                 android:textColor="@color/textPrimary"
                 android:id="@+id/saldo"
@@ -96,13 +96,50 @@
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/linearHorizontal"
+        android:layout_below="@+id/linear1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tampilkan Berdasarkan : "
+                android:textColor="#000"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textWhite"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="Kateori"
+                android:id="@+id/btnUrutan"/>
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linear1"
-        android:id="@+id/recyclerview">
-
+        android:layout_below="@+id/linearHorizontal"
+        android:id="@+id/recyclerview"
+        android:visibility="visible">
     </android.support.v7.widget.RecyclerView>
-
-
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/recyclerview"
+        android:visibility="gone"
+        android:id="@+id/recyclerviewTerakhir">
+    </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data Maih Kosong"
+        android:textColor="#000"
+        android:textSize="32sp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:visibility="visible"
+        android:id="@+id/textKet"
+        android:layout_centerVertical="true"/>
 </RelativeLayout>

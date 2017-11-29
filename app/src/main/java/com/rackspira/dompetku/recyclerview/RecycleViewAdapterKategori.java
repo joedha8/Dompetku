@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.rackspira.dompetku.R;
 import com.rackspira.dompetku.database.DbKategori;
 import com.rackspira.dompetku.database.Kategori;
@@ -41,8 +43,12 @@ public class RecycleViewAdapterKategori extends RecyclerView.Adapter<RecycleView
     @Override
     public void onBindViewHolder(RecycleViewHolderKategori holder, int position) {
         Kategori kategori=kategoriList.get(position);
-
+        ColorGenerator generator = ColorGenerator.MATERIAL;
+        int color1 = generator.getRandomColor();
         holder.textViewKategori.setText(kategori.getKategori());
+        TextDrawable drawable1 = TextDrawable.builder()
+                .buildRound(kategori.getKategori().substring(0,3), color1);
+        holder.imgLogo.setImageDrawable(drawable1);
     }
 
     @Override
