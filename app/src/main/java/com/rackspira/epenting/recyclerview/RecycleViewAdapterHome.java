@@ -3,6 +3,7 @@ package com.rackspira.epenting.recyclerview;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,15 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
 
         System.out.println("kategori "+kategori.getKategori());
         System.out.println("Biaya "+pengeluaran[position]);
+        double batas = Double.parseDouble(kategori.getBatasPengeluaran());
+        DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        decimalFormatSymbols.setMonetaryDecimalSeparator(',');
+        decimalFormatSymbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+        String biayaTampil= "Rp. " + decimalFormat.format(pengeluaran[position]);
+        String batasTampil= "Rp. " + decimalFormat.format(batas);
 
         if (pengeluaran[position]==0){
             holder.textViewKeteranganHome.setText(""+kategori.getKategori());
@@ -64,13 +74,7 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
             holder.textViewNominalHome.setVisibility(View.GONE);
             holder.cardViewHome.setClickable(false);
         } else {
-            DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-            DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
-            decimalFormatSymbols.setCurrencySymbol("");
-            decimalFormatSymbols.setMonetaryDecimalSeparator(',');
-            decimalFormatSymbols.setGroupingSeparator('.');
-            decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
-            String biayaTampil= "Rp. " + decimalFormat.format(pengeluaran[position]);
+
 
             holder.textViewKeteranganHome.setText(""+kategori.getKategori());
             holder.textViewNominalHome.setText(""+biayaTampil);
@@ -82,6 +86,16 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
                     context.startActivity(intent);
                 }
             });
+        }
+        Log.d("biayaTampil",batasTampil);
+        Log.d("batas","" + batas);
+        if(batas == 0){
+            holder.textViewKetHome.setText("Batas Pengeluaran tidak ada");
+            holder.textViewBatasHome.setVisibility(View.GONE);
+        }else {
+            holder.textViewBatasHome.setVisibility(View.VISIBLE);
+            holder.textViewKetHome.setText("Batas Pengeluaran");
+            holder.textViewBatasHome.setText(batasTampil);
         }
     }
 

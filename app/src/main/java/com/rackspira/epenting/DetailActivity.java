@@ -34,7 +34,7 @@ public class DetailActivity extends AppCompatActivity implements RefreshHandler 
         String kategori=intent.getStringExtra("kategori");
         dbHelper = DbHelper.getInstance(getApplicationContext());
         recyclerView=(RecyclerView)findViewById(R.id.recyclerviewDetail);
-        adapter=new RecyclerViewAdapter(this, dbHelper.sortByKategori(kategori));
+        adapter=new RecyclerViewAdapter(this, dbHelper.sortByKategori(kategori),this,dbHelper);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

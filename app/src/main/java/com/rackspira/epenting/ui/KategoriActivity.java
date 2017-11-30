@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DbKategori;
@@ -21,6 +23,8 @@ public class KategoriActivity extends AppCompatActivity {
     DbKategori dbKategori;
     Button buttonInsertKategori;
     EditText editTextInsetKategori;
+    EditText editTextBatasPengeluaran;
+    Switch switchPengeluaran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,19 @@ public class KategoriActivity extends AppCompatActivity {
         dbKategori=DbKategori.getInstance(getApplicationContext());
         buttonInsertKategori=(Button)findViewById(R.id.button_insert_kategori);
         editTextInsetKategori=(EditText)findViewById(R.id.edittext_insert_kategori);
+        editTextBatasPengeluaran = (EditText)findViewById(R.id.bts_edit);
+        switchPengeluaran = (Switch)findViewById(R.id.swPengeluaran);
+
+        switchPengeluaran.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    editTextBatasPengeluaran.setVisibility(View.VISIBLE);
+                }else{
+                    editTextBatasPengeluaran.setVisibility(View.GONE);
+                }
+            }
+        });
 
         buttonInsertKategori.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +58,7 @@ public class KategoriActivity extends AppCompatActivity {
                 Kategori kategori=new Kategori();
 
                 kategori.setKategori(editTextInsetKategori.getText().toString());
+                kategori.setBatasPengeluaran(editTextBatasPengeluaran.getText().toString());
 
                 if (!editTextInsetKategori.getText().toString().isEmpty()){
                     dbKategori.insertKategori(kategori);

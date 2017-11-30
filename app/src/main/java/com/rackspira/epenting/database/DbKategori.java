@@ -25,20 +25,29 @@ public class DbKategori extends SQLiteOpenHelper {
 
     protected static final String ID = "id";
     protected static final String KATEGORI = "kategori";
+    private static final String LIMITED = "limited";
 
     private static DbKategori dbKategori;
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_INPUT + "(" +
-                ID  + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                KATEGORI + " TEXT);");
+        String queryCreateTabel = "create table " +
+                TABLE_INPUT +
+                " (" +
+                ID + " integer primary key autoincrement not null," +
+                KATEGORI + " text," +
+                LIMITED + " integer" +
+                ");";
+        sqLiteDatabase.execSQL(queryCreateTabel);
+//        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_INPUT + "(" +
+//                ID  + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                KATEGORI + " TEXT);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int lama, int baru) {
         if (lama != baru) {
-            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS" + TABLE_INPUT);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_INPUT);
             onCreate(sqLiteDatabase);
         }
     }
@@ -61,6 +70,7 @@ public class DbKategori extends SQLiteOpenHelper {
             ContentValues values=new ContentValues();
             values.put(ID, kategori.getId());
             values.put(KATEGORI, kategori.getKategori());
+            values.put(LIMITED,kategori.getBatasPengeluaran());
 
             database.insertOrThrow(TABLE_INPUT, null, values);
             database.setTransactionSuccessful();
@@ -84,7 +94,8 @@ public class DbKategori extends SQLiteOpenHelper {
                 do {
                     Kategori kategori=new Kategori(
                             cursor.getString(cursor.getColumnIndex(ID)),
-                            cursor.getString(cursor.getColumnIndex(KATEGORI)));
+                            cursor.getString(cursor.getColumnIndex(KATEGORI)),
+                            cursor.getString(cursor.getColumnIndex(LIMITED)));
                     Log.d("id", cursor.getString(cursor.getColumnIndex(ID)));
                     kategoriList.add(kategori);
                 }

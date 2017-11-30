@@ -15,13 +15,15 @@ import com.rackspira.epenting.R;
 public class RecycleViewHolderKategori extends RecyclerView.ViewHolder {
     TextView textViewKategori;
     CardView cardViewKategori;
-    ImageView imgLogo;
+    TextView textViewBatas;
+    TextView textViewKet;
 
     public RecycleViewHolderKategori(View itemView) {
         super(itemView);
 
         textViewKategori=(TextView)itemView.findViewById(R.id.textViewKategori);
         cardViewKategori=(CardView)itemView.findViewById(R.id.card_viewKategori);
-        imgLogo = (ImageView)itemView.findViewById(R.id.imgSimbol);
+        textViewBatas = (TextView)itemView.findViewById(R.id.btsLimited);
+        textViewKet = (TextView)itemView.findViewById(R.id.textKet);
     }
 }

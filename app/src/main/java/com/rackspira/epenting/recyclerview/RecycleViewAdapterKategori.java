@@ -12,6 +12,8 @@ import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DbKategori;
 import com.rackspira.epenting.database.Kategori;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +45,30 @@ public class RecycleViewAdapterKategori extends RecyclerView.Adapter<RecycleView
     @Override
     public void onBindViewHolder(RecycleViewHolderKategori holder, int position) {
         Kategori kategori=kategoriList.get(position);
-        ColorGenerator generator = ColorGenerator.MATERIAL;
-        int color1 = generator.getRandomColor();
+
+        double batas = Double.parseDouble(kategori.getBatasPengeluaran());
+
+        DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        decimalFormatSymbols.setMonetaryDecimalSeparator(',');
+        decimalFormatSymbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+        String batasTampil= "Rp. " + decimalFormat.format(batas);
+
+        if(batas == 0){
+            holder.textViewKet.setText("Batas Pengeluaran tidak ada");
+            holder.textViewBatas.setVisibility(View.GONE);
+        }else {
+            holder.textViewBatas.setVisibility(View.VISIBLE);
+            holder.textViewKet.setText("Batas Pengeluaran");
+            holder.textViewBatas.setText(batasTampil);
+        }
+
         holder.textViewKategori.setText(kategori.getKategori());
-        TextDrawable drawable1 = TextDrawable.builder()
-                .buildRound(kategori.getKategori().substring(0,3), color1);
-        holder.imgLogo.setImageDrawable(drawable1);
+
+
+
     }
 
     @Override

@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:background="@color/colorHead"
         android:id="@+id/linear1"
-        android:padding="5dp">
+        android:padding="10dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="Pengeluaran"
                 android:textSize="14sp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/textWhite"
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
             <com.rackspira.kal.lib.CustomTextView
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sisa Saldo"
                 android:textSize="14sp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/textWhite"
                 app:fontPath="fonts/Wumbology-SemiBold.ttf"/>
 
@@ -100,8 +100,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:id="@+id/linearHorizontal"
         android:layout_below="@+id/linear1">
             <TextView
@@ -114,32 +114,44 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/textWhite"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:text="Kateori"
+                android:text="Semua Data"
                 android:id="@+id/btnUrutan"/>
     </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linearHorizontal"
-        android:id="@+id/recyclerview"
-        android:visibility="visible">
-    </android.support.v7.widget.RecyclerView>
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/recyclerview"
-        android:visibility="gone"
-        android:id="@+id/recyclerviewTerakhir">
-    </android.support.v7.widget.RecyclerView>
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Data Maih Kosong"
-        android:textColor="#000"
-        android:textSize="32sp"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:visibility="visible"
-        android:id="@+id/textKet"
-        android:layout_centerVertical="true"/>
+        android:padding="10dp"
+        android:layout_below="@+id/linearHorizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/linearHorizontal"
+                android:id="@+id/recyclerview"
+                android:visibility="gone">
+            </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                android:id="@+id/recyclerviewTerakhir">
+            </android.support.v7.widget.RecyclerView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data Masih Kosong"
+                android:textColor="#000"
+                android:textSize="32sp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:visibility="visible"
+                android:id="@+id/textKet"
+                android:layout_centerVertical="true"/>
+        </LinearLayout>
+    </ScrollView>
+
+
 </RelativeLayout>

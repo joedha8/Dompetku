@@ -15,6 +15,9 @@ import com.rackspira.epenting.R;
 public class RecycleViewHolderHome extends RecyclerView.ViewHolder {
     TextView textViewKeteranganHome, textViewNominalHome, textViewTotalPengeluaran;
     CardView cardViewHome;
+    TextView textViewBatasHome;
+    TextView textViewKetHome;
+
 
     public RecycleViewHolderHome(View itemView) {
         super(itemView);
@@ -23,5 +26,7 @@ public class RecycleViewHolderHome extends RecyclerView.ViewHolder {
         textViewNominalHome=(TextView)itemView.findViewById(R.id.nominalHome);
         textViewTotalPengeluaran=(TextView)itemView.findViewById(R.id.total);
         cardViewHome=(CardView)itemView.findViewById(R.id.card_view_home);
+        textViewBatasHome = (TextView)itemView.findViewById(R.id.btsLimitedHome);
+        textViewKetHome = (TextView)itemView.findViewById(R.id.textKetHome);
     }
 }

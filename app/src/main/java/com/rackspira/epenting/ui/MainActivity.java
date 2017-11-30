@@ -230,10 +230,10 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_pemasukkan) {
+//        if (id == R.id.nav_home) {
+////            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+////            startActivity(intent);}
+           if (id == R.id.nav_pemasukkan) {
             Intent intent = new Intent(MainActivity.this, Pemasukkan.class);
             startActivity(intent);
         } else if (id == R.id.nav_pengeluaran) {
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, ExportActivity.class);
             startActivity(intent);
         }else if(id == R.id.setting){
-            Intent intent = new Intent(MainActivity.this,Setting.class);
+            Intent intent = new Intent(MainActivity.this,SettingPin.class);
             startActivity(intent);
         }else if (id == R.id.backup_restore){
             Intent intent = new Intent(MainActivity.this, BackupRestoreActivity.class);
@@ -274,6 +274,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRefresh() {
         uangFormat();
+        refreshList2();
         adapter.notifyDataSetChanged();
     }
 }

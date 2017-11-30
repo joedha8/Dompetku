@@ -9,13 +9,23 @@ import java.io.Serializable;
 public class Kategori implements Serializable {
     private String id;
     private String kategori;
+    private String batasPengeluaran;
 
-    public Kategori(String id, String kategori) {
+    public Kategori(String id, String kategori, String batasPengeluaran) {
         this.id = id;
         this.kategori = kategori;
+        this.batasPengeluaran = batasPengeluaran;
     }
 
     public Kategori() {
+    }
+
+    public String getBatasPengeluaran() {
+        return batasPengeluaran;
+    }
+
+    public void setBatasPengeluaran(String batasPengeluaran) {
+        this.batasPengeluaran = batasPengeluaran;
     }
 
     public String getId() {

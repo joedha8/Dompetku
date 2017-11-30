@@ -12,8 +12,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Masukkan Kategori Baru"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textColor="#000000"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="false"
+            android:textOff="No"
+            android:textOn="Yes"
+            android:text="Atur batas pengeluaran"
+            android:id="@+id/swPengeluaran"
+            />
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:id="@+id/bts_edit"
+        android:visibility="gone"
+        android:text="0"/>
     <Button
         android:id="@+id/button_insert_kategori"
         android:layout_width="match_parent"

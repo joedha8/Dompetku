@@ -1,7 +1,12 @@
 package com.rackspira.epenting.ui;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +20,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
+import android.support.v4.app.NotificationCompat;
 import com.rackspira.epenting.MenuPilihan.RefreshHandler;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DataMasuk;
@@ -41,6 +46,10 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
     private EditText tanggal;
     private String tglnya;
     private Spinner spinnerKategori;
+    private static final  int NOTIFICATION_ID = 1;
+    private int jmlPerKategori;
+    private int batasPerKategori;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +76,10 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
 
         System.out.println("Data Kategori : "+dbKategori.getKategori().size());
         final String[] kategori=new String[dbKategori.getKategori().size()];
+        final String[] batasPerkategoris = new String[dbKategori.getKategori().size()];
         for (int i=0; i<dbKategori.getKategori().size(); i++){
             kategori[i]=dbKategori.getKategori().get(i).getKategori();
+            batasPerkategoris[i] = dbKategori.getKategori().get(i).getBatasPengeluaran();
             System.out.println("Isi Kategori "+dbKategori.getKategori().get(i).getKategori());
         }
         ArrayAdapter<String> spinnerArrayAdapter=new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kategori);
@@ -80,6 +91,8 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
                 kat=kategori[i];
                 Log.d("cara yudha",kategori[index]);
                 Log.d("cara saya",kat);
+                jmlPerKategori = dbHelper.biayaPerKategori(kat);
+                batasPerKategori = Integer.parseInt( batasPerkategoris[i]);
             }
 
             @Override
@@ -124,7 +137,6 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
 
                 int select_id=radioStatus.getCheckedRadioButtonId();
                 radioStatusButton=(RadioButton)findViewById(select_id);
-
                 dataMasuk.setStatus(radioStatusButton.getText().toString());
                 dataMasuk.setKet(edtKet.getText().toString());
                 dataMasuk.setBiaya(edtNom.getText().toString());
@@ -145,8 +157,45 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
                     Snackbar snackbar = Snackbar.make(view,"tanggal tidak boleh kosong",Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
+
+                Log.d("JmlKategori",jmlPerKategori+"");
+                Log.d("Batass",batasPerKategori+"");
+                int masukkan = Integer.parseInt(edtNom.getText().toString());
+                if(jmlPerKategori > batasPerKategori){
+                   notification();
+
+                }else if (masukkan > batasPerKategori){
+                    notification();
+                }
+
             }
         });
+
+
+    }
+
+    private void notification() {
+
+        Intent intentNotife = new Intent(getApplicationContext(),MainActivity.class);
+        intentNotife.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        PendingIntent intent = PendingIntent.getActivity(getApplicationContext(),0,intentNotife,0);
+        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_menu_camera)
+                .setContentTitle("E-Penting")
+                .setAutoCancel(true)
+                .setContentIntent(intent)
+                .setContentText("Pengeluaran anda Melebihi batas yang anda Tetapkan!");
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(sound);
+
+        notificationManager.notify(NOTIFICATION_ID,builder.build());
+
+
+
     }
 
     @Override
