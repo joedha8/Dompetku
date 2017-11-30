@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.chartutil.DemoBase;
+import com.rackspira.epenting.database.DataMasuk;
 import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.database.Hutang;
 
@@ -191,6 +192,7 @@ public class InputPeminjaman extends DemoBase {
                 } else if (status=="tidak"){
                     if (!editTextPeminjam.getText().toString().isEmpty() && !editTextNominal.getText().toString().isEmpty()) {
                         Hutang hutang = new Hutang();
+                        DataMasuk dataMasuk = new DataMasuk();
 
                         hutang.setPemberiPinjaman("" + editTextPeminjam.getText().toString());
                         hutang.setNominal("" + editTextNominal.getText().toString());
@@ -198,7 +200,14 @@ public class InputPeminjaman extends DemoBase {
                         hutang.setTgl_pinjam("" + editTextTanggalPinjam.getText().toString());
                         hutang.setTgl_kembali("" + editTextTanggalKembali.getText().toString());
 
+                        dataMasuk.setKet("Hutang "+editTextPeminjam.getText().toString());
+                        dataMasuk.setBiaya("" + editTextNominal.getText().toString());
+                        dataMasuk.setStatus("Pemasukkan");
+                        dataMasuk.setKat("pemasukkan");
+                        dataMasuk.setTanggal("" + editTextTanggalPinjam.getText().toString());
+
                         dbHelper.insertHutang(hutang);
+                        dbHelper.insertData(dataMasuk);
 
                         clear();
                     } else {

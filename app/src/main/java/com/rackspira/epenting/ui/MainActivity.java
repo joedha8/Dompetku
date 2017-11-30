@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (dbHelper.getKategori().size() == 0){
+        if (dbHelper.getMasuk().size() == 0){
             textKet.setVisibility(View.VISIBLE);
         }else {
             textKet.setVisibility(View.GONE);
