@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity
                                     rviewTerakhri.setVisibility(View.GONE);
                                     btnPilihan.setText("Kategori");
                                 }else {
+                                    refreshList();
                                     textKet.setVisibility(View.GONE);
                                     rview.setVisibility(View.VISIBLE);
                                     rviewTerakhri.setVisibility(View.GONE);
@@ -259,6 +260,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if (id == R.id.backup_restore){
             Intent intent = new Intent(MainActivity.this, BackupRestoreActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_peminjaman){
+            Intent intent = new Intent(MainActivity.this, PeminjamanActivity.class);
             startActivity(intent);
         }
 

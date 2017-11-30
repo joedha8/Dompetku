@@ -5,9 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,25 +20,26 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBBGA0TPTS2SYo2-Hr9oSpKOlv78SudHgk"/>
+            android:value="AIzaSyBBGA0TPTS2SYo2-Hr9oSpKOlv78SudHgk" />
+
         <activity
-            android:name="com.rackspira.epenting.ui.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.rackspira.epenting.ui.MasukActivity"
+            android:name=".ui.MasukActivity"
             android:noHistory="true" />
         <activity
-            android:name="com.rackspira.epenting.ui.Pemasukkan"
+            android:name=".ui.Pemasukkan"
             android:noHistory="true" />
         <activity
-            android:name="com.rackspira.epenting.ui.Pengeluaran"
+            android:name=".ui.Pengeluaran"
             android:noHistory="true" />
         <activity
-            android:name="com.rackspira.epenting.MenuPilihan.UpdateActivity"
+            android:name=".MenuPilihan.UpdateActivity"
             android:noHistory="true" />
         <activity
-            android:name="com.rackspira.epenting.ui.SplashScreen"
+            android:name=".ui.SplashScreen"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -47,21 +49,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.rackspira.epenting.ui.Tentang"
+            android:name=".ui.Tentang"
             android:noHistory="true" />
-        <activity android:name="com.rackspira.epenting.ui.BackupRestoreActivity"></activity>
-        <activity android:name="com.rackspira.epenting.ui.Diagram_keungan" />
-        <activity android:name="com.rackspira.epenting.ui.ExportActivity" />
+        <activity android:name=".ui.BackupRestoreActivity" />
+        <activity android:name=".ui.Diagram_keungan" />
+        <activity android:name=".ui.ExportActivity" />
         <activity
-            android:name="com.rackspira.epenting.ui.PinView"
+            android:name=".ui.PinView"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.rackspira.epenting.ui.Setting" />
-        <activity android:name="com.rackspira.epenting.DetailActivity"/>
-        <activity android:name="com.rackspira.epenting.ui.SettingPin"
+        <activity android:name=".ui.Setting" />
+        <activity android:name=".DetailActivity" />
+        <activity
+            android:name=".ui.SettingPin"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.rackspira.epenting.ui.KategoriActivity"/>
+        <activity android:name=".ui.KategoriActivity" />
+        <activity android:name=".ui.PeminjamanActivity"></activity>
     </application>
 
 </manifest>
