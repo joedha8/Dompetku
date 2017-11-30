@@ -15,6 +15,8 @@ import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DbHutang;
 import com.rackspira.epenting.database.Hutang;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +55,19 @@ public class RecyclerViewAdapterPeminjaman extends RecyclerView.Adapter<Recycler
             holder.textViewStatus.setText(hutang.getStatus());
         }
 
+        int biaya=Integer.parseInt(hutang.getNominal());
+
+        DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("");
+        decimalFormatSymbols.setMonetaryDecimalSeparator(',');
+        decimalFormatSymbols.setGroupingSeparator('.');
+        decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+        String biayaTampil= "Rp. " + decimalFormat.format(biaya);
+
         holder.textViewTanggalKembali.setText(hutang.getTgl_kembali());
         holder.textViewPemberiPinjaman.setText(hutang.getPemberiPinjaman());
-        holder.textViewNominalPinjaman.setText(hutang.getNominal());
+        holder.textViewNominalPinjaman.setText(biayaTampil);
         if (hutang.getCicilan()!=null){
             holder.textViewDetailCicilan.setVisibility(View.VISIBLE);
             holder.textViewDetailCicilan.setText(hutang.getCicilan()+"x Cicilan dan harus dibayar setiap tanggal "+hutang.getTgl_bayar_cicilan());
