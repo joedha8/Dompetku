@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.rackspira.epenting.R;
-import com.rackspira.epenting.database.DbKategori;
+import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.database.Kategori;
 
 import java.text.DecimalFormat;
@@ -25,13 +23,13 @@ public class RecycleViewAdapterKategori extends RecyclerView.Adapter<RecycleView
     Context context;
     LayoutInflater inflater;
     List<Kategori> kategoriList=new ArrayList<>();
-    DbKategori dbKategori;
+    DbHelper dbHelper;
 
     public RecycleViewAdapterKategori(Context context, List<Kategori> kategoriList) {
         this.context = context;
         this.kategoriList=kategoriList;
         inflater=LayoutInflater.from(context);
-        dbKategori=DbKategori.getInstance(context);
+        dbHelper =DbHelper.getInstance(context);
     }
 
     @Override

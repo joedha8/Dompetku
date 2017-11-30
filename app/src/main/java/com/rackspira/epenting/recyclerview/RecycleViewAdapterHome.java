@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 import com.rackspira.epenting.DetailActivity;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DbHelper;
-import com.rackspira.epenting.database.DbKategori;
 import com.rackspira.epenting.database.Kategori;
-import com.rackspira.epenting.recyclerview.RecycleViewHolderHome;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -28,14 +26,12 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
     Context context;
     List<Kategori> kategoriList = new ArrayList<>();
     LayoutInflater inflater;
-    DbKategori dbKategori;
     DbHelper dbHelper;
 
     public RecycleViewAdapterHome(Context context, List<Kategori> kategoriList) {
         this.context = context;
         this.kategoriList=kategoriList;
         inflater=LayoutInflater.from(context);
-        dbKategori=DbKategori.getInstance(context);
         dbHelper=DbHelper.getInstance(context);
     }
 
@@ -50,9 +46,9 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
     @Override
     public void onBindViewHolder(final RecycleViewHolderHome holder, int position) {
         Kategori kategori=kategoriList.get(position);
-        int[] pengeluaran=new int[dbKategori.getKategori().size()];
+        int[] pengeluaran=new int[dbHelper.getKategori().size()];
 
-        for (int i = 0; i<dbKategori.getKategori().size(); i++){
+        for (int i = 0; i<dbHelper.getKategori().size(); i++){
             pengeluaran[i]=dbHelper.biayaPerKategori(kategori.getKategori());
         }
 
@@ -101,6 +97,6 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
 
     @Override
     public int getItemCount() {
-        return dbKategori.getKategori().size();
+        return dbHelper.getKategori().size();
     }
 }

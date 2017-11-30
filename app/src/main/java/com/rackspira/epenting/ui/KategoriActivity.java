@@ -13,14 +13,14 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 import com.rackspira.epenting.R;
-import com.rackspira.epenting.database.DbKategori;
+import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.database.Kategori;
 import com.rackspira.epenting.recyclerview.RecycleViewAdapterKategori;
 
 public class KategoriActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecycleViewAdapterKategori recycleViewAdapterKategori;
-    DbKategori dbKategori;
+    DbHelper dbHelper;
     Button buttonInsertKategori;
     EditText editTextInsetKategori;
     EditText editTextBatasPengeluaran;
@@ -35,7 +35,7 @@ public class KategoriActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         recyclerView=(RecyclerView)findViewById(R.id.recyclerviewKategori);
-        dbKategori=DbKategori.getInstance(getApplicationContext());
+        dbHelper =DbHelper.getInstance(getApplicationContext());
         buttonInsertKategori=(Button)findViewById(R.id.button_insert_kategori);
         editTextInsetKategori=(EditText)findViewById(R.id.edittext_insert_kategori);
         editTextBatasPengeluaran = (EditText)findViewById(R.id.bts_edit);
@@ -61,7 +61,7 @@ public class KategoriActivity extends AppCompatActivity {
                 kategori.setBatasPengeluaran(editTextBatasPengeluaran.getText().toString());
 
                 if (!editTextInsetKategori.getText().toString().isEmpty()){
-                    dbKategori.insertKategori(kategori);
+                    dbHelper.insertKategori(kategori);
                     refreshList();
                     editTextInsetKategori.setText("");
                 }
@@ -72,7 +72,7 @@ public class KategoriActivity extends AppCompatActivity {
     }
 
     public void refreshList(){
-        recycleViewAdapterKategori=new RecycleViewAdapterKategori(this, dbKategori.getKategori());
+        recycleViewAdapterKategori=new RecycleViewAdapterKategori(this, dbHelper.getKategori());
         recyclerView.setAdapter(recycleViewAdapterKategori);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recycleViewAdapterKategori.notifyDataSetChanged();

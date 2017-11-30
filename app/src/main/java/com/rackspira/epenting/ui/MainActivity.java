@@ -20,10 +20,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.rackspira.epenting.MenuPilihan.RefreshHandler;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DbHelper;
-import com.rackspira.epenting.database.DbKategori;
 import com.rackspira.epenting.recyclerview.RecycleViewAdapterHome;
 import com.rackspira.epenting.recyclerview.RecyclerViewAdapter;
 
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity
     RecyclerView rview;
     RecyclerView rviewTerakhri;
     DbHelper dbHelper;
-    DbKategori dbKategori;
     Button btnPilihan;
 
     RecyclerViewAdapter adapter;
@@ -59,8 +58,8 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle("");
 
 
-        fabTambahKategori = (com.github.clans.fab.FloatingActionButton)findViewById(R.id.menuTambahKategori);
-        fabTambahData = (com.github.clans.fab.FloatingActionButton)findViewById(R.id.menuTambahData);
+        fabTambahKategori = (FloatingActionButton)findViewById(R.id.menuTambahKategori);
+        fabTambahData = (FloatingActionButton)findViewById(R.id.menuTambahData);
         btnPilihan = (Button)findViewById(R.id.btnUrutan);
         textKet = (TextView)findViewById(R.id.textKet);
 
@@ -86,7 +85,6 @@ public class MainActivity extends AppCompatActivity
         saldoText = (TextView) findViewById(R.id.saldo);
         cardView = (CardView) findViewById(R.id.card_view);
         dbHelper = DbHelper.getInstance(getApplicationContext());
-        dbKategori = DbKategori.getInstance(getApplicationContext());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (dbKategori.getKategori().size() == 0){
+        if (dbHelper.getKategori().size() == 0){
             textKet.setVisibility(View.VISIBLE);
         }else {
             textKet.setVisibility(View.GONE);
@@ -130,7 +128,7 @@ public class MainActivity extends AppCompatActivity
                                 }
                                 break;
                             case 1 :
-                                if (dbKategori.getKategori().size() == 0){
+                                if (dbHelper.getKategori().size() == 0){
                                     textKet.setVisibility(View.VISIBLE);
                                     rviewTerakhri.setVisibility(View.GONE);
                                     btnPilihan.setText("Kategori");
@@ -188,7 +186,7 @@ public class MainActivity extends AppCompatActivity
     public void refreshList() {
         rview = (RecyclerView) findViewById(R.id.recyclerview);
         //adapter = new RecyclerViewAdapter(this, dbHelper.getMasuk(), this);
-        adapterHome=new RecycleViewAdapterHome(MainActivity.this, dbKategori.getKategori());
+        adapterHome=new RecycleViewAdapterHome(MainActivity.this, dbHelper.getKategori());
         rview.setAdapter(adapterHome);
         rview.setLayoutManager(new LinearLayoutManager(this));
         adapterHome.notifyDataSetChanged();

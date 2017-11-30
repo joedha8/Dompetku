@@ -14,9 +14,8 @@ import android.widget.Button;
 import com.rackspira.epenting.MenuPilihan.RefreshHandler;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.chartutil.DemoBase;
-import com.rackspira.epenting.database.DbHutang;
+import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.recyclerview.RecyclerViewAdapterPeminjaman;
-import com.rackspira.epenting.ui.MainActivity;
 
 /**
  * Created by kikiosha on 11/30/17.
@@ -32,7 +31,7 @@ public class DaftarPeminjaman extends DemoBase implements RefreshHandler {
     Button buttonFilter;
     RecyclerView recyclerView;
     RecyclerViewAdapterPeminjaman recyclerViewAdapterPeminjaman;
-    DbHutang dbHutang;
+    DbHelper dbHelper;
 
     public DaftarPeminjaman() {
     }
@@ -62,7 +61,7 @@ public class DaftarPeminjaman extends DemoBase implements RefreshHandler {
 
         buttonFilter=(Button)view.findViewById(R.id.filter_hutang);
 
-        dbHutang=DbHutang.geiInstance(getContext());
+        dbHelper =DbHelper.getInstance(getContext());
 
         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerviewPinjaman);
         refreshList();
@@ -103,14 +102,14 @@ public class DaftarPeminjaman extends DemoBase implements RefreshHandler {
     }
 
     public void refreshList(){
-        recyclerViewAdapterPeminjaman=new RecyclerViewAdapterPeminjaman(getActivity(), dbHutang.getHutang(), this);
+        recyclerViewAdapterPeminjaman=new RecyclerViewAdapterPeminjaman(getActivity(), dbHelper.getHutang(), this);
         recyclerView.setAdapter(recyclerViewAdapterPeminjaman);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewAdapterPeminjaman.notifyDataSetChanged();
     }
 
     public void refreshList2(){
-        recyclerViewAdapterPeminjaman=new RecyclerViewAdapterPeminjaman(getActivity(), dbHutang.getHutangCicilan(), this);
+        recyclerViewAdapterPeminjaman=new RecyclerViewAdapterPeminjaman(getActivity(), dbHelper.getHutangCicilan(), this);
         recyclerView.setAdapter(recyclerViewAdapterPeminjaman);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewAdapterPeminjaman.notifyDataSetChanged();

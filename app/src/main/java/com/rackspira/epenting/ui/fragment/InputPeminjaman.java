@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +16,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.rackspira.epenting.MenuPilihan.RefreshHandler;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.chartutil.DemoBase;
-import com.rackspira.epenting.database.DbHutang;
+import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.database.Hutang;
-import com.rackspira.epenting.recyclerview.RecyclerViewAdapterPeminjaman;
-import com.rackspira.epenting.ui.Pemasukkan;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,7 +41,7 @@ public class InputPeminjaman extends DemoBase {
     RadioGroup radioGroup;
     RadioButton radioButtonYa, radioButtonTidak;
     Button buttonPinjam;
-    DbHutang dbHutang;
+    DbHelper dbHelper;
     String datePinjam, dateKembali;
     String status;
 
@@ -93,7 +86,7 @@ public class InputPeminjaman extends DemoBase {
         textInputLayoutCicilan=(TextInputLayout)view.findViewById(R.id.input_layout_cicilan);
         textInputLayoutBayarCicilan=(TextInputLayout)view.findViewById(R.id.input_layout_bayar_cicilan);
 
-        dbHutang=DbHutang.geiInstance(getContext());
+        dbHelper =DbHelper.getInstance(getContext());
 
         radioButtonYa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +179,7 @@ public class InputPeminjaman extends DemoBase {
                             hutang.setTgl_pinjam(""+editTextTanggalPinjam.getText().toString());
                             hutang.setTgl_bayar_cicilan(""+editTextBayarCicilan.getText().toString());
 
-                            dbHutang.insertHutangCicilan(hutang);
+                            dbHelper.insertHutangCicilan(hutang);
 
                             clear();
                         } else {
@@ -205,7 +198,7 @@ public class InputPeminjaman extends DemoBase {
                         hutang.setTgl_pinjam("" + editTextTanggalPinjam.getText().toString());
                         hutang.setTgl_kembali("" + editTextTanggalKembali.getText().toString());
 
-                        dbHutang.insertHutang(hutang);
+                        dbHelper.insertHutang(hutang);
 
                         clear();
                     } else {

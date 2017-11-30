@@ -25,7 +25,6 @@ import com.rackspira.epenting.MenuPilihan.RefreshHandler;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DataMasuk;
 import com.rackspira.epenting.database.DbHelper;
-import com.rackspira.epenting.database.DbKategori;
 import com.rackspira.epenting.recyclerview.RecyclerViewAdapter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -36,7 +35,6 @@ import java.util.Date;
 public class MasukActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, RefreshHandler {
     SQLiteDatabase db;
     DbHelper dbHelper;
-    DbKategori dbKategori;
     RecyclerViewAdapter adapter;
     String kat="pemasukkan";
     private EditText edtKet, edtNom;
@@ -67,20 +65,19 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         radioStatus=(RadioGroup)findViewById(R.id.stat);
         spinnerKategori=(Spinner)findViewById(R.id.spinner_kategori);
         dbHelper=DbHelper.getInstance(getApplicationContext());
-        dbKategori=DbKategori.getInstance(getApplicationContext());
 
         SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
         String tgl=sdf.format( new Date() );
         tanggal.setText(tgl);
         tglnya=tgl;
 
-        System.out.println("Data Kategori : "+dbKategori.getKategori().size());
-        final String[] kategori=new String[dbKategori.getKategori().size()];
-        final String[] batasPerkategoris = new String[dbKategori.getKategori().size()];
-        for (int i=0; i<dbKategori.getKategori().size(); i++){
-            kategori[i]=dbKategori.getKategori().get(i).getKategori();
-            batasPerkategoris[i] = dbKategori.getKategori().get(i).getBatasPengeluaran();
-            System.out.println("Isi Kategori "+dbKategori.getKategori().get(i).getKategori());
+        System.out.println("Data Kategori : "+dbHelper.getKategori().size());
+        final String[] kategori=new String[dbHelper.getKategori().size()];
+        final String[] batasPerkategoris = new String[dbHelper.getKategori().size()];
+        for (int i=0; i<dbHelper.getKategori().size(); i++){
+            kategori[i]=dbHelper.getKategori().get(i).getKategori();
+            batasPerkategoris[i] = dbHelper.getKategori().get(i).getBatasPengeluaran();
+            System.out.println("Isi Kategori "+dbHelper.getKategori().get(i).getKategori());
         }
         ArrayAdapter<String> spinnerArrayAdapter=new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kategori);
         spinnerKategori.setAdapter(spinnerArrayAdapter);

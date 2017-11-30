@@ -158,7 +158,7 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
     /**
      * Prompts the user to select a text file using OpenFileActivity.
      *
-     * @return Task that resolves with the selected item's ID.
+     * @return Task that resolves with the selected item's ID_KATEGORI.
      */
     protected Task<DriveId> pickTextFile() {
         OpenFileActivityOptions openOptions =
@@ -172,7 +172,7 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
     /**
      * Prompts the user to select a folder using OpenFileActivity.
      *
-     * @return Task that resolves with the selected item's ID.
+     * @return Task that resolves with the selected item's ID_KATEGORI.
      */
     protected Task<DriveId> pickFolder() {
         OpenFileActivityOptions openOptions =
@@ -188,7 +188,7 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
      * Prompts the user to select a folder using OpenFileActivity.
      *
      * @param openOptions Filter that should be applied to the selection
-     * @return Task that resolves with the selected item's ID.
+     * @return Task that resolves with the selected item's ID_KATEGORI.
      */
     private Task<DriveId> pickItem(OpenFileActivityOptions openOptions) {
         mOpenItemTaskSource = new TaskCompletionSource<>();

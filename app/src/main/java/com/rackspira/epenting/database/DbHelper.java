@@ -33,6 +33,24 @@ public class DbHelper extends SQLiteOpenHelper {
     protected static final String ID = "id";
     protected static final String KATEGORI = "kat";
 
+    protected static final String HUTANG_TABEL = "hutang_tabel";
+    protected static final String CICILAN_TABEL = "cicilan_tabel";
+
+    protected static final String ID_HUTANG = "id_hutang";
+    protected static final String PEMBERI_PINJAMAN = "pemberi_pinjaman";
+    protected static final String NOMINAL = "nominal";
+    protected static final String STATUS_HUTANG = "status";
+    protected static final String TANGGAL_PINJAM = "tgl_pinjam";
+    protected static final String TANGGAL_KEMBALI = "tgl_kembali";
+    protected static final String CICILAN = "cicilan";
+    protected static final String TANGGAL_BAYAR_CICILAN = "tgl_bayar_cicilan";
+
+    protected static final String KATEGORI_TABEL = "kategori_tabel";
+
+    protected static final String ID_KATEGORI = "id";
+    protected static final String KATEGORI_NAME = "kategori";
+    private static final String LIMITED = "limited";
+
     private static DbHelper dbHelper;
 
     public int jumMasuk, jumKeluar, jumKeluarBulanan, jumMasukBulannan, biayaPerKategori;
@@ -51,22 +69,49 @@ public class DbHelper extends SQLiteOpenHelper {
                 KATEGORI + " text" +
                 ");";
 
-        db.execSQL(queryCreateTabel);
+        String queryCreateTabelHutang = "create table " +
+                HUTANG_TABEL +
+                " (" +
+                ID_HUTANG + " integer primary key autoincrement not null," +
+                PEMBERI_PINJAMAN + " text," +
+                NOMINAL + " text," +
+                STATUS_HUTANG + " text," +
+                TANGGAL_PINJAM + " text," +
+                TANGGAL_KEMBALI + " text" +
+                ");";
+        String queryCreateTabelCicilan = "create table " +
+                CICILAN_TABEL +
+                " (" +
+                ID_HUTANG + " integer primary key autoincrement not null," +
+                PEMBERI_PINJAMAN + " text," +
+                NOMINAL + " text," +
+                STATUS_HUTANG + " text," +
+                TANGGAL_PINJAM + " text," +
+                CICILAN + " text," +
+                TANGGAL_BAYAR_CICILAN + " text" +
+                ");";
 
-//        db.execSQL("CREATE TABLE " + TABLE_INPUT + "(" +
-//                ID  + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-//                KET + " TEXT," +
-//                BIAYA + " INTEGER," +
-//                STATUS + " TEXT," +
-//                TANGGAL + " TEXT," +
-//                KATEGORI + "TEXT" +
-//                ");");
+        String queryCreateTabelKategori = "create table " +
+                KATEGORI_TABEL +
+                " (" +
+                ID_KATEGORI + " integer primary key autoincrement not null," +
+                KATEGORI_NAME + " text," +
+                LIMITED + " integer" +
+                ");";
+
+        db.execSQL(queryCreateTabelKategori);
+        db.execSQL(queryCreateTabelHutang);
+        db.execSQL(queryCreateTabelCicilan);
+        db.execSQL(queryCreateTabel);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int lama, int baru) {
         if (lama != baru) {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_INPUT);
+            db.execSQL("DROP TABLE IF EXISTS " + HUTANG_TABEL);
+            db.execSQL("DROP TABLE IF EXISTS " + CICILAN_TABEL);
+            db.execSQL("DROP TABLE IF EXISTS " + KATEGORI_TABEL);
             onCreate(db);
         }
     }
@@ -418,5 +463,234 @@ public class DbHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
         }
+    }
+
+    public void insertHutang(Hutang hutang){
+        SQLiteDatabase database=getWritableDatabase();
+        database.beginTransaction();
+
+        try {
+            ContentValues values=new ContentValues();
+            values.put(ID_HUTANG, hutang.getId_hutang());
+            values.put(PEMBERI_PINJAMAN, hutang.getPemberiPinjaman());
+            values.put(NOMINAL, hutang.getNominal());
+            values.put(STATUS_HUTANG, hutang.getStatus());
+            values.put(TANGGAL_PINJAM, hutang.getTgl_pinjam());
+            values.put(TANGGAL_KEMBALI, hutang.getTgl_kembali());
+
+            database.insertOrThrow(HUTANG_TABEL, null, values);
+            database.setTransactionSuccessful();
+        } catch (SQLException e){
+            e.printStackTrace();
+            Log.d(TAG, "Gagal Untuk Menambah");
+        } finally {
+            database.endTransaction();
+        }
+    }
+
+    public void insertHutangCicilan(Hutang hutang){
+        SQLiteDatabase database=getWritableDatabase();
+        database.beginTransaction();
+
+        try {
+            ContentValues values=new ContentValues();
+            values.put(ID_HUTANG, hutang.getId_hutang());
+            values.put(PEMBERI_PINJAMAN, hutang.getPemberiPinjaman());
+            values.put(NOMINAL, hutang.getNominal());
+            values.put(STATUS_HUTANG, hutang.getStatus());
+            values.put(TANGGAL_PINJAM, hutang.getTgl_pinjam());
+            values.put(CICILAN, hutang.getCicilan());
+            values.put(TANGGAL_BAYAR_CICILAN, hutang.getTgl_bayar_cicilan());
+
+            database.insertOrThrow(CICILAN_TABEL, null, values);
+            database.setTransactionSuccessful();
+        } catch (SQLException e){
+            e.printStackTrace();
+            Log.d(TAG, "Gagal Untuk Menambah");
+        } finally {
+            database.endTransaction();
+        }
+    }
+
+    public List<Hutang> getHutang(){
+        List<Hutang> hutangList=new ArrayList<>();
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + HUTANG_TABEL;
+
+        SQLiteDatabase database=getReadableDatabase();
+        Cursor cursor=database.rawQuery(DATA_MASUK_SELECT_QUERY, null);
+
+        try {
+            if (cursor.moveToFirst()){
+                do {
+                    Hutang hutang=new Hutang(
+                            cursor.getString(cursor.getColumnIndex(ID_HUTANG)),
+                            cursor.getString(cursor.getColumnIndex(PEMBERI_PINJAMAN)),
+                            cursor.getString(cursor.getColumnIndex(NOMINAL)),
+                            cursor.getString(cursor.getColumnIndex(STATUS_HUTANG)),
+                            cursor.getString(cursor.getColumnIndex(TANGGAL_PINJAM)),
+                            cursor.getString(cursor.getColumnIndex(TANGGAL_KEMBALI)));
+                    Log.d("id", cursor.getString(cursor.getColumnIndex(ID_HUTANG)));
+                    hutangList.add(hutang);
+                }
+                while (cursor.moveToNext());
+            }
+        } catch (SQLException e){
+            Log.d(TAG, "Gagal untuk menambah");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return hutangList;
+    }
+
+    public List<Hutang> getHutangCicilan(){
+        List<Hutang> hutangList=new ArrayList<>();
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + CICILAN_TABEL;
+
+        SQLiteDatabase database=getReadableDatabase();
+        Cursor cursor=database.rawQuery(DATA_MASUK_SELECT_QUERY, null);
+
+        try {
+            if (cursor.moveToFirst()){
+                do {
+                    Hutang hutang=new Hutang(
+                            cursor.getString(cursor.getColumnIndex(ID_HUTANG)),
+                            cursor.getString(cursor.getColumnIndex(PEMBERI_PINJAMAN)),
+                            cursor.getString(cursor.getColumnIndex(NOMINAL)),
+                            cursor.getString(cursor.getColumnIndex(STATUS_HUTANG)),
+                            cursor.getString(cursor.getColumnIndex(TANGGAL_PINJAM)),
+                            cursor.getString(cursor.getColumnIndex(CICILAN)),
+                            cursor.getString(cursor.getColumnIndex(TANGGAL_BAYAR_CICILAN)));
+                    Log.d("id", cursor.getString(cursor.getColumnIndex(ID_HUTANG)));
+                    hutangList.add(hutang);
+                }
+                while (cursor.moveToNext());
+            }
+        } catch (SQLException e){
+            Log.d(TAG, "Gagal untuk menambah");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return hutangList;
+    }
+
+    public void updateStatusHutang(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        try {
+            db.beginTransaction();
+            db.execSQL("UPDATE " + HUTANG_TABEL + " SET " +
+                    STATUS_HUTANG + " ='Lunas'" +
+                    " WHERE " +
+                    ID_HUTANG +" ='"+ id +"'");
+            db.setTransactionSuccessful();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Gagal untuk Update");
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void updateStatusCicilan(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        try {
+            db.beginTransaction();
+            db.execSQL("UPDATE " + CICILAN_TABEL + " SET " +
+                    STATUS_HUTANG + " ='Lunas'" +
+                    " WHERE " +
+                    ID_HUTANG +" ='"+ id +"'");
+            db.setTransactionSuccessful();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Gagal untuk Update");
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteRowHutang(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        try {
+            db.beginTransaction();
+            db.execSQL("DELETE FROM " + HUTANG_TABEL + " WHERE " +
+                    ID_HUTANG + " = '" + id + "'");
+            db.setTransactionSuccessful();
+            Log.d("berhasi","Delet berhasil");
+        } catch (SQLException e) {
+            Log.d(TAG, "Gagal menghapus");
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void deleteRowCicilan(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        try {
+            db.beginTransaction();
+            db.execSQL("DELETE FROM " + CICILAN_TABEL + " WHERE " +
+                    ID_HUTANG + " = '" + id + "'");
+            db.setTransactionSuccessful();
+            Log.d("berhasi","Delet berhasil");
+        } catch (SQLException e) {
+            Log.d(TAG, "Gagal menghapus");
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void insertKategori(Kategori kategori){
+        SQLiteDatabase database=getWritableDatabase();
+        database.beginTransaction();
+
+        try {
+            ContentValues values=new ContentValues();
+            values.put(ID_KATEGORI, kategori.getId());
+            values.put(KATEGORI_NAME, kategori.getKategori());
+            values.put(LIMITED,kategori.getBatasPengeluaran());
+
+            database.insertOrThrow(KATEGORI_TABEL, null, values);
+            database.setTransactionSuccessful();
+        } catch (SQLException e){
+            e.printStackTrace();
+            Log.d(TAG, "Gagal Untuk Menambah");
+        } finally {
+            database.endTransaction();
+        }
+    }
+
+    public List<Kategori> getKategori(){
+        List<Kategori> kategoriList=new ArrayList<>();
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + KATEGORI_TABEL;
+
+        SQLiteDatabase database=getReadableDatabase();
+        Cursor cursor=database.rawQuery(DATA_MASUK_SELECT_QUERY, null);
+
+        try {
+            if (cursor.moveToFirst()){
+                do {
+                    Kategori kategori=new Kategori(
+                            cursor.getString(cursor.getColumnIndex(ID_KATEGORI)),
+                            cursor.getString(cursor.getColumnIndex(KATEGORI_NAME)),
+                            cursor.getString(cursor.getColumnIndex(LIMITED)));
+                    Log.d("id", cursor.getString(cursor.getColumnIndex(ID_KATEGORI)));
+                    kategoriList.add(kategori);
+                }
+                while (cursor.moveToNext());
+            }
+        } catch (SQLException e){
+            Log.d(TAG, "Gagal untuk menambah");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return kategoriList;
     }
 }
