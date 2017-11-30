@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "454236973300",
+    "project_id": "e-penting"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454236973300:android:620eae522d87a086",
+        "android_client_info": {
+          "package_name": "com.rackspira.epenting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454236973300-k4vlc1i1fsgra2q70vreujgvkggnn3b4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rackspira.epenting",
+            "certificate_hash": "6d5d2853e8c362623df9c732466052254643145e"
+          }
+        },
+        {
+          "client_id": "454236973300-01j349odrknjus85bo5fvajg4rdhem1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUdcGYW3sZh4IVManBls9h3w--3nxmAMU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
