@@ -8,18 +8,32 @@ public class Hutang {
     private String id_hutang;
     private String pemberiPinjaman;
     private String nominal;
+    private String status;
     private String tgl_pinjam;
     private String tgl_kembali;
+    private String cicilan;
+    private String tgl_bayar_cicilan;
 
     public Hutang() {
     }
 
-    public Hutang(String id_hutang, String pemberiPinjaman, String nominal, String tgl_pinjam, String tgl_kembali) {
+    public Hutang(String id_hutang, String pemberiPinjaman, String nominal, String status, String tgl_pinjam, String tgl_kembali) {
         this.id_hutang = id_hutang;
         this.pemberiPinjaman = pemberiPinjaman;
         this.nominal = nominal;
+        this.status = status;
         this.tgl_pinjam = tgl_pinjam;
         this.tgl_kembali = tgl_kembali;
+    }
+
+    public Hutang(String id_hutang, String pemberiPinjaman, String nominal, String status, String tgl_pinjam, String cicilan, String tgl_bayar_cicilan) {
+        this.id_hutang = id_hutang;
+        this.pemberiPinjaman = pemberiPinjaman;
+        this.nominal = nominal;
+        this.status = status;
+        this.tgl_pinjam = tgl_pinjam;
+        this.cicilan = cicilan;
+        this.tgl_bayar_cicilan = tgl_bayar_cicilan;
     }
 
     public String getId_hutang() {
@@ -60,5 +74,29 @@ public class Hutang {
 
     public void setTgl_kembali(String tgl_kembali) {
         this.tgl_kembali = tgl_kembali;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCicilan() {
+        return cicilan;
+    }
+
+    public void setCicilan(String cicilan) {
+        this.cicilan = cicilan;
+    }
+
+    public String getTgl_bayar_cicilan() {
+        return tgl_bayar_cicilan;
+    }
+
+    public void setTgl_bayar_cicilan(String tgl_bayar_cicilan) {
+        this.tgl_bayar_cicilan = tgl_bayar_cicilan;
     }
 }

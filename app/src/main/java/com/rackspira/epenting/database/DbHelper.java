@@ -414,7 +414,7 @@ public class DbHelper extends SQLiteOpenHelper {
             db.setTransactionSuccessful();
         } catch (SQLException e) {
             e.printStackTrace();
-            Log.d(TAG, "Gagal untuk Menambah");
+            Log.d(TAG, "Gagal untuk Update");
         } finally {
             db.endTransaction();
         }

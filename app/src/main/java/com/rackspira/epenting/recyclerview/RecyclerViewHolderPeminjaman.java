@@ -12,14 +12,16 @@ import com.rackspira.epenting.R;
  */
 
 public class RecyclerViewHolderPeminjaman extends RecyclerView.ViewHolder {
-    TextView textViewTanggalKembali, textViewPemberiPinjaman, textViewNominalPinjaman;
+    TextView textViewTanggalKembali, textViewPemberiPinjaman, textViewNominalPinjaman, textViewDetailCicilan, textViewStatus;
     CardView cardView;
 
     public RecyclerViewHolderPeminjaman(View itemView) {
         super(itemView);
+        textViewStatus=(TextView)itemView.findViewById(R.id.status);
         textViewTanggalKembali=(TextView)itemView.findViewById(R.id.tglKembali);
         textViewPemberiPinjaman=(TextView)itemView.findViewById(R.id.pemberiPinjaman);
         textViewNominalPinjaman=(TextView)itemView.findViewById(R.id.nominalPinjaman);
+        textViewDetailCicilan=(TextView)itemView.findViewById(R.id.cicilan_detail);
         cardView=(CardView)itemView.findViewById(R.id.card_view_hutang);
     }
 }

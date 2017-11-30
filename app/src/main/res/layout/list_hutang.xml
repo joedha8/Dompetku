@@ -32,7 +32,7 @@
                     app:fontPath="fonts/Wumbology-SemiBold.ttf"
                     android:text="Hutang Pada"
                     android:textSize="@dimen/cardview_text_status"
-                    android:id="@+id/pemasukkan_head"/>
+                    android:id="@+id/status"/>
                 <com.rackspira.kal.lib.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,6 +52,7 @@
                 ></View>
         </LinearLayout>
         <RelativeLayout
+            android:id="@+id/kontent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ver"
@@ -113,6 +114,18 @@
                     app:fontPath="fonts/Wumbology-Book.ttf"/>
             </LinearLayout>
         </RelativeLayout>
+        <TextView
+            android:id="@+id/cicilan_detail"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/kontent"
+            android:text="3x cicilan dan harus di bayar setiap tanggal 10"
+            android:textColor="@color/black_de"
+            android:textSize="18sp"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

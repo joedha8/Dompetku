@@ -1,6 +1,7 @@
 package com.rackspira.epenting.model;
 
 import com.rackspira.epenting.database.DataMasuk;
+import com.rackspira.epenting.database.Kategori;
 
 /**
  * Created by YUDHA on 24/12/2016.

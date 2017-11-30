@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.rackspira.epenting.MenuPilihan.RefreshHandler;
@@ -40,10 +43,14 @@ public class InputPeminjaman extends DemoBase {
     private String mParam1;
     private String mParam2;
 
-    EditText editTextPeminjam, editTextNominal, editTextTanggalPinjam, editTextTanggalKembali;
+    TextInputLayout textInputLayoutPinjam, textInputLayoutBayar, textInputLayoutCicilan, textInputLayoutBayarCicilan;
+    EditText editTextPeminjam, editTextNominal, editTextTanggalPinjam, editTextTanggalKembali, editTextCicilan, editTextBayarCicilan;
+    RadioGroup radioGroup;
+    RadioButton radioButtonYa, radioButtonTidak;
     Button buttonPinjam;
     DbHutang dbHutang;
     String datePinjam, dateKembali;
+    String status;
 
     public InputPeminjaman() {
     }
@@ -75,9 +82,39 @@ public class InputPeminjaman extends DemoBase {
         editTextNominal=(EditText)view.findViewById(R.id.pinjam_nominal);
         editTextTanggalPinjam=(EditText)view.findViewById(R.id.tgl_pinjam);
         editTextTanggalKembali=(EditText)view.findViewById(R.id.pinjam_kembali);
+        editTextCicilan=(EditText)view.findViewById(R.id.cicilan);
+        editTextBayarCicilan=(EditText)view.findViewById(R.id.tgl_bayar_cicilan);
         buttonPinjam=(Button)view.findViewById(R.id.button_insert_pinjam);
+        radioGroup=(RadioGroup)view.findViewById(R.id.groupCicilan);
+        radioButtonYa=(RadioButton)view.findViewById(R.id.radioYa);
+        radioButtonTidak=(RadioButton)view.findViewById(R.id.radioTidak);
+        textInputLayoutPinjam=(TextInputLayout)view.findViewById(R.id.input_layout_tanggal_pinjam);
+        textInputLayoutBayar=(TextInputLayout)view.findViewById(R.id.input_layout_tanggal_kembali);
+        textInputLayoutCicilan=(TextInputLayout)view.findViewById(R.id.input_layout_cicilan);
+        textInputLayoutBayarCicilan=(TextInputLayout)view.findViewById(R.id.input_layout_bayar_cicilan);
 
         dbHutang=DbHutang.geiInstance(getContext());
+
+        radioButtonYa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                status="ya";
+                textInputLayoutPinjam.setVisibility(View.VISIBLE);
+                textInputLayoutCicilan.setVisibility(View.VISIBLE);
+                textInputLayoutBayarCicilan.setVisibility(View.VISIBLE);
+                textInputLayoutBayar.setVisibility(View.GONE);
+            }
+        });
+        radioButtonTidak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                status="tidak";
+                textInputLayoutPinjam.setVisibility(View.VISIBLE);
+                textInputLayoutBayar.setVisibility(View.VISIBLE);
+                textInputLayoutCicilan.setVisibility(View.GONE);
+                textInputLayoutBayarCicilan.setVisibility(View.GONE);
+            }
+        });
 
         SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
         String tanggalAwal=sdf.format( new Date() );
@@ -132,38 +169,77 @@ public class InputPeminjaman extends DemoBase {
         buttonPinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!editTextPeminjam.getText().toString().isEmpty() && !editTextNominal.getText().toString().isEmpty()){
-                    Hutang hutang=new Hutang();
+                if (status=="ya"){
+                    if (!editTextPeminjam.getText().toString().isEmpty() &&
+                            !editTextNominal.getText().toString().isEmpty() &&
+                            !editTextCicilan.getText().toString().isEmpty() &&
+                            !editTextTanggalPinjam.getText().toString().isEmpty() &&
+                            !editTextBayarCicilan.getText().toString().isEmpty()){
+                        int tglByrCcl=Integer.parseInt(editTextBayarCicilan.getText().toString());
+                        if (tglByrCcl<=31 && tglByrCcl>=1){
+                            Hutang hutang=new Hutang();
 
-                    hutang.setPemberiPinjaman(""+editTextPeminjam.getText().toString());
-                    hutang.setNominal(""+editTextNominal.getText().toString());
-                    hutang.setTgl_pinjam(""+editTextTanggalPinjam.getText().toString());
-                    hutang.setTgl_kembali(""+editTextTanggalKembali.getText().toString());
+                            hutang.setPemberiPinjaman(""+editTextPeminjam.getText().toString());
+                            hutang.setNominal(""+editTextNominal.getText().toString());
+                            hutang.setStatus("Belum Lunas");
+                            hutang.setCicilan(""+editTextCicilan.getText().toString());
+                            hutang.setTgl_pinjam(""+editTextTanggalPinjam.getText().toString());
+                            hutang.setTgl_bayar_cicilan(""+editTextBayarCicilan.getText().toString());
 
-                    dbHutang.insertHutang(hutang);
+                            dbHutang.insertHutangCicilan(hutang);
 
-                    editTextPeminjam.setText("");
-                    editTextNominal.setText("");
-
-                    new Handler().post(new Runnable() {
-
-                        @Override
-                        public void run()
-                        {
-                            Intent intent = getActivity().getIntent();
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK
-                                    | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            getActivity().overridePendingTransition(0, 0);
-                            getActivity().finish();
-
-                            getActivity().overridePendingTransition(0, 0);
-                            startActivity(intent);
+                            clear();
+                        } else {
+                            Toast.makeText(getContext(), "Tidak ada tanggal "+tglByrCcl, Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    } else {
+                        Toast.makeText(getContext(), "Isi Data Dengan Benar", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (status=="tidak"){
+                    if (!editTextPeminjam.getText().toString().isEmpty() && !editTextNominal.getText().toString().isEmpty()) {
+                        Hutang hutang = new Hutang();
+
+                        hutang.setPemberiPinjaman("" + editTextPeminjam.getText().toString());
+                        hutang.setNominal("" + editTextNominal.getText().toString());
+                        hutang.setStatus("Belum Lunas");
+                        hutang.setTgl_pinjam("" + editTextTanggalPinjam.getText().toString());
+                        hutang.setTgl_kembali("" + editTextTanggalKembali.getText().toString());
+
+                        dbHutang.insertHutang(hutang);
+
+                        clear();
+                    } else {
+                        Toast.makeText(getContext(), "Isi Data Dengan Benar", Toast.LENGTH_SHORT).show();
+                    }
                 }
+                reload();
             }
         });
-
         return view;
+    }
+
+    public void clear(){
+        editTextPeminjam.setText("");
+        editTextNominal.setText("");
+        radioButtonYa.setChecked(false);
+        radioButtonTidak.setChecked(false);
+    }
+
+    public void reload(){
+        new Handler().post(new Runnable() {
+
+            @Override
+            public void run()
+            {
+                Intent intent = getActivity().getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                getActivity().overridePendingTransition(0, 0);
+                getActivity().finish();
+
+                getActivity().overridePendingTransition(0, 0);
+                startActivity(intent);
+            }
+        });
     }
 }

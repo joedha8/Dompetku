@@ -1,63 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="10dp">
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:hint="Pinjam ke"
+                android:id="@+id/pinjam_ke"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:hint="Nominal"
+                android:id="@+id/pinjam_nominal"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+        <TextView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="23sp"
-            android:hint="Pinjam ke"
-            android:id="@+id/pinjam_ke"/>
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-        <EditText
+            android:text="Apakah akan dicicil?" />
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="23sp"
-            android:hint="Nominal"
-            android:id="@+id/pinjam_nominal"/>
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-        <EditText
+            android:id="@+id/groupCicilan">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ya"
+                android:textSize="@dimen/status_pemasukkan"
+                android:id="@+id/radioYa"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tidak"
+                android:textSize="@dimen/status_pengeluaran"
+                android:id="@+id/radioTidak"/>
+        </RadioGroup>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="23sp"
-            android:hint="Tanggal Pinjam"
-            android:id="@+id/tgl_pinjam"
-            android:focusable="false"/>
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-        <EditText
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:id="@+id/input_layout_tanggal_pinjam">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:hint="Tanggal Pinjam"
+                android:id="@+id/tgl_pinjam"
+                android:focusable="false"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="23sp"
-            android:hint="Tanggal Kembali"
-            android:id="@+id/pinjam_kembali"
-            android:focusable="false"/>
-    </android.support.design.widget.TextInputLayout>
-    <Button
-        android:id="@+id/button_insert_pinjam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_default"
-        android:text="INPUT"
-        android:textSize="17sp"
-        android:textColor="#ffffff"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:id="@+id/input_layout_tanggal_kembali">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:hint="Tanggal Kembali"
+                android:id="@+id/pinjam_kembali"
+                android:focusable="false"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:id="@+id/input_layout_cicilan">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:hint="Cicilan"
+                android:id="@+id/cicilan"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:id="@+id/input_layout_bayar_cicilan">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:hint="Tanggal Bayar Cicilan"
+                android:id="@+id/tgl_bayar_cicilan"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+        <Button
+            android:id="@+id/button_insert_pinjam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_default"
+            android:text="INPUT"
+            android:textSize="17sp"
+            android:textColor="#ffffff"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

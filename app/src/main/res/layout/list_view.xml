@@ -56,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ver"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp">
+            android:layout_marginRight="16dp"
+            android:id="@+id/kontent">
             <ImageView
                 android:layout_width="40dp"
                 android:layout_marginTop="@dimen/margin_top_gbr"
