@@ -1,5 +1,6 @@
 package com.rackspira.epenting.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,8 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nononsenseapps.filepicker.AbstractFilePickerFragment;
+import com.nononsenseapps.filepicker.FilePickerActivity;
+import com.nononsenseapps.filepicker.Utils;
 import com.rackspira.epenting.ExcelReport.BuildReportWorksheet;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DataMasuk;
@@ -30,6 +35,9 @@ public class ExportActivity extends AppCompatActivity {
     private Button buttonExport;
     private RotateLoading loading;
     private DbHelper dbHelper;
+    private TextView textViewLokasi;
+
+    static final int CODE_SD = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +48,56 @@ public class ExportActivity extends AppCompatActivity {
 
         loading = (RotateLoading)findViewById(R.id.rotateloading);
         buttonExport = (Button) findViewById(R.id.button_export);
+        textViewLokasi = (TextView) findViewById(R.id.textView2);
         buttonExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonExport.setEnabled(false);
+                startActivity(CODE_SD, FilePickerActivity.class);
+
+                /*buttonExport.setEnabled(false);
                 loading.start();
-                new ExportTask().execute();
+                new ExportTask().execute();*/
             }
         });
+    }
+
+    protected void startActivity(final int code, final Class<?> klass) {
+        final Intent i = new Intent(this, klass);
+
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, false);
+
+        // What mode is selected
+        final int mode=AbstractFilePickerFragment.MODE_DIR;
+
+        i.putExtra(FilePickerActivity.EXTRA_MODE, mode);
+
+        // This line is solely so that test classes can override intents given through UI
+        i.putExtras(getIntent());
+
+        startActivityForResult(i, code);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (resultCode == Activity.RESULT_OK &&
+                (CODE_SD == requestCode)) {
+            // Use the provided utility method to parse the result
+            List<Uri> files = Utils.getSelectedFilesFromResult(intent);
+
+            // Do something with your list of files here
+            StringBuilder sb = new StringBuilder();
+            for (Uri uri : files) {
+                if (sb.length() > 0) {
+                    sb.append("\n");
+                }
+                sb.append(CODE_SD == requestCode ?
+                        Utils.getFileForUri(uri).toString() :
+                        uri.toString());
+            }
+            textViewLokasi.setText("location file in : "+sb.toString());
+        }
     }
 
     public static boolean exportExcel(Context context, String fileName, Map<String, Object> data) {
