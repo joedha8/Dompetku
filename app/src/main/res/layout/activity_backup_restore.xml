@@ -47,24 +47,16 @@
         android:layout_above="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
-    <com.victor.loading.rotate.RotateLoading
-        android:id="@+id/rotateloading"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:loading_width="5dp"
-        app:loading_color="#ffffff"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
-
     <Button
+        android:id="@+id/button_backup"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="Backup"
-        android:textColor="@color/color_primary"
-        android:id="@+id/button_backup"
+        android:layout_alignLeft="@+id/button_restore"
+        android:layout_alignStart="@+id/button_restore"
+        android:layout_below="@+id/textView2"
         android:background="@drawable/button_white_background"
-        android:layout_below="@+id/rotateloading"
-        android:layout_centerHorizontal="true" />
+        android:text="Backup"
+        android:textColor="@color/color_primary" />
 
     <Button
         android:layout_width="200dp"
@@ -76,6 +68,19 @@
         android:background="@drawable/button_white_background"
         android:layout_below="@+id/button_backup"
         android:layout_centerHorizontal="true" />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_autobackup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_restore"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:text="Auto Backup"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:theme="@style/Checkbox" />
 
 
 </RelativeLayout>

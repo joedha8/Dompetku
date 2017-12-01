@@ -74,6 +74,8 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
      */
     private TaskCompletionSource<DriveId> mOpenItemTaskSource;
 
+    private int mode;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -93,7 +95,6 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
                     // required and is fatal. For apps where sign-in is optional, handle
                     // appropriately
                     Log.e(TAG, "Sign-in failed.");
-                    finish();
                     return;
                 }
 
@@ -105,7 +106,6 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
                     Log.d(TAG, "sigin ok");
                 } else {
                     Log.e(TAG, "Sign-in failed.");
-                    finish();
                 }
 
                 System.out.println("ok sign code");
@@ -127,7 +127,8 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
     /**
      * Starts the sign-in process and initializes the Drive client.
      */
-    protected void signIn() {
+    protected void signIn(int mode) {
+        this.mode = mode;
         Set<Scope> requiredScopes = new HashSet<>(2);
         requiredScopes.add(Drive.SCOPE_FILE);
         requiredScopes.add(Drive.SCOPE_APPFOLDER);
@@ -152,7 +153,7 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
     private void initializeDriveClient(GoogleSignInAccount signInAccount) {
         mDriveClient = Drive.getDriveClient(getApplicationContext(), signInAccount);
         mDriveResourceClient = Drive.getDriveResourceClient(getApplicationContext(), signInAccount);
-        onDriveClientReady();
+        onDriveClientReady(mode);
     }
 
     /**
@@ -163,7 +164,7 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
     protected Task<DriveId> pickTextFile() {
         OpenFileActivityOptions openOptions =
                 new OpenFileActivityOptions.Builder()
-                        .setSelectionFilter(Filters.eq(SearchableField.MIME_TYPE, "text/plain"))
+                        .setSelectionFilter(Filters.eq(SearchableField.MIME_TYPE, "application/x-sqlite-3wer"))
                         .setActivityTitle(getString(R.string.select_file))
                         .build();
         return pickItem(openOptions);
@@ -215,7 +216,7 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
     /**
      * Called after the user has signed in and the Drive client has been initialized.
      */
-    protected abstract void onDriveClientReady();
+    protected abstract void onDriveClientReady(int mode);
 
     protected DriveClient getDriveClient() {
         return mDriveClient;

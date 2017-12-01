@@ -25,4 +25,13 @@ public class SharedPreferencesStorage {
     public String getPinActive(){
         return sharedPreferences.getString(Constants.PIN_ACTIVE,null);
     }
+
+    public void setAutoBackup(boolean mode){
+        editor.putBoolean(Constants.AUTO_BACKUP, mode);
+        editor.commit();
+    }
+
+    public boolean getAutoBackup(){
+        return sharedPreferences.getBoolean(Constants.AUTO_BACKUP, false);
+    }
 }

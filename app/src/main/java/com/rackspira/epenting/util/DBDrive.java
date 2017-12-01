@@ -279,4 +279,14 @@ public class DBDrive {
         }
     }
 
+    public byte[] getBytes(File file) throws IOException {
+        byte[] bytesArray = new byte[(int) file.length()];
+
+        FileInputStream fis = new FileInputStream(file);
+        fis.read(bytesArray); //read file into bytes[]
+        fis.close();
+
+        return bytesArray;
+    }
+
 }
