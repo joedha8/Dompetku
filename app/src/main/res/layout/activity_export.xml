@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="10dp"
-        android:text="location file in : Download"
+        android:text="location file in : "
         android:textColor="@android:color/white"
         android:textSize="13sp"
         android:textAlignment="center"
@@ -48,14 +48,14 @@
         android:layout_above="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:src="@drawable/folder"
         android:id="@+id/imageView3"
         android:layout_alignBottom="@+id/textView2"
         android:layout_alignLeft="@+id/button_export"
-        android:layout_alignStart="@+id/button_export" />
+        android:layout_alignStart="@+id/button_export" />-->
 
     <com.victor.loading.rotate.RotateLoading
         android:id="@+id/rotateloading"
