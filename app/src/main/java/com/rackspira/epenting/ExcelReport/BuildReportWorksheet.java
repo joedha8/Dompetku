@@ -1,6 +1,7 @@
 package com.rackspira.epenting.ExcelReport;
 
 import com.rackspira.epenting.database.DataMasuk;
+import com.rackspira.epenting.database.Hutang;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -26,10 +27,11 @@ public class BuildReportWorksheet extends BaseWorksheetTemplate {
     protected void populateContentData(Sheet sheet, HSSFWorkbook workbook, Map<String, Object> map) {
         List<DataMasuk> pemasukkanList = (List<DataMasuk>) map.get("pemasukkan");
         List<DataMasuk> pengeluaranList = (List<DataMasuk>) map.get("pengeluaran");
+        List<Hutang> hutangList = (List<Hutang>) map.get("hutang");
 
         Row header = sheet.createRow(1);
         Cell cellHeader = header.createCell(0);
-        cellHeader.setCellValue("Report Data Menejemen Keuangan Harian dengan Aplikasi Dompetku");
+        cellHeader.setCellValue("Report Data Menejemen Keuangan dengan Aplikasi E-PenTing");
         cellHeader.setCellStyle(cellStyleHeader());
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 10));
 
@@ -52,6 +54,10 @@ public class BuildReportWorksheet extends BaseWorksheetTemplate {
         cellHeader.setCellValue("Biaya (Rp)");
         cellHeader.setCellStyle(cellStyleRight());
 
+        cellHeader = header.createCell(3);
+        cellHeader.setCellValue("Tanggal");
+        cellHeader.setCellStyle(cellStyleRight());
+
         int index = 5;
         long jumlah = 0;
         if (pemasukkanList.size() != 0) {
@@ -66,6 +72,10 @@ public class BuildReportWorksheet extends BaseWorksheetTemplate {
 
                 cellHeader = header.createCell(2);
                 cellHeader.setCellValue(dataMasuk.getBiaya());
+                cellHeader.setCellStyle(cellStyleFormatCurrency());
+
+                cellHeader = header.createCell(3);
+                cellHeader.setCellValue(dataMasuk.getTanggal());
                 cellHeader.setCellStyle(cellStyleFormatCurrency());
 
                 jumlah = jumlah + Long.valueOf(dataMasuk.getBiaya());
@@ -108,6 +118,10 @@ public class BuildReportWorksheet extends BaseWorksheetTemplate {
                 cellHeader.setCellValue(dataMasuk.getBiaya());
                 cellHeader.setCellStyle(cellStyleFormatCurrency());
 
+                cellHeader = header.createCell(3);
+                cellHeader.setCellValue(dataMasuk.getTanggal());
+                cellHeader.setCellStyle(cellStyleFormatCurrency());
+
                 jumlah = jumlah + Long.valueOf(dataMasuk.getBiaya());
                 index++;
                 no++;
@@ -121,11 +135,6 @@ public class BuildReportWorksheet extends BaseWorksheetTemplate {
             cellHeader = header.createCell(2);
             cellHeader.setCellValue(jumlah);
             cellHeader.setCellStyle(cellStyleFormatCurrencyBold());
-
-//            sheet.autoSizeColumn(0);
-//            sheet.setColumnWidth(0, 5);
-//            sheet.setColumnWidth(1, 12);
-//            sheet.setColumnWidth(2, 12);
         }
     }
 }

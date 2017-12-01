@@ -21,6 +21,7 @@ import com.rackspira.epenting.ExcelReport.BuildReportWorksheet;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DataMasuk;
 import com.rackspira.epenting.database.DbHelper;
+import com.rackspira.epenting.database.Hutang;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.io.File;
@@ -36,6 +37,7 @@ public class ExportActivity extends AppCompatActivity {
     private RotateLoading loading;
     private DbHelper dbHelper;
     private TextView textViewLokasi;
+    private static String destinationExport;
 
     static final int CODE_SD = 0;
 
@@ -53,10 +55,6 @@ public class ExportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(CODE_SD, FilePickerActivity.class);
-
-                /*buttonExport.setEnabled(false);
-                loading.start();
-                new ExportTask().execute();*/
             }
         });
     }
@@ -96,7 +94,11 @@ public class ExportActivity extends AppCompatActivity {
                         Utils.getFileForUri(uri).toString() :
                         uri.toString());
             }
+            destinationExport=sb.toString();
             textViewLokasi.setText("location file in : "+sb.toString());
+            buttonExport.setEnabled(false);
+            loading.start();
+            new ExportTask().execute();
         }
     }
 
@@ -108,7 +110,7 @@ public class ExportActivity extends AppCompatActivity {
 
         boolean success = false;
         BuildReportWorksheet reportWorksheet = new BuildReportWorksheet(data);
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+        File file = new File(destinationExport, fileName);
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file);
@@ -152,10 +154,12 @@ public class ExportActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             List<DataMasuk> pemasukkan = dbHelper.getPemasukkan();
             List<DataMasuk> pengeluaran = dbHelper.getPengeluaran();
+            List<Hutang> hutang = dbHelper.getHutang();
 
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("pemasukkan", pemasukkan);
             data.put("pengeluaran", pengeluaran);
+            data.put("hutang", hutang);
             exportExcel(ExportActivity.this, "report_uangku_"+new Date().getTime()+".xls", data);
             return "Export sukses!";
         }
