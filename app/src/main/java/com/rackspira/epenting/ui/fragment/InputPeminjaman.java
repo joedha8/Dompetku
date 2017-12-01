@@ -1,11 +1,15 @@
 package com.rackspira.epenting.ui.fragment;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.rackspira.epenting.R;
+import com.rackspira.epenting.broadcast.AlarmReceiver;
 import com.rackspira.epenting.chartutil.DemoBase;
 import com.rackspira.epenting.database.DataMasuk;
 import com.rackspira.epenting.database.DbHelper;
@@ -36,6 +41,7 @@ public class InputPeminjaman extends DemoBase {
 
     private String mParam1;
     private String mParam2;
+    private Calendar mCalendar;
 
     TextInputLayout textInputLayoutPinjam, textInputLayoutBayar, textInputLayoutCicilan, textInputLayoutBayarCicilan;
     EditText editTextPeminjam, editTextNominal, editTextTanggalPinjam, editTextTanggalKembali, editTextCicilan, editTextBayarCicilan;
@@ -45,6 +51,9 @@ public class InputPeminjaman extends DemoBase {
     DbHelper dbHelper;
     String datePinjam, dateKembali, dateBayarUtang;
     String status;
+    int hari;
+    private static final long milMonth = 2592000000L;
+    PendingIntent pendingIntent;
 
     public InputPeminjaman() {
     }
@@ -151,13 +160,16 @@ public class InputPeminjaman extends DemoBase {
                 Calendar calendar=Calendar.getInstance();
                 int tahun=calendar.get(Calendar.YEAR);
                 int bulan=calendar.get(Calendar.MONTH);
-                int hari=calendar.get(Calendar.DAY_OF_MONTH);
+                hari=calendar.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         String date=day+"-"+(month+1)+"-"+year;
                         editTextTanggalKembali.setText(date);
+                        Calendar tes = Calendar.getInstance();
+                        tes.set(year,month,day);
+                        startAlarm(tes);
                         dateKembali=date;
                     }
                 }, tahun, bulan, hari);
@@ -188,6 +200,9 @@ public class InputPeminjaman extends DemoBase {
         buttonPinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent alarmIntent = new Intent(getContext(), AlarmReceiver.class);
+                pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, 0);
+
                 if (status=="ya"){
                     if (!editTextPeminjam.getText().toString().isEmpty() &&
                             !editTextNominal.getText().toString().isEmpty() &&
@@ -239,6 +254,18 @@ public class InputPeminjaman extends DemoBase {
         });
         return view;
     }
+
+    private void startAlarm(Calendar calendar) {
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        int interval = 8000;
+        Log.d("Hari" ,"" + calendar.get(Calendar.DAY_OF_MONTH));
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY,12);
+        calendar.set(Calendar.MINUTE,4);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(),milMonth, pendingIntent);
+        Toast.makeText(getContext(), "Alarm Set", Toast.LENGTH_SHORT).show();
+    }
+
 
     public void clear(){
         editTextPeminjam.setText("");
