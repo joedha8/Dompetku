@@ -16,6 +16,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.common.Constants;
 import com.rackspira.epenting.database.Hutang;
+import com.rackspira.epenting.ui.BackupRestoreActivity;
 import com.rackspira.epenting.ui.MainActivity;
 import com.rackspira.epenting.ui.PeminjamanActivity;
 
@@ -38,19 +39,24 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent intentNotife = new Intent(context, PeminjamanActivity.class);
-        intentNotife.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        if (intent.getStringExtra(Constants.AUTO_BACKUP).equals(Integer.toString(BackupRestoreActivity.ID))) {
+            System.out.println("Ok -------------------------------- BackupRestore");
+            new BackupRestoreActivity().autoBackup();
+        }else {
+            Intent intentNotife = new Intent(context, PeminjamanActivity.class);
+            intentNotife.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intentNotife,0);
-        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_menu_camera)
-                .setContentTitle("E-Penting")
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent)
-                .setContentText("Waktunya anda Membayar Hutang anda!");
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intentNotife, 0);
+            NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_menu_camera)
+                    .setContentTitle("E-Penting")
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
+                    .setContentText("Waktunya anda Membayar Hutang anda!");
 
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(2,builder.build());
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(2, builder.build());
+        }
     }
 
     public void setAlarm(Context context, Calendar calendar, int ID) {
@@ -94,7 +100,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Start alarm using initial notification time and repeat interval time
         mAlarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
                 SystemClock.elapsedRealtime() + diffTime,
-                RepeatTime , mPendingIntent);
+                RepeatTime, mPendingIntent);
 
         // Restart alarm if device is rebooted
         ComponentName receiver = new ComponentName(context, BootReceiver.class);

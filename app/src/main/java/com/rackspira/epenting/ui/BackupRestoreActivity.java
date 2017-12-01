@@ -84,22 +84,27 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
             }
         });
 
-        checkBoxAutoBackup = (AppCompatCheckBox)findViewById(R.id.checkbox_autobackup);
+        checkBoxAutoBackup = (AppCompatCheckBox) findViewById(R.id.checkbox_autobackup);
         checkBoxAutoBackup.setChecked(storage.getAutoBackup());
         checkBoxAutoBackup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 storage.setAutoBackup(isChecked);
-                if (isChecked){
+                if (isChecked) {
+                    signIn(MODE_BACKUP);
                     Calendar c = Calendar.getInstance();
-                    alarmReceiver.setRepeatAlarmAutoBackup(BackupRestoreActivity.this,c,ID, AlarmReceiver.milMinute);
-                }else {
+                    alarmReceiver.setRepeatAlarmAutoBackup(BackupRestoreActivity.this, c, ID, AlarmReceiver.milMinute);
+                } else {
                     alarmReceiver.cancelAlarm(BackupRestoreActivity.this, ID);
                 }
             }
         });
 
         mExecutorService = Executors.newSingleThreadExecutor();
+    }
+
+    public void autoBackup(){
+        signIn(MODE_BACKUP);
     }
 
     public void dialogProgress() {
@@ -196,14 +201,14 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                         new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                showMessage(getString(R.string.content_updated));
+                                showMessage("Backup berhasil");
                             }
                         })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Unable to update contents", e);
-                        showMessage(getString(R.string.content_update_failed));
+                        Log.e(TAG, "Backup tidak berhasil", e);
+                        showMessage("Backup tidak berhasil");
                     }
                 });
         // [END rewrite_contents]
@@ -227,7 +232,7 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                                     @RequiresApi(api = Build.VERSION_CODES.O)
                                     @Override
                                     public void onSuccess(MetadataBuffer metadataBuffer) {
-                                        System.out.println("Ok ------- metadata " + metadataBuffer.getCount());
+//                                        System.out.println("Ok ------- metadata " + metadataBuffer.getCount());
 
                                         if (metadataBuffer.getCount() == 0) {
                                             if (mode == MODE_BACKUP) {
@@ -256,8 +261,8 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                         .addOnFailureListener(this, new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.e(TAG, "Error retrieving files", e);
-                                showMessage(getString(R.string.query_failed));
+//                                Log.e(TAG, "Error retrieving files", e);
+//                                showMessage(getString(R.string.query_failed));
                             }
                         });
     }
@@ -311,7 +316,7 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                 // Handle error
                 // [START_EXCLUDE]
                 Log.e(TAG, "Unable to read contents", e);
-                showMessage(getString(R.string.read_failed));
+//                showMessage(getString(R.string.read_failed));
                 // [END_EXCLUDE]
             }
         };

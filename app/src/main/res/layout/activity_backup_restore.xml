@@ -15,17 +15,25 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/data_backup_filled"
+        android:src="@drawable/cloud_sync"
         android:layout_marginTop="21dp"
         android:id="@+id/imageView2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:text="Sync"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text=""
         android:textColor="@android:color/white"
         android:textSize="13sp"
         android:textAlignment="center"
