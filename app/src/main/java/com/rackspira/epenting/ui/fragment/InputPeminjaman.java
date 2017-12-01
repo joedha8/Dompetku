@@ -43,7 +43,7 @@ public class InputPeminjaman extends DemoBase {
     RadioButton radioButtonYa, radioButtonTidak;
     Button buttonPinjam;
     DbHelper dbHelper;
-    String datePinjam, dateKembali;
+    String datePinjam, dateKembali, dateBayarUtang;
     String status;
 
     public InputPeminjaman() {
@@ -120,6 +120,11 @@ public class InputPeminjaman extends DemoBase {
         editTextTanggalKembali.setText(tanggalAkhir);
         dateKembali=tanggalAkhir;
 
+        SimpleDateFormat sdf2 = new SimpleDateFormat( "dd-MM-yyyy" );
+        String tanggalBayarCicilan=sdf2.format( new Date() );
+        editTextBayarCicilan.setText(tanggalBayarCicilan);
+        dateBayarUtang=tanggalAkhir;
+
         editTextTanggalPinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,6 +165,26 @@ public class InputPeminjaman extends DemoBase {
             }
         });
 
+        editTextBayarCicilan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar=Calendar.getInstance();
+                int tahun=calendar.get(Calendar.YEAR);
+                int bulan=calendar.get(Calendar.MONTH);
+                int hari=calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        String date=day+"-"+(month+1)+"-"+year;
+                        editTextBayarCicilan.setText(date);
+                        dateBayarUtang=date;
+                    }
+                }, tahun, bulan, hari);
+                datePickerDialog.show();
+            }
+        });
+
         buttonPinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,23 +194,18 @@ public class InputPeminjaman extends DemoBase {
                             !editTextCicilan.getText().toString().isEmpty() &&
                             !editTextTanggalPinjam.getText().toString().isEmpty() &&
                             !editTextBayarCicilan.getText().toString().isEmpty()){
-                        int tglByrCcl=Integer.parseInt(editTextBayarCicilan.getText().toString());
-                        if (tglByrCcl<=31 && tglByrCcl>=1){
-                            Hutang hutang=new Hutang();
+                        Hutang hutang=new Hutang();
 
-                            hutang.setPemberiPinjaman(""+editTextPeminjam.getText().toString());
-                            hutang.setNominal(""+editTextNominal.getText().toString());
-                            hutang.setStatus("Belum Lunas");
-                            hutang.setCicilan(""+editTextCicilan.getText().toString());
-                            hutang.setTgl_pinjam(""+editTextTanggalPinjam.getText().toString());
-                            hutang.setTgl_bayar_cicilan(""+editTextBayarCicilan.getText().toString());
+                        hutang.setPemberiPinjaman(""+editTextPeminjam.getText().toString());
+                        hutang.setNominal(""+editTextNominal.getText().toString());
+                        hutang.setStatus("Belum Lunas");
+                        hutang.setCicilan(""+editTextCicilan.getText().toString());
+                        hutang.setTgl_pinjam(""+editTextTanggalPinjam.getText().toString());
+                        hutang.setTgl_bayar_cicilan(""+editTextBayarCicilan.getText().toString());
 
-                            dbHelper.insertHutangCicilan(hutang);
+                        dbHelper.insertHutangCicilan(hutang);
 
-                            clear();
-                        } else {
-                            Toast.makeText(getContext(), "Tidak ada tanggal "+tglByrCcl, Toast.LENGTH_SHORT).show();
-                        }
+                        clear();
                     } else {
                         Toast.makeText(getContext(), "Isi Data Dengan Benar", Toast.LENGTH_SHORT).show();
                     }

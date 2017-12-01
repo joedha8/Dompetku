@@ -106,7 +106,7 @@
                 android:textSize="23sp"
                 android:hint="Tanggal Bayar Cicilan"
                 android:id="@+id/tgl_bayar_cicilan"
-                android:inputType="number"/>
+                android:focusable="false"/>
         </android.support.design.widget.TextInputLayout>
         <Button
             android:id="@+id/button_insert_pinjam"

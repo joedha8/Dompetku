@@ -68,7 +68,7 @@ public class RecyclerViewAdapterPeminjaman extends RecyclerView.Adapter<Recycler
         holder.textViewNominalPinjaman.setText(biayaTampil);
         if (hutang.getCicilan()!=null){
             holder.textViewDetailCicilan.setVisibility(View.VISIBLE);
-            holder.textViewDetailCicilan.setText(hutang.getCicilan()+"x Cicilan dan harus dibayar setiap tanggal "+hutang.getTgl_bayar_cicilan());
+            holder.textViewDetailCicilan.setText(hutang.getCicilan()+"x Cicilan dan harus dibayar setiap tanggal "+hutang.getTgl_bayar_cicilan().substring(0,2));
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
