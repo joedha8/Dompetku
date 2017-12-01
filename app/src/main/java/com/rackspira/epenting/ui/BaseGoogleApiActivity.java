@@ -14,6 +14,7 @@
 
 package com.rackspira.epenting.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.support.annotation.NonNull;
@@ -141,6 +142,25 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
                       .requestScopes(Drive.SCOPE_FILE)
                       .requestScopes(Drive.SCOPE_APPFOLDER)
                       .build();
+            GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, signInOptions);
+            startActivityForResult(googleSignInClient.getSignInIntent(), REQUEST_CODE_SIGN_IN);
+        }
+    }
+
+    protected void signIn(int mode, Context context) {
+        this.mode = mode;
+        Set<Scope> requiredScopes = new HashSet<>(2);
+        requiredScopes.add(Drive.SCOPE_FILE);
+        requiredScopes.add(Drive.SCOPE_APPFOLDER);
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(context);
+        if (signInAccount != null && signInAccount.getGrantedScopes().containsAll(requiredScopes)) {
+            initializeDriveClient(signInAccount);
+        } else {
+            GoogleSignInOptions signInOptions =
+                    new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestScopes(Drive.SCOPE_FILE)
+                            .requestScopes(Drive.SCOPE_APPFOLDER)
+                            .build();
             GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, signInOptions);
             startActivityForResult(googleSignInClient.getSignInIntent(), REQUEST_CODE_SIGN_IN);
         }

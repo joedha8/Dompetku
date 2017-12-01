@@ -2,6 +2,7 @@ package com.rackspira.epenting.ui;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -57,6 +58,11 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
     private ProgressBar mProgressBar;
     private Dialog dialog;
     private ExecutorService mExecutorService;
+    private Context context;
+
+    public BackupRestoreActivity(Context context) {
+        this.context = context;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +110,7 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
     }
 
     public void autoBackup(){
-        signIn(MODE_BACKUP);
+        signIn(MODE_BACKUP, context);
     }
 
     public void dialogProgress() {
