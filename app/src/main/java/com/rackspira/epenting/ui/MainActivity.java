@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             new AlertDialog.Builder(this)
-                    .setMessage("Ingin keluar dari Dompetku??")
+                    .setMessage("Ingin keluar dari E-Penting?")
                     .setCancelable(false)
                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                         @Override
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
-            String shareBody = "Download and use this application https://play.google.com/store/apps/details?id=com.rackspira.dompetku";
+            String shareBody = "Saya Menggunakan Aplikasi E-Penting";
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
             startActivity(Intent.createChooser(sharingIntent, "Share via"));
