@@ -453,7 +453,6 @@ public class DbHelper extends SQLiteOpenHelper {
                     KET + " ='" + dataMasuk.getKet() + "', " +
                     BIAYA + " ='" + dataMasuk.getBiaya() + "', " +
                     TANGGAL + " ='" + dataMasuk.getTanggal() +
-                    KET + " ='" + dataMasuk.getKet() + "', " +
                     "' WHERE " +
                     ID +" ='"+ GlobalDataMasuk.getDataMasuk().getId() +"'");
             db.setTransactionSuccessful();

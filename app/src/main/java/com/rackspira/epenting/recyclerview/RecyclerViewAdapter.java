@@ -15,6 +15,7 @@ import com.rackspira.epenting.MenuPilihan.UpdateActivity;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DataMasuk;
 import com.rackspira.epenting.database.DbHelper;
+import com.rackspira.epenting.model.GlobalDataMasuk;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -91,6 +92,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i){
                             case 0 :
+                                GlobalDataMasuk.setDataMasuk(dataMasuk);
                                 Intent intent = new Intent(context, UpdateActivity.class);
                                 context.startActivity(intent);
                                 break;

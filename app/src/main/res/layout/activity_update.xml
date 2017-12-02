@@ -132,9 +132,4 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/btn_cancel" />
     </LinearLayout>
-   <ImageView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:padding="40dp"
-       android:src="@drawable/dompetku"/>
 </LinearLayout>
