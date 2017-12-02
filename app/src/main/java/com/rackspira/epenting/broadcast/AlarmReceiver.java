@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
@@ -41,18 +43,20 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getStringExtra(Constants.AUTO_BACKUP).equals(Integer.toString(BackupRestoreActivity.ID))) {
             System.out.println("Ok -------------------------------- BackupRestore");
-            new BackupRestoreActivity().autoBackup();
+            new BackupRestoreActivity(context).autoBackup();
         }else {
             Intent intentNotife = new Intent(context, PeminjamanActivity.class);
             intentNotife.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intentNotife, 0);
-            NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.ic_menu_camera)
-                    .setContentTitle("E-Penting")
-                    .setAutoCancel(true)
-                    .setContentIntent(pendingIntent)
-                    .setContentText("Waktunya anda Membayar Hutang anda!");
+            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intentNotife,0);
+        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_menu_camera)
+                .setContentTitle("E-Penting")
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .setContentText("Waktunya anda Membayar Hutang anda!");
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(sound);
 
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(2, builder.build());

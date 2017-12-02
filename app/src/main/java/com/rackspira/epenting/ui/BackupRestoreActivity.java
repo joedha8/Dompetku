@@ -64,6 +64,9 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
         this.context = context;
     }
 
+    public BackupRestoreActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

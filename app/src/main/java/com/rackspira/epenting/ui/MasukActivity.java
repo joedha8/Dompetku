@@ -47,6 +47,8 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
     private static final  int NOTIFICATION_ID = 1;
     private int jmlPerKategori;
     private int batasPerKategori;
+    private int ket =0;
+    public static int ID = 213112116;
 
 
     @Override
@@ -103,6 +105,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onClick(View view) {
                 spinnerKategori.setVisibility(View.GONE);
+                ket = 0;
             }
         });
         RadioButton radioButtonPengeluaran=(RadioButton)findViewById(R.id.radioKeluar);
@@ -110,6 +113,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onClick(View view) {
                 spinnerKategori.setVisibility(View.VISIBLE);
+                ket = 1;
             }
         });
 
@@ -142,6 +146,15 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
 
                 if(!edtKet.getText().toString().isEmpty() && !edtNom.getText().toString().isEmpty() && !tanggal.getText().toString().isEmpty()){
                     dbHelper.insertData(dataMasuk);
+                    Log.d("JmlKategori",jmlPerKategori+"");
+                    Log.d("Batass",batasPerKategori+"");
+                    Log.d("Kat",ket+"");
+                    int masukkan = Integer.parseInt(edtNom.getText().toString());
+                    if(jmlPerKategori >= batasPerKategori && ket ==1){
+                        notification();
+                    }else if (masukkan >= batasPerKategori && ket ==1  ){
+                        notification();
+                    }
                     Intent intent=new Intent(MasukActivity.this, MainActivity.class);
                     startActivity(intent);
                 }else if (edtKet.getText().toString().isEmpty()){
@@ -155,15 +168,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
                     snackbar.show();
                 }
 
-                Log.d("JmlKategori",jmlPerKategori+"");
-                Log.d("Batass",batasPerKategori+"");
-                int masukkan = Integer.parseInt(edtNom.getText().toString());
-                if(jmlPerKategori > batasPerKategori){
-                   notification();
 
-                }else if (masukkan > batasPerKategori){
-                    notification();
-                }
 
             }
         });

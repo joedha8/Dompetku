@@ -52,8 +52,13 @@ public class InputPeminjaman extends DemoBase {
     String datePinjam, dateKembali, dateBayarUtang;
     String status;
     int hari;
+
+    int setHari;
+    int setBulan;
+    int setTahun;
     private static final long milMonth = 2592000000L;
     PendingIntent pendingIntent;
+    public static int ID = 213112116;
 
     public InputPeminjaman() {
     }
@@ -95,7 +100,7 @@ public class InputPeminjaman extends DemoBase {
         textInputLayoutBayar=(TextInputLayout)view.findViewById(R.id.input_layout_tanggal_kembali);
         textInputLayoutCicilan=(TextInputLayout)view.findViewById(R.id.input_layout_cicilan);
         textInputLayoutBayarCicilan=(TextInputLayout)view.findViewById(R.id.input_layout_bayar_cicilan);
-
+        final AlarmReceiver alarmReceiver = new AlarmReceiver();
         dbHelper =DbHelper.getInstance(getContext());
 
         radioButtonYa.setOnClickListener(new View.OnClickListener() {
@@ -167,10 +172,10 @@ public class InputPeminjaman extends DemoBase {
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         String date=day+"-"+(month+1)+"-"+year;
                         editTextTanggalKembali.setText(date);
-                        Calendar tes = Calendar.getInstance();
-                        tes.set(year,month,day);
-                        startAlarm(tes);
                         dateKembali=date;
+                        setHari = day;
+                        setBulan = month;
+                        setTahun = year;
                     }
                 }, tahun, bulan, hari);
                 datePickerDialog.show();
@@ -200,8 +205,7 @@ public class InputPeminjaman extends DemoBase {
         buttonPinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent alarmIntent = new Intent(getContext(), AlarmReceiver.class);
-                pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, 0);
+
 
                 if (status=="ya"){
                     if (!editTextPeminjam.getText().toString().isEmpty() &&
@@ -219,7 +223,8 @@ public class InputPeminjaman extends DemoBase {
                         hutang.setTgl_bayar_cicilan(""+editTextBayarCicilan.getText().toString());
 
                         dbHelper.insertHutangCicilan(hutang);
-
+                        Calendar c = Calendar.getInstance();
+                        alarmReceiver.setRepeatAlarmAutoBackup(getContext(),c,ID,AlarmReceiver.milMonth);
                         clear();
                     } else {
                         Toast.makeText(getContext(), "Isi Data Dengan Benar", Toast.LENGTH_SHORT).show();
@@ -243,7 +248,16 @@ public class InputPeminjaman extends DemoBase {
 
                         dbHelper.insertHutang(hutang);
                         dbHelper.insertData(dataMasuk);
+                        Calendar c = Calendar.getInstance();
+                        c.set(Calendar.YEAR,setTahun);
+                        c.set(Calendar.MONTH,setBulan);
+                        c.set(Calendar.DAY_OF_MONTH,setHari);
+                        c.set(Calendar.HOUR_OF_DAY,13);
+                        c.set(Calendar.MINUTE,5);
+                        c.set(Calendar.SECOND,0);
 
+                        alarmReceiver.setAlarm(getContext(),c,ID);
+                        Log.d("tes tnggal",c.get(Calendar.DAY_OF_MONTH) + " ");
                         clear();
                     } else {
                         Toast.makeText(getContext(), "Isi Data Dengan Benar", Toast.LENGTH_SHORT).show();
@@ -261,19 +275,26 @@ public class InputPeminjaman extends DemoBase {
         Log.d("Hari" ,"" + calendar.get(Calendar.DAY_OF_MONTH));
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY,12);
-        calendar.set(Calendar.MINUTE,4);
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(),milMonth, pendingIntent);
+        calendar.set(Calendar.MINUTE,0);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),milMonth, pendingIntent);
         Toast.makeText(getContext(), "Alarm Set", Toast.LENGTH_SHORT).show();
     }
-
-
+    private void startAlarmHutang(Calendar calendar){
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        int interval = 8000;
+        Log.d("Hari" ,"" + calendar.get(Calendar.DAY_OF_MONTH));
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY,12);
+        calendar.set(Calendar.MINUTE,5);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),0, pendingIntent);
+        Toast.makeText(getContext(), "Alarm Set", Toast.LENGTH_SHORT).show();
+    }
     public void clear(){
         editTextPeminjam.setText("");
         editTextNominal.setText("");
         radioButtonYa.setChecked(false);
         radioButtonTidak.setChecked(false);
     }
-
     public void reload(){
         new Handler().post(new Runnable() {
 
@@ -285,7 +306,6 @@ public class InputPeminjaman extends DemoBase {
                         | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 getActivity().overridePendingTransition(0, 0);
                 getActivity().finish();
-
                 getActivity().overridePendingTransition(0, 0);
                 startActivity(intent);
             }

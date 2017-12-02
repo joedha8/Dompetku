@@ -64,6 +64,7 @@ public class KategoriActivity extends AppCompatActivity {
                     dbHelper.insertKategori(kategori);
                     refreshList();
                     editTextInsetKategori.setText("");
+                    editTextBatasPengeluaran.setText("");
                 }
             }
         });
