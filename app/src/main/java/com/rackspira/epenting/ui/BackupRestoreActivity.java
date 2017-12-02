@@ -102,7 +102,7 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                 if (isChecked) {
                     signIn(MODE_BACKUP);
                     Calendar c = Calendar.getInstance();
-                    alarmReceiver.setRepeatAlarmAutoBackup(BackupRestoreActivity.this, c, ID, AlarmReceiver.milMinute);
+                    alarmReceiver.setRepeatAlarmAutoBackup(BackupRestoreActivity.this, c, ID, AlarmReceiver.milMonth);
                 } else {
                     alarmReceiver.cancelAlarm(BackupRestoreActivity.this, ID);
                 }

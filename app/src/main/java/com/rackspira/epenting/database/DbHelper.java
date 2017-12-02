@@ -151,7 +151,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public List<DataMasuk> getMasuk() {
         List<DataMasuk> dataMasukList = new ArrayList<>();
-        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT;
+        String DATA_MASUK_SELECT_QUERY = "SELECT * FROM " + TABLE_INPUT+" ORDER BY id DESC";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(DATA_MASUK_SELECT_QUERY, null);
