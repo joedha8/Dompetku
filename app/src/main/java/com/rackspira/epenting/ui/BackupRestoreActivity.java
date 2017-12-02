@@ -3,6 +3,8 @@ package com.rackspira.epenting.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
@@ -33,6 +36,7 @@ import com.rackspira.epenting.broadcast.AlarmReceiver;
 import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.util.DBDrive;
 import com.rackspira.epenting.util.SharedPreferencesStorage;
+import com.victor.loading.rotate.RotateLoading;
 
 import org.apache.poi.util.IOUtils;
 
@@ -43,6 +47,8 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class BackupRestoreActivity extends BaseGoogleApiActivity {
     public static int ID = 213112116;
@@ -55,7 +61,7 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
     private Button buttonBackup;
     private Button buttonRestore;
     private AppCompatCheckBox checkBoxAutoBackup;
-    private ProgressBar mProgressBar;
+    private RotateLoading rotateLoading;
     private Dialog dialog;
     private ExecutorService mExecutorService;
     private Context context;
@@ -80,6 +86,7 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
         buttonBackup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.show();
                 signIn(MODE_BACKUP);
             }
         });
@@ -88,7 +95,7 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
         buttonRestore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgressBar.setProgress(0);
+                dialog.show();
                 signIn(MODE_RESTORE);
             }
         });
@@ -112,17 +119,20 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
         mExecutorService = Executors.newSingleThreadExecutor();
     }
 
-    public void autoBackup(){
+    public void autoBackup() {
+        setLoading(null);
         signIn(MODE_BACKUP, context);
     }
 
     public void dialogProgress() {
         dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(R.layout.dialog_progress);
         dialog.setCancelable(false);
-        mProgressBar = dialog.findViewById(R.id.progressBar);
-        mProgressBar.setIndeterminate(false);
-        mProgressBar.setMax(100);
+        rotateLoading = dialog.findViewById(R.id.rotateloading);
+        rotateLoading.start();
+        setLoading(dialog);
     }
 
     private static final String TAG = "CreateFileActivity";
@@ -132,9 +142,9 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
     protected void onDriveClientReady(int mode) {
         System.out.println("ok already");
         listFiles(mode);
-        if (mode == MODE_RESTORE) {
-            dialog.show();
-        }
+//        if (mode == MODE_RESTORE) {
+//            dialog.show();
+//        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -169,14 +179,20 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                         new OnSuccessListener<DriveFile>() {
                             @Override
                             public void onSuccess(DriveFile driveFile) {
-                                showMessage("Backup berhasil");
+                                if (dialog != null) {
+                                    dialog.dismiss();
+                                    showMessage("Backup berhasil");
+                                }
                             }
                         })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "Unable to create file", e);
-                        showMessage("Backup tidak berhasil");
+                        if (dialog != null) {
+                            dialog.dismiss();
+                            showMessage("Backup tidak berhasil");
+                        }
                     }
                 });
         // [END create_file]
@@ -209,14 +225,21 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                         new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                showMessage("Backup berhasil");
+                                if (dialog != null) {
+                                    dialog.dismiss();
+                                    showMessage("Backup berhasil");
+                                }
                             }
                         })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        if (dialog != null) {
+                            dialog.dismiss();
+                            showMessage("Backup tidak berhasil");
+                        }
+
                         Log.e(TAG, "Backup tidak berhasil", e);
-                        showMessage("Backup tidak berhasil");
                     }
                 });
         // [END rewrite_contents]
@@ -250,7 +273,9 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                                                     e.printStackTrace();
                                                 }
                                             } else {
-                                                showMessage("Belum ada data yang di backup.");
+                                                if (dialog != null){
+                                                    showMessage("Belum ada data yang di backup.");
+                                                }
                                             }
                                         } else {
                                             if (mode == MODE_BACKUP) {
@@ -282,13 +307,6 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
             public void onProgress(long bytesDownloaded, long bytesExpected) {
                 // Update progress dialog with the latest progress.
                 final int progress = (int) (bytesDownloaded * 100 / bytesExpected);
-                System.out.println("Ok - " + progress);
-                BackupRestoreActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mProgressBar.setProgress(progress);
-                    }
-                });
 
             }
 
@@ -298,12 +316,6 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                 // onProgress may not be called for files that are already
                 // available on the device. Mark the progress as complete
                 // when contents available to ensure status is updated.
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mProgressBar.setProgress(100);
-                    }
-                });
                 // Read contents
                 // [START_EXCLUDE]
                 try {
@@ -312,8 +324,16 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                     OutputStream outputStream = new FileOutputStream(fileDb, false);
                     outputStream.write(bytes);
                     getDriveResourceClient().discardContents(driveContents);
-                    dialog.dismiss();
+                    if (dialog != null) {
+                        dialog.dismiss();
+                        showMessage("Restore berhasil");
+                    }
                 } catch (IOException e) {
+                    if (dialog != null) {
+                        dialog.dismiss();
+                        showMessage("Restore tidak berhasil");
+                    }
+
                     onError(e);
                 }
                 // [END_EXCLUDE]

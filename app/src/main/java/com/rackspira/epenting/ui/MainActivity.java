@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity
 
     RecycleViewAdapterHome adapterHome;
 
+    public static int showPage = 0;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,33 +116,7 @@ public class MainActivity extends AppCompatActivity
                 builder.setItems(charSequence, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i){
-                            case 0 :
-                                if (dbHelper.getMasuk().size() == 0){
-                                    textKet.setVisibility(View.VISIBLE);
-                                    rview.setVisibility(View.GONE);
-                                    btnPilihan.setText("Semua Data");
-                                }else {
-                                    textKet.setVisibility(View.GONE);
-                                    rview.setVisibility(View.GONE);
-                                    rviewTerakhri.setVisibility(View.VISIBLE);
-                                    btnPilihan.setText("Semua Data");
-                                }
-                                break;
-                            case 1 :
-                                if (dbHelper.getKategori().size() == 0){
-                                    textKet.setVisibility(View.VISIBLE);
-                                    rviewTerakhri.setVisibility(View.GONE);
-                                    btnPilihan.setText("Kategori");
-                                }else {
-                                    refreshList();
-                                    textKet.setVisibility(View.GONE);
-                                    rview.setVisibility(View.VISIBLE);
-                                    rviewTerakhri.setVisibility(View.GONE);
-                                    btnPilihan.setText("Kategori");
-                                }
-                                break;
-                        }
+                        showPage(i);
                     }
                 });
                 builder.create().show();
@@ -192,11 +168,46 @@ public class MainActivity extends AppCompatActivity
         adapterHome.notifyDataSetChanged();
     }
 
+    private void showPage(int i){
+        switch (i){
+            case 0 :
+                if (dbHelper.getMasuk().size() == 0){
+                    textKet.setVisibility(View.VISIBLE);
+                    rview.setVisibility(View.GONE);
+                    btnPilihan.setText("Semua Data");
+                }else {
+                    textKet.setVisibility(View.GONE);
+                    rview.setVisibility(View.GONE);
+                    rviewTerakhri.setVisibility(View.VISIBLE);
+                    btnPilihan.setText("Semua Data");
+                }
+
+                showPage = 0;
+                break;
+            case 1 :
+                if (dbHelper.getKategori().size() == 0){
+                    textKet.setVisibility(View.VISIBLE);
+                    rviewTerakhri.setVisibility(View.GONE);
+                    btnPilihan.setText("Kategori");
+                }else {
+                    refreshList();
+                    textKet.setVisibility(View.GONE);
+                    rview.setVisibility(View.VISIBLE);
+                    rviewTerakhri.setVisibility(View.GONE);
+                    btnPilihan.setText("Kategori");
+                }
+
+                showPage = 1;
+                break;
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         refreshList2();
         refreshList();
+        showPage(showPage);
     }
 
     @Override

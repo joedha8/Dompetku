@@ -14,6 +14,7 @@
 
 package com.rackspira.epenting.ui;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -39,6 +40,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.rackspira.epenting.R;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -76,11 +78,16 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
     private TaskCompletionSource<DriveId> mOpenItemTaskSource;
 
     private int mode;
+    private Dialog dialog;
 
     @Override
     protected void onStart() {
         super.onStart();
 
+    }
+
+    protected void setLoading(Dialog dialog){
+        this.dialog = dialog;
     }
 
     /**
@@ -95,6 +102,10 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
                     // Sign-in may fail or be cancelled by the user. For this sample, sign-in is
                     // required and is fatal. For apps where sign-in is optional, handle
                     // appropriately
+                    if (dialog != null){
+                        dialog.dismiss();
+                    }
+
                     Log.e(TAG, "Sign-in failed.");
                     return;
                 }
@@ -109,7 +120,6 @@ public abstract class BaseGoogleApiActivity extends AppCompatActivity {
                     Log.e(TAG, "Sign-in failed.");
                 }
 
-                System.out.println("ok sign code");
                 Log.d(TAG, "sigin");
                 break;
             case REQUEST_CODE_OPEN_ITEM:

@@ -25,6 +25,7 @@ public class DetailActivity extends AppCompatActivity implements RefreshHandler 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(getIntent().getStringExtra("kategori"));
 
         refreshList();
     }
