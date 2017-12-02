@@ -169,15 +169,14 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                         new OnSuccessListener<DriveFile>() {
                             @Override
                             public void onSuccess(DriveFile driveFile) {
-                                showMessage(getString(R.string.file_created,
-                                        driveFile.getDriveId().encodeToString()));
+                                showMessage("Backup berhasil");
                             }
                         })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "Unable to create file", e);
-                        showMessage(getString(R.string.file_create_error));
+                        showMessage("Backup tidak berhasil");
                     }
                 });
         // [END create_file]
