@@ -149,6 +149,7 @@ public class PerBulan extends DemoBase {
             @Override
             public void onDateMonth(int month, int start, int end, int year, String date) {
                 setData(month, year);
+                rackMonthPicker.dismiss();
             }
         });
 
@@ -184,6 +185,7 @@ public class PerBulan extends DemoBase {
             set1.setValues(yVals1);
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
+            mChart.invalidate();
         } else {
             set1 = new BarDataSet(yVals1, "Total Per Bulan");
 
@@ -199,6 +201,9 @@ public class PerBulan extends DemoBase {
 
             mChart.setData(data);
         }
+
+        mChart.notifyDataSetChanged();
+        mChart.invalidate();
     }
 
 }

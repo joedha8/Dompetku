@@ -1,5 +1,6 @@
 package com.rackspira.epenting.broadcast;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -42,7 +43,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getStringExtra(Constants.AUTO_BACKUP).equals(Integer.toString(BackupRestoreActivity.ID))) {
-            System.out.println("Ok -------------------------------- BackupRestore");
+//            System.out.println("Ok -------------------------------- BackupRestore");
             new BackupRestoreActivity(context).autoBackup();
         }else {
             Intent intentNotife = new Intent(context, PeminjamanActivity.class);
