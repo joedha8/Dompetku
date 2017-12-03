@@ -83,6 +83,7 @@
               android:layout_height="wrap_content"
               android:text="Tambah Kategori baru"
               android:gravity="right"
+              android:id="@+id/textTambahKategori"
               android:visibility="gone"/>
           <Button
               android:layout_width="88dp"

@@ -64,19 +64,19 @@ public class UpdateActivity extends AppCompatActivity implements DatePickerDialo
         nominal.setText("" + GlobalDataMasuk.getDataMasuk().getBiaya());
         tanggal.setText("" + GlobalDataMasuk.getDataMasuk().getTanggal());
 
-        keterangan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                keterangan.setText("");
-            }
-        });
-
-        nominal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nominal.setText("");
-            }
-        });
+//        keterangan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                keterangan.setText("");
+//            }
+//        });
+//
+//        nominal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                nominal.setText("");
+//            }
+//        });
 
         tanggal.setOnClickListener(new View.OnClickListener() {
             @Override

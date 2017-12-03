@@ -88,10 +88,16 @@ public class KategoriActivity extends AppCompatActivity {
 
         if (id == android.R.id.home){
             //finish();
-            Intent intent=new Intent(KategoriActivity.this, MainActivity.class);
-            startActivity(intent);
+//            Intent intent=new Intent(KategoriActivity.this, MainActivity.class);
+//            startActivity(intent);
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

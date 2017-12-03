@@ -131,7 +131,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
                     textViewTambahKategori.setVisibility(View.VISIBLE);
                     spinnerKategori.setVisibility(View.GONE);
                 }else{
-                    textViewTambahKategori.setVisibility(View.GONE);
+                    textViewTambahKategori.setVisibility(View.VISIBLE);
                     spinnerKategori.setVisibility(View.VISIBLE);
                 }
                 ket = 1;
