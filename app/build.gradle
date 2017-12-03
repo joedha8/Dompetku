@@ -10,7 +10,7 @@ android {
         versionCode 4
         versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+        multiDexEnabled false
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
@@ -73,4 +73,7 @@ dependencies {
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.nononsenseapps:filepicker:4.1.0'
+    implementation project(':activation')
+    implementation project(':additionnal')
+    implementation project(':mail')
 }

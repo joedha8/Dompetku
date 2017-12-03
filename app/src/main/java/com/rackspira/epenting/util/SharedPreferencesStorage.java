@@ -43,12 +43,23 @@ public class SharedPreferencesStorage {
     public boolean getAutoBackup(){
         return sharedPreferences.getBoolean(Constants.AUTO_BACKUP, false);
     }
+
+
     public String getEmail (){
         return sharedPreferences.getString(Constants.EMAIL_ORTU,null);
     }
     public void setEmail(String email){
         editor.putString(Constants.EMAIL_ORTU,email);
         editor.commit();
+    }
+
+    public void setNama(String nama){
+        editor.putString("nama",nama);
+        editor.commit();
+    }
+
+    public String getNama (){
+        return sharedPreferences.getString("nama",null);
     }
 
 }

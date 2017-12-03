@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -31,6 +32,7 @@ import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DataMasuk;
 import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.database.Hutang;
+import com.rackspira.epenting.util.GmailSender;
 import com.rackspira.epenting.util.SharedPreferencesStorage;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -57,8 +59,10 @@ public class ExportActivity extends AppCompatActivity {
     private EditText editTextNama;
     private Button buttonSimpan;
     private Button buttonBatal;
+    private static File file;
 
     static final int CODE_SD = 0;
+    SharedPreferencesStorage storage;
 
 
     @Override
@@ -73,7 +77,7 @@ public class ExportActivity extends AppCompatActivity {
         textViewLokasi = (TextView) findViewById(R.id.textView2);
         checkBoxAutoSendEmail = (AppCompatCheckBox)findViewById(R.id.checkbox_autoSend);
 
-        final SharedPreferencesStorage storage = new SharedPreferencesStorage(this);
+        storage = new SharedPreferencesStorage(this);
         checkBoxAutoSendEmail.setChecked(storage.getAutoSend());
 
         checkBoxAutoSendEmail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -101,9 +105,56 @@ public class ExportActivity extends AppCompatActivity {
         dia.setContentView(R.layout.custom_dialog);
         dia.setTitle("Kirim Email");
         dia.setCancelable(false);
-        dia.show();
+
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
         editTextEmailOrtu = (EditText)dia.findViewById(R.id.editText_email);
-        editTextEmailOrtu = (EditText)dia.findViewById(R.id.editText_Nama);
+        editTextNama = (EditText)dia.findViewById(R.id.editText_Nama);
+        editTextEmailOrtu.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    imm.showSoftInput(editTextEmailOrtu, InputMethodManager.SHOW_IMPLICIT);
+                }else {
+                    imm.hideSoftInputFromWindow(editTextEmailOrtu.getWindowToken(), 0);
+                }
+            }
+        });
+
+        editTextNama.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    imm.showSoftInput(editTextNama, InputMethodManager.SHOW_IMPLICIT);
+                }else {
+                    imm.hideSoftInputFromWindow(editTextNama.getWindowToken(), 0);
+                }
+            }
+        });
+
+
+
+        Button buttonOk = (Button)dia.findViewById(R.id.btnEmail);
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storage.setEmail(editTextEmailOrtu.getText().toString());
+                storage.setNama(editTextNama.getText().toString());
+                dia.dismiss();
+            }
+        });
+
+        Button buttonCancel = (Button)dia.findViewById(R.id.btnCancel) ;
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dia.dismiss();
+            }
+        });
+
+
+        dia.show();
     }
 
 
@@ -158,7 +209,7 @@ public class ExportActivity extends AppCompatActivity {
 
         boolean success = false;
         BuildReportWorksheet reportWorksheet = new BuildReportWorksheet(data);
-        File file = new File(destinationExport, fileName);
+        file = new File(destinationExport, fileName);;
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file);
@@ -217,7 +268,33 @@ public class ExportActivity extends AppCompatActivity {
             super.onPostExecute(s);
             loading.stop();
             buttonExport.setEnabled(true);
+
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            if (storage.getEmail() != null && checkBoxAutoSendEmail.isChecked()){
+                try {
+                    GmailSender sender = new GmailSender("rackspira.jog@gmail.com", "RackSpira123@");
+                    sender.sendMail("This is Subject",
+                            "Ini merupakan laporan keuangan dari anak anda yang bernama "+storage.getNama(),
+                            "rackspira.jog@gmail.com",
+                            file,
+                            storage.getEmail());
+                    loading.stop();
+                    buttonExport.setEnabled(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loading.stop();
+                    buttonExport.setEnabled(true);
+                }
+            }else {
+                loading.stop();
+                buttonExport.setEnabled(true);
+            }
+
             Toast.makeText(ExportActivity.this, s, Toast.LENGTH_LONG).show();
+
         }
     }
 }
