@@ -266,7 +266,7 @@ public class ExportActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            loading.stop();
+//            loading.stop();
             buttonExport.setEnabled(true);
 
 
