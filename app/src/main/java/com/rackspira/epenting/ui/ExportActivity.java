@@ -1,16 +1,25 @@
 package com.rackspira.epenting.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +31,7 @@ import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DataMasuk;
 import com.rackspira.epenting.database.DbHelper;
 import com.rackspira.epenting.database.Hutang;
+import com.rackspira.epenting.util.SharedPreferencesStorage;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.io.File;
@@ -38,8 +48,18 @@ public class ExportActivity extends AppCompatActivity {
     private DbHelper dbHelper;
     private TextView textViewLokasi;
     private static String destinationExport;
+    private  AppCompatCheckBox checkBoxAutoSendEmail;
+    private View viewDialog;
+    private AlertDialog.Builder dialogBuilder;
+    private  Dialog dia;
+    private LayoutInflater inflater;
+    private EditText editTextEmailOrtu;
+    private EditText editTextNama;
+    private Button buttonSimpan;
+    private Button buttonBatal;
 
     static final int CODE_SD = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +71,41 @@ public class ExportActivity extends AppCompatActivity {
         loading = (RotateLoading)findViewById(R.id.rotateloading);
         buttonExport = (Button) findViewById(R.id.button_export);
         textViewLokasi = (TextView) findViewById(R.id.textView2);
+        checkBoxAutoSendEmail = (AppCompatCheckBox)findViewById(R.id.checkbox_autoSend);
+
+        final SharedPreferencesStorage storage = new SharedPreferencesStorage(this);
+        checkBoxAutoSendEmail.setChecked(storage.getAutoSend());
+
+        checkBoxAutoSendEmail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                storage.setAutoSend(isChecked);
+                if(isChecked){
+                    popUp();
+                }
+            }
+        });
+
+
         buttonExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(CODE_SD, FilePickerActivity.class);
             }
         });
+
     }
+
+    private void popUp() {
+        dia = new Dialog(ExportActivity.this);
+        dia.setContentView(R.layout.custom_dialog);
+        dia.setTitle("Kirim Email");
+        dia.setCancelable(false);
+        dia.show();
+        editTextEmailOrtu = (EditText)dia.findViewById(R.id.editText_email);
+        editTextEmailOrtu = (EditText)dia.findViewById(R.id.editText_Nama);
+    }
+
 
     protected void startActivity(final int code, final Class<?> klass) {
         final Intent i = new Intent(this, klass);

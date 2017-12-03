@@ -51,7 +51,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intentNotife,0);
         NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_menu_camera)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("E-Penting")
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)

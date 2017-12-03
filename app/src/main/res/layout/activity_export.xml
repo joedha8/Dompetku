@@ -73,4 +73,16 @@
         android:id="@+id/button_export"
         android:layout_below="@+id/rotateloading"
         android:layout_centerHorizontal="true" />
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_autoSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_export"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:text="Kirim email ke orang tua"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:theme="@style/Checkbox" />
 </RelativeLayout>

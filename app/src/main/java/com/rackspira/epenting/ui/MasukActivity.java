@@ -21,6 +21,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.support.v4.app.NotificationCompat;
+import android.widget.TextView;
+
 import com.rackspira.epenting.MenuPilihan.RefreshHandler;
 import com.rackspira.epenting.R;
 import com.rackspira.epenting.database.DataMasuk;
@@ -38,6 +40,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
     RecyclerViewAdapter adapter;
     String kat="pemasukkan";
     private EditText edtKet, edtNom;
+    private TextView textViewTambahKategori;
     private Button btnSave;
     private RadioGroup radioStatus;
     private RadioButton radioStatusButton;
@@ -66,7 +69,16 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         tanggal=(EditText)findViewById(R.id.tgl);
         radioStatus=(RadioGroup)findViewById(R.id.stat);
         spinnerKategori=(Spinner)findViewById(R.id.spinner_kategori);
+        textViewTambahKategori = (TextView)findViewById(R.id.textTambahKategori);
         dbHelper=DbHelper.getInstance(getApplicationContext());
+
+        textViewTambahKategori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MasukActivity.this,KategoriActivity.class);
+                startActivity(intent);
+            }
+        });
 
         SimpleDateFormat sdf = new SimpleDateFormat( "dd-MM-yyyy" );
         String tgl=sdf.format( new Date() );
@@ -81,6 +93,8 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
             batasPerkategoris[i] = dbHelper.getKategori().get(i).getBatasPengeluaran();
             System.out.println("Isi Kategori "+dbHelper.getKategori().get(i).getKategori());
         }
+
+        spinnerKategori.setPrompt("Kategori");
         ArrayAdapter<String> spinnerArrayAdapter=new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kategori);
         spinnerKategori.setAdapter(spinnerArrayAdapter);
         spinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -112,7 +126,14 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
         radioButtonPengeluaran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinnerKategori.setVisibility(View.VISIBLE);
+                Log.d("ukuran spiner "," " + dbHelper.getKategori().size());
+                if(dbHelper.getKategori().size() == 0 ){
+                    textViewTambahKategori.setVisibility(View.VISIBLE);
+                    spinnerKategori.setVisibility(View.GONE);
+                }else{
+                    textViewTambahKategori.setVisibility(View.GONE);
+                    spinnerKategori.setVisibility(View.VISIBLE);
+                }
                 ket = 1;
             }
         });
@@ -183,7 +204,7 @@ public class MasukActivity extends AppCompatActivity implements DatePickerDialog
 
         PendingIntent intent = PendingIntent.getActivity(getApplicationContext(),0,intentNotife,0);
         NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_menu_camera)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("E-Penting")
                 .setAutoCancel(true)
                 .setContentIntent(intent)

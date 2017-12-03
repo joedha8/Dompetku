@@ -78,6 +78,12 @@
               android:layout_height="wrap_content"
               android:entries="@array/kategori"
               android:visibility="gone"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Tambah Kategori baru"
+              android:gravity="right"
+              android:visibility="gone"/>
           <Button
               android:layout_width="88dp"
               android:layout_height="46dp"

@@ -93,6 +93,13 @@ public class RecycleViewAdapterHome extends RecyclerView.Adapter<RecycleViewHold
             holder.textViewKetHome.setText("Batas Pengeluaran");
             holder.textViewBatasHome.setText(batasTampil);
         }
+
+        holder.cardViewHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

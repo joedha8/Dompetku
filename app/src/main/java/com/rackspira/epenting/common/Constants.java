@@ -9,6 +9,8 @@ public class Constants {
     public static  String PIN = "pin";
     public static  String PIN_ACTIVE = "pin active";
     public static  String AUTO_BACKUP = "auto_backup";
+    public static String AUTO_SEND = "auto_send";
+    public static String EMAIL_ORTU="email_ortu";
     public static  String AUTO_BACKUP_REMINDER_ID = "auto_backup";
 
 }
