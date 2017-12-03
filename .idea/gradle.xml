@@ -11,7 +11,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/aa-poi-3.10-min-0.1.5" />
             <option value="$PROJECT_DIR$/aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5" />
+            <option value="$PROJECT_DIR$/activation" />
+            <option value="$PROJECT_DIR$/additionnal" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/mail" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

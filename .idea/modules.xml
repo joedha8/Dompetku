@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Dompetku.iml" filepath="$PROJECT_DIR$/Dompetku.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EPenting.iml" filepath="$PROJECT_DIR$/EPenting.iml" />
       <module fileurl="file://$PROJECT_DIR$/aa-poi-3.10-min-0.1.5/aa-poi-3.10-min-0.1.5.iml" filepath="$PROJECT_DIR$/aa-poi-3.10-min-0.1.5/aa-poi-3.10-min-0.1.5.iml" />
       <module fileurl="file://$PROJECT_DIR$/aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5/aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5.iml" filepath="$PROJECT_DIR$/aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5/aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/activation/activation.iml" filepath="$PROJECT_DIR$/activation/activation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/additionnal/additionnal.iml" filepath="$PROJECT_DIR$/additionnal/additionnal.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mail/mail.iml" filepath="$PROJECT_DIR$/mail/mail.iml" />
     </modules>
   </component>
 </project>

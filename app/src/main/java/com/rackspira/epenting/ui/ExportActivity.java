@@ -273,25 +273,26 @@ public class ExportActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            if (storage.getEmail() != null && checkBoxAutoSendEmail.isChecked()){
-                try {
-                    GmailSender sender = new GmailSender("rackspira.jog@gmail.com", "RackSpira123@");
-                    sender.sendMail("This is Subject",
-                            "Ini merupakan laporan keuangan dari anak anda yang bernama "+storage.getNama(),
-                            "rackspira.jog@gmail.com",
-                            file,
-                            storage.getEmail());
-                    loading.stop();
-                    buttonExport.setEnabled(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    loading.stop();
-                    buttonExport.setEnabled(true);
-                }
-            }else {
+            try {
+                GmailSender sender = new GmailSender("rackspira.jog@gmail.com", "RackSpira123@");
+                sender.sendMail("This is Subject",
+                        "Ini merupakan laporan keuangan dari anak anda",
+                        "rackspira.jog@gmail.com",
+                        file,
+                        "yudistirosaputro@gmail.com");
+                loading.stop();
+                buttonExport.setEnabled(true);
+            } catch (Exception e) {
+                e.printStackTrace();
                 loading.stop();
                 buttonExport.setEnabled(true);
             }
+//            if (storage.getEmail() != null && checkBoxAutoSendEmail.isChecked()){
+//
+//            }else {
+//                loading.stop();
+//                buttonExport.setEnabled(true);
+//            }
 
             Toast.makeText(ExportActivity.this, s, Toast.LENGTH_LONG).show();
 
