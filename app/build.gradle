@@ -10,7 +10,7 @@ android {
         versionCode 4
         versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled false
+        multiDexEnabled true
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'

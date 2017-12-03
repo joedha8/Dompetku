@@ -48,8 +48,6 @@ import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-
 public class BackupRestoreActivity extends BaseGoogleApiActivity {
     public static int ID = 213112116;
     private static final String MIME_TYPE = "application/x-sqlite-3";
@@ -274,6 +272,7 @@ public class BackupRestoreActivity extends BaseGoogleApiActivity {
                                                 }
                                             } else {
                                                 if (dialog != null){
+                                                    dialog.dismiss();
                                                     showMessage("Belum ada data yang di backup.");
                                                 }
                                             }

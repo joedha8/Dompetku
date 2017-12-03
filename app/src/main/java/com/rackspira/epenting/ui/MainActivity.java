@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
+        uangFormat();
         refreshList2();
         refreshList();
         showPage(showPage);
