@@ -104,35 +104,13 @@ public class ExportActivity extends AppCompatActivity {
         dia = new Dialog(ExportActivity.this);
         dia.setContentView(R.layout.custom_dialog);
         dia.setTitle("Kirim Email");
-        dia.setCancelable(false);
+        dia.setCancelable(true);
 
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
 
         editTextEmailOrtu = (EditText)dia.findViewById(R.id.editText_email);
         editTextNama = (EditText)dia.findViewById(R.id.editText_Nama);
-        editTextEmailOrtu.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-                    imm.showSoftInput(editTextEmailOrtu, InputMethodManager.SHOW_IMPLICIT);
-                }else {
-                    imm.hideSoftInputFromWindow(editTextEmailOrtu.getWindowToken(), 0);
-                }
-            }
-        });
-
-        editTextNama.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-                    imm.showSoftInput(editTextNama, InputMethodManager.SHOW_IMPLICIT);
-                }else {
-                    imm.hideSoftInputFromWindow(editTextNama.getWindowToken(), 0);
-                }
-            }
-        });
-
 
 
         Button buttonOk = (Button)dia.findViewById(R.id.btnEmail);
@@ -273,26 +251,26 @@ public class ExportActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            try {
-                GmailSender sender = new GmailSender("rackspira.jog@gmail.com", "RackSpira123@");
-                sender.sendMail("This is Subject",
-                        "Ini merupakan laporan keuangan dari anak anda",
-                        "rackspira.jog@gmail.com",
-                        file,
-                        "yudistirosaputro@gmail.com");
-                loading.stop();
-                buttonExport.setEnabled(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-                loading.stop();
-                buttonExport.setEnabled(true);
+
+            if (storage.getEmail() != null && checkBoxAutoSendEmail.isChecked()){
+                try {
+                    GmailSender sender = new GmailSender("rackspira.jog@gmail.com", "RackSpira123@");
+                    sender.sendMail("This is Subject",
+                            "Ini merupakan laporan keuangan dari anak anda bernama "+storage.getNama(),
+                            "rackspira.jog@gmail.com",
+                            file,
+                            storage.getEmail());
+                    loading.stop();
+                    buttonExport.setEnabled(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loading.stop();
+                    buttonExport.setEnabled(true);
+                }
             }
-//            if (storage.getEmail() != null && checkBoxAutoSendEmail.isChecked()){
-//
-//            }else {
-//                loading.stop();
-//                buttonExport.setEnabled(true);
-//            }
+
+            loading.stop();
+            buttonExport.setEnabled(true);
 
             Toast.makeText(ExportActivity.this, s, Toast.LENGTH_LONG).show();
 
