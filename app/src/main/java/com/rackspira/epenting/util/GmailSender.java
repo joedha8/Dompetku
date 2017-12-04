@@ -73,11 +73,13 @@ public class GmailSender extends javax.mail.Authenticator {
 
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
-            message.setContent(multipart);
+
             if (recipients.indexOf(',') > 0)
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
             else
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
+
+            message.setContent(multipart);
             Transport.send(message);
         }catch(Exception e){
 

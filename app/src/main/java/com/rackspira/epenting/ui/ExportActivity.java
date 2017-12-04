@@ -245,7 +245,7 @@ public class ExportActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 //            loading.stop();
-            buttonExport.setEnabled(true);
+//            buttonExport.setEnabled(true);
 
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -255,7 +255,7 @@ public class ExportActivity extends AppCompatActivity {
             if (storage.getEmail() != null && checkBoxAutoSendEmail.isChecked()){
                 try {
                     GmailSender sender = new GmailSender("rackspira.jog@gmail.com", "RackSpira123@");
-                    sender.sendMail("This is Subject",
+                    sender.sendMail("Laporan Rekap keuangan anak anda",
                             "Ini merupakan laporan keuangan dari anak anda bernama "+storage.getNama(),
                             "rackspira.jog@gmail.com",
                             file,
